@@ -1,0 +1,35 @@
+
+## Plotting maps
+To generate panel A of the figure - Global distribution of strains with high-impact SNVs or SVs run the script `all_species_maps.R` 
+
+The script will output a .png and a .eps file in the figure directory `figures/phylogeographic_distribution/{isotype_folder_id}`
+
+## Plotting trees 
+To generate panel B, C, D - High-impact variants and SVs on species trees run the script `species_tubulin_var_trees.R` 
+
+The script will output a .png and a .eps file for the high-impact SNVs and SVs in ben-1 for all three species in the directory `figures/phylogeographic_distribution/{isotype_folder_id}/ben_1`
+
+### Software
+R version 4.2.3
+
+Loaded packages:
+ggtree_3.6.2
+
+
+loaded via a namespace (and not attached):
+```
+ [1] Rcpp_1.0.12        pillar_1.9.0       compiler_4.2.3     yulab.utils_0.1.4 
+ [5] remotes_2.5.0      tools_4.2.3        digest_0.6.35      aplot_0.2.2       
+ [9] jsonlite_1.8.8     tidytree_0.4.6     memoise_2.0.1      lifecycle_1.0.4   
+[13] tibble_3.2.1       nlme_3.1-164       gtable_0.3.4       lattice_0.22-6    
+[17] pkgconfig_2.0.3    rlang_1.1.3        ggplotify_0.1.2    cli_3.6.2         
+[21] patchwork_1.2.0    parallel_4.2.3     treeio_1.22.0      fastmap_1.1.1     
+[25] dplyr_1.1.4        gridGraphics_0.5-1 generics_0.1.3     fs_1.6.3          
+[29] vctrs_0.6.5        grid_4.2.3         tidyselect_1.2.1   glue_1.7.0        
+[33] R6_2.5.1           fansi_1.0.6        tcltk_4.2.3        tidyr_1.3.1       
+[37] purrr_1.0.2        ggplot2_3.5.1      magrittr_2.0.3     scales_1.3.0      
+[41] ape_5.7-1          colorspace_2.1-0   utf8_1.2.4         lazyeval_0.2.2    
+[45] munsell_0.5.1      cachem_1.0.8       ggfun_0.1.4      
+```
+
+*** Can produce unrooted `layout = "equal_angle"` trees but not "daylight". Some conflicts with `tidytree` package. Similar issue here: https://support.bioconductor.org/p/9153297/ 
