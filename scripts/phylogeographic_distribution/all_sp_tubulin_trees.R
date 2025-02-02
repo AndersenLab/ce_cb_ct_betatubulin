@@ -556,16 +556,16 @@ plot_hta_strains_tree <- function(tree, tree_anno_df, col_scale, input_col, xpos
     ) +
     ggplot2::scale_fill_manual(
       values = col_scale,
-      name = "Beta-tubulin Variant",
+      name = "Beta-tubulin variant",
       guide = ggplot2::guide_legend(override.aes = list(shape = 21))
       ) +
     ggplot2::scale_color_manual(
       values = col_scale,
-      name = "Beta-tubulin Variant",
+      name = "Beta-tubulin variant",
       guide = "none"
       ) +
     ggtree::geom_treescale(
-      offset = 0.01,
+      offset = 0.001,
       x = xpos,
       y = ypos,
       fontsize = 5,
@@ -629,14 +629,22 @@ ct_hta_tree_plot <- plot_hta_strains_tree(
 
 # Save the trees
 save_tree(
-  cb_hta_tree_plot + theme(legend.position = "top"),
+  cb_hta_tree_plot + 
+    theme(
+      legend.position = "top",
+      legend.title = ggplot2::element_text(face = "bold")
+      ),
   figure_S1_paths,
   w_in = 7.5,
   h_in = 4
   )
 
 save_tree(
-  ct_hta_tree_plot + theme(legend.position = "top"),
+  ct_hta_tree_plot +
+    theme(
+    legend.position = "top",
+    legend.title = ggplot2::element_text(face = "bold")
+    ),
   figure_S2_paths,
   w_in = 7.5,
   h_in = 4
