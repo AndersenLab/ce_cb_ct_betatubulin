@@ -554,17 +554,6 @@ plot_hta_strains_tree <- function(tree, tree_anno_df, col_scale, input_col, xpos
       size = 2,
       shape = 21
     ) +
-    ggrepel::geom_label_repel(
-      data = ggtree::td_filter(isTip & is_hta_strain == TRUE),
-      aes(label = label, color = has_var),
-      max.overlaps = Inf,
-      # add to x and y to adjust label away from tree
-      nudge_x = 0.02,
-      nudge_y = 0.02,
-      min.segment.length = 0.01,
-      size = 2,
-      seed = 123
-    ) +
     ggplot2::scale_fill_manual(
       values = col_scale,
       name = "Beta-tubulin Variant",
