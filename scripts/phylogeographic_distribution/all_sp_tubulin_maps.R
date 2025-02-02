@@ -9,45 +9,59 @@
 source("scripts/phylogeographic_distribution/plot_maps.R")
 
 #### Inputs ####
-isotype_folder_id <- "20250122"
+isotype_folder_id <- "20250128"
 
 #### Outputs ####
-data_out_dir <- glue::glue(
-  "data/proc/phylogeographic_distribution/{isotype_folder_id}"
+# data_out_dir <- glue::glue(
+#   "data/proc/phylogeographic_distribution/{isotype_folder_id}"
+# )
+
+# # if it does exist, delete the contents
+# if (dir.exists(data_out_dir)) {
+#   unlink(data_out_dir, recursive = TRUE)
+# }
+# # if it doesn't exist, create it
+# dir.create(data_out_dir, recursive = TRUE)
+
+# figure_out_dir <- glue::glue(
+#   "figures/phylogeographic_distribution/{isotype_folder_id}"
+# )
+
+# # create the output directory if it doesn't exist
+# if (!dir.exists(figure_out_dir)) {
+#   dir.create(figure_out_dir, recursive = TRUE)
+# }
+
+figure_5a_out_paths <- c(
+  png = "figures/figure_5/figure_5a.png",
+  eps = "figures/figure_5/figure_5a.eps"
 )
 
-# if it does exist, delete the contents
-if (dir.exists(data_out_dir)) {
-  unlink(data_out_dir, recursive = TRUE)
-}
-# if it doesn't exist, create it
-dir.create(data_out_dir, recursive = TRUE)
-
-figure_out_dir <- glue::glue(
-  "figures/phylogeographic_distribution/{isotype_folder_id}"
+figure_S10a_out_paths <- c(
+  png = "figures/figure_S10/figure_S10a.png",
+  eps = "figures/figure_S10/figure_S10a.eps"
 )
 
-# create the output directory if it doesn't exist
-if (!dir.exists(figure_out_dir)) {
-  dir.create(figure_out_dir, recursive = TRUE)
-}
-
+figure_S11a_out_paths <- c(
+  png = "figures/figure_S11/figure_S11a.png",
+  eps = "figures/figure_S11/figure_S11a.eps"
+)
 
 #### Load data ####
 
 # Load isotype variant summary data
 ce_var_file <-
   glue::glue(
-    "data/proc/isotype_variant_summary/c_elegans/{isotype_folder_id}/isotype_variant_summary.tsv"
+    "data/isotype_variant_table/c_elegans/{isotype_folder_id}/isotype_variant_summary.tsv"
   )
 cb_var_file <-
   glue::glue(
-    "data/proc/isotype_variant_summary/c_briggsae/{isotype_folder_id}/isotype_variant_summary.tsv"
+    "data/isotype_variant_table/c_briggsae/{isotype_folder_id}/isotype_variant_summary.tsv"
   )
 
 ct_var_file <-
   glue::glue(
-    "data/proc/isotype_variant_summary/c_tropicalis/{isotype_folder_id}/isotype_variant_summary.tsv"
+    "data/isotype_variant_table/c_tropicalis/{isotype_folder_id}/isotype_variant_summary.tsv"
   )
 
 ce_df <- data.table::fread(ce_var_file) %>%
@@ -133,20 +147,22 @@ tbb2_map <- plot_high_impact_variants_map(
 
 #### Save plots ####
 
+# Ben-1
 save_plot(
-  gene_id = "ben-1",
-  figure_dir = figure_out_dir,
+  fn_list = figure_5a_out_paths,
   plot = ben1_map
 )
 
+# tbb-2
 save_plot(
-  gene_id = "tbb-1",
-  figure_dir = figure_out_dir,
+  fn_list = figure_S10a_out_paths,
+  plot = tbb2_map
+)
+
+# tbb-1
+save_plot(
+  fn_list = figure_S11a_out_paths,
   plot = tbb1_map
 )
 
-save_plot(
-  gene_id = "tbb-2",
-  figure_dir = figure_out_dir,
-  plot = tbb2_map
-)
+

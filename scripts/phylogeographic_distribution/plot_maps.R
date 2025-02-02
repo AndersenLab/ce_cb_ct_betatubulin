@@ -206,16 +206,22 @@ plot_high_impact_variants_map <- function(world, all_var_sf) {
 #' @return None
 #' @import ggplot2
 #' @import glue
-save_plot <- function(gene_id, figure_dir, plot) {
+save_plot <- function(fn_list, plot) {
+  
+  # get the folder name from the first file name
+  folder <- dirname(fn_list[1])
+  
   # Create the output directory if it doesn't exist
-  gene_figure_dir <- glue::glue("{figure_dir}/{gene_id}")
-  if (!dir.exists(gene_figure_dir)) {
-    dir.create(gene_figure_dir, recursive = TRUE)
+  if (!dir.exists(folder)) {
+    dir.create(folder, recursive = TRUE)
   }
+
+  fn_png <- fn_list[1]
+  fn_eps <- fn_list[2]
 
   # Save as eps
   ggplot2::ggsave(
-    filename = glue::glue("{gene_figure_dir}/all_species_high_impact_variants_map.eps"),
+    filename = glue::glue("{fn_eps}"),
     plot = plot,
     width = 7,
     height = 4,
@@ -225,7 +231,7 @@ save_plot <- function(gene_id, figure_dir, plot) {
 
   # Save as png
   ggplot2::ggsave(
-    filename = glue::glue("{gene_figure_dir}/all_species_high_impact_variants_map.png"),
+    filename = glue::glue("{fn_png}"),
     plot = plot,
     width = 7,
     height = 4,
