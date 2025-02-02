@@ -96,6 +96,19 @@ figure_S11d_out_paths <- c(
   eps = "figures/figure_S11/figure_S11c.eps"
 )
 
+## Figure S1 CB HTA strains ##
+
+figure_S1_paths <- c(
+  png = "figures/figure_S1/figure_S1.png",
+  eps = "figures/figure_S1/figure_S1.eps"
+)
+
+## Figure S2 CT HTA strains ##
+figure_S2_paths <- c(
+  png = "figures/figure_S2/figure_S2.png",
+  eps = "figures/figure_S2/figure_S2.eps"
+)
+
 # # if it does exist, delete the contents
 # if (dir.exists(data_out_dir)) {
 #   unlink(data_out_dir, recursive = TRUE)
@@ -625,23 +638,17 @@ ct_hta_tree_plot <- plot_hta_strains_tree(
   ypos = -0.125
   )
 
-# # Save the trees
-# save_tree(
-#   cb_hta_tree_plot + theme(legend.position = "top"),
-#   "hta_strains",
-#   "c_briggsae",
-#   f_name = "hta_strains_tree",
-#   w_in = 7.5,
-#   h_in = 4,
-#   figure_out_dir
-#   )
+# Save the trees
+save_tree(
+  cb_hta_tree_plot + theme(legend.position = "top"),
+  figure_S1_paths,
+  w_in = 7.5,
+  h_in = 4
+  )
 
-# save_tree(
-#   ct_hta_tree_plot + theme(legend.position = "top"),
-#   "hta_strains",
-#   "c_tropicalis",
-#   f_name = "hta_strains_tree",
-#   w_in = 7.5,
-#   h_in = 4,
-#   figure_out_dir
-#   )
+save_tree(
+  ct_hta_tree_plot + theme(legend.position = "top"),
+  figure_S2_paths,
+  w_in = 7.5,
+  h_in = 4
+  )
