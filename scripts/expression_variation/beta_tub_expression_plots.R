@@ -151,8 +151,8 @@ print("Ben-1 variant categories added")
 
 print("Creating figure ben-1 exp x BZ response with variant categories")
 
-ben1_bz_var_cat_exp_plot <-
-  create_expression_scatter_plot(
+# use the function to generate the plot and get the p-value and r-squared
+ben1_bz_var_cat_exp <- create_expression_scatter_plot(
     exp_data = ben1_meta,
     x_column_id = "ben-1_exp",
     y_column_id = "abz_hta_norm_pheno",
@@ -163,6 +163,25 @@ ben1_bz_var_cat_exp_plot <-
     fill_label = expression(italic("ben-1") * " consequence"),
     res_threshold = all_phenotyped_iso_threshold
   )
+
+
+ben1_bz_var_cat_exp_plot <- ben1_bz_var_cat_exp$plot
+
+
+# print p-value and r-squared
+p <- ben1_bz_var_cat_exp$p_value
+print(
+  glue::glue(
+    "P-value for ben-1 expression and BZ response: {p}"
+  )
+)
+
+r <- ben1_bz_var_cat_exp$r_squared
+print(
+  glue::glue(
+    "R-squared for ben-1 expression and BZ response: {ben1_bz_var_cat_exp_plot$r_squared}"
+  )
+)
 
 print("Figure ben-1 exp x BZ response with variant categories created")
 

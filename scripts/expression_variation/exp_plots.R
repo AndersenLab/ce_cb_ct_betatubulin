@@ -47,7 +47,7 @@ create_expression_scatter_plot <- function(
   p_value <- summary_lm$coefficients[2, 4]
   r_squared <- summary_lm$r.squared
 
-  ggplot2::ggplot(
+  plot <- ggplot2::ggplot(
     exp_data,
     ggplot2::aes(
       x = !!sym(x_column_id),
@@ -86,6 +86,10 @@ create_expression_scatter_plot <- function(
       panel.grid.minor = ggplot2::element_blank(),
       legend.position = "top"
     )
+
+  out = list(plot = plot, p_value = p_value, r_squared = r_squared)
+
+  return(out)
 }
 
 #' Create a Boxplot of Expression Data
