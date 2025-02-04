@@ -168,24 +168,114 @@ print("Figure ben-1 exp x BZ response with variant categories created")
 
 #### Figure S4b ben-1 var x ben-1 exp ####
 
-print("Creating figure ben-1 var x ben-1 exp")
+print("Creating figure ben-1 variant catagory x ben-1 exp")
 
-ben1_exp_var_cat_boxplot <- create_expression_boxplot(
+# ben1_var_dat_no_low <- ben1_meta %>%
+#   dplyr::filter("ben1_var_cat_meta" != "Low ben-1 expression")
+
+# unique(ben1_var_dat_no_low$ben1_var_cat_meta)
+
+# # group by the ben-1 variant category and the number of strains in each category
+# ben1_meta %>% 
+#   dplyr::group_by(ben1_var_cat_meta) %>%
+#   dplyr::summarize(
+#     n = n()
+#   )
+
+# perfrom a wilcox test to see if the expression of ben-1 is different between the variant categories
+ben1_var_exp_wilcox <- rstatix::wilcox_test(
   data = ben1_meta,
-  x_col = "ben1_var_cat_meta",
-  y_col = "ben-1_exp",
-  x_label = expression(bolditalic("ben-1") * bold(" consequence")),
-  y_label = expression(bolditalic("ben-1") * bold(" expression (TPM)")),
-  comparisons_list = list(
-    c("No variant", "SV"),
-    c("No variant", "Frame altering"),
-    c("No variant", "Missense"),
-    c("No variant", "Start/Stop altering"),
-    c("No variant", "Low ben-1 expression")
-  ),
-  fill_column = "ben1_var_cat_meta",
-  fill_scale = meta_cat_cols
+  formula = `ben-1_exp` ~ ben1_var_cat_meta,
+  paired = FALSE
 )
+
+# clean up the wilcox test results to add to the plot
+ben1_var_exp_wilcox_df <- ben1_var_exp_wilcox %>%
+  rstatix::add_significance() %>%
+  dplyr::rename(
+    p.signif = p.adj.signif
+  ) %>% 
+  # remove ns comparisons
+  dplyr::filter(
+    p.signif != "ns"
+  ) %>% 
+  rstatix::add_xy_position(
+    x = "ben1_var_cat_meta",
+    step.increase = 0.01
+    ) 
+
+
+# get list of significant comparisons from the wilcox test
+g1 <- ben1_var_exp_wilcox_df %>%
+  dplyr::pull(group1)
+g2 <- ben1_var_exp_wilcox_df %>%
+  dplyr::pull(group2)
+
+# create a list of significant comparisons
+sig_comparisons <- list()
+for (i in 1:length(g1)) {
+  sig_comparisons[[i]] <- c(g1[i], g2[i])
+}
+
+
+
+ben1_exp_var_cat_boxplot <- ggplot2::ggplot(
+  data = ben1_meta,
+  ggplot2::aes(
+    x = ben1_var_cat_meta,
+    y = `ben-1_exp`,
+    fill = ben1_var_cat_meta
+    )
+  )+
+  ggplot2::geom_boxplot(
+    outliers = FALSE
+  )+
+  # add significant comparisons
+  ggsignif::geom_signif(
+    comparisons = sig_comparisons,
+    map_signif_level = TRUE,
+    y_position = ben1_var_exp_wilcox_df$y.position,
+    annotations = ben1_var_exp_wilcox_df$p.signif
+  ) +
+  ggplot2::geom_jitter(
+    width = 0.2,
+    height = 0,
+    size = 2
+  ) +
+  ggplot2::scale_fill_manual(values = meta_cat_cols) +
+  ggplot2::labs(
+    x = expression(bolditalic("ben-1") * bold(" consequence")),
+    y = expression(bolditalic("ben-1") * bold(" expression (TPM)"))
+  ) +
+  ggplot2::theme_bw() +
+  ggplot2::theme(
+    legend.position = "none",
+    panel.grid.major = ggplot2::element_blank(),
+    panel.grid.minor = ggplot2::element_blank()
+  )
+
+
+
+
+
+
+# ben1_exp_var_cat_boxplot <- create_expression_boxplot(
+#   data = ben1_meta  %>% dplyr::filter(strain != "CX11254"),
+#   x_col = "ben1_var_cat_meta",
+#   y_col = "ben-1_exp",
+#   x_label = expression(bolditalic("ben-1") * bold(" consequence")),
+#   y_label = expression(bolditalic("ben-1") * bold(" expression (TPM)")),
+#   comparisons_list = list(
+#     c("No variant", "SV"),
+#     c("No variant", "Frame altering"),
+#     c("No variant", "Missense"),
+#     c("No variant", "Start/Stop altering")
+#   ),
+#   fill_column = "ben1_var_cat_meta",
+#   fill_scale = meta_cat_cols
+# )
+
+# ben1_exp_var_cat_boxplot
 
 print("Figure ben-1 var x ben-1 exp created")
 
