@@ -41,59 +41,59 @@ ct_var_file <-
 
 # Ce ben-1 high impact tree
 figure_5b_out_paths <- c(
-  png = "figures/figure_5/figure_5a.png",
-  eps = "figures/figure_5/figure_5a.eps"
-)
-
-# Cb ben-1 high impact tree
-figure_5c_out_paths <- c(
   png = "figures/figure_5/figure_5b.png",
   eps = "figures/figure_5/figure_5b.eps"
 )
 
-# Ct ben-1 high impact tree
-figure_5d_out_paths <- c(
+# Cb ben-1 high impact tree
+figure_5c_out_paths <- c(
   png = "figures/figure_5/figure_5c.png",
   eps = "figures/figure_5/figure_5c.eps"
+)
+
+# Ct ben-1 high impact tree
+figure_5d_out_paths <- c(
+  png = "figures/figure_5/figure_5d.png",
+  eps = "figures/figure_5/figure_5d.eps"
 )
 
 ## Figure S10 Trees ##
 
 # Ce tbb-1 high impact tree
 figure_S10b_out_paths <- c(
-  png = "figures/figure_S10/figure_S10a.png",
-  eps = "figures/figure_S10/figure_S10a.eps"
-)
-
-# Cb tbb-1 high impact tree
-figure_S10c_out_paths <- c(
   png = "figures/figure_S10/figure_S10b.png",
   eps = "figures/figure_S10/figure_S10b.eps"
 )
 
-# Ct tbb-1 high impact tree
-figure_S10d_out_paths <- c(
+# Cb tbb-1 high impact tree
+figure_S10c_out_paths <- c(
   png = "figures/figure_S10/figure_S10c.png",
   eps = "figures/figure_S10/figure_S10c.eps"
+)
+
+# Ct tbb-1 high impact tree
+figure_S10d_out_paths <- c(
+  png = "figures/figure_S10/figure_S10d.png",
+  eps = "figures/figure_S10/figure_S10d.eps"
 )
 
 ## Figure S11 Trees ##
 # Ce tbb-2 high impact tree
 figure_S11b_out_paths <- c(
-  png = "figures/figure_S11/figure_S11a.png",
-  eps = "figures/figure_S11/figure_S11a.eps"
-)
-
-# Cb tbb-2 high impact tree
-figure_S11c_out_paths <- c(
   png = "figures/figure_S11/figure_S11b.png",
   eps = "figures/figure_S11/figure_S11b.eps"
 )
 
-# Ct tbb-2 high impact tree
-figure_S11d_out_paths <- c(
+# Cb tbb-2 high impact tree
+figure_S11c_out_paths <- c(
   png = "figures/figure_S11/figure_S11c.png",
   eps = "figures/figure_S11/figure_S11c.eps"
+)
+
+# Ct tbb-2 high impact tree
+figure_S11d_out_paths <- c(
+  png = "figures/figure_S11/figure_S11d.png",
+  eps = "figures/figure_S11/figure_S11d.eps"
 )
 
 ## Figure S1 CB HTA strains ##
@@ -606,7 +606,7 @@ cb_hta_tree_plot <- plot_hta_strains_tree(
   tree = cb_tree, 
   tree_anno_df = cb_hta_anno_df, 
   col_scale = c(
-    "False" = "#747070",
+    "False" = "lightgrey",
     "True" = "red"
     ), 
   input_col = "has_var", 
@@ -619,7 +619,7 @@ ct_hta_tree_plot <- plot_hta_strains_tree(
   tree = ct_tree, 
   tree_anno_df = ct_hta_anno_df, 
   col_scale = c(
-    "False" = "#747070",
+    "False" = "lightgrey",
     "True" = "red"
     ), 
   input_col = "has_var", 
