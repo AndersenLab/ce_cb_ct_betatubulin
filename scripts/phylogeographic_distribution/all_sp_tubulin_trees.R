@@ -178,7 +178,7 @@ add_var_to_tree <- function(tree, tree_anno_df, col_scale, input_col, xpos = NUL
       offset = 0.005,
       x = xpos,
       y = ypos,
-      linesize = 1,
+      linesize = 0.25,
       fontsize = 5,
       family = "Helvetica"
     ) # Adjust offset, x, and y as needed
@@ -571,7 +571,7 @@ plot_hta_strains_tree <- function(tree, tree_anno_df, col_scale, input_col, xpos
       offset = 0.005,
       x = xpos,
       y = ypos,
-      linesize = 1,
+      linesize = 0.25,
       fontsize = 5,
       family = "Arial"
     ) # Adjust offset, x, and y as needed

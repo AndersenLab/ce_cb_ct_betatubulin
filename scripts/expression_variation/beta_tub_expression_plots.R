@@ -1,5 +1,6 @@
 library(tidyverse)
 library(ggpubr)
+library(patchwork)
 set.seed(123)
 
 # Load the variant color scale
@@ -52,12 +53,12 @@ ref_threshold <- 0.75
 
 #### Define outputs ####
 
-figure_S1_paths <- c(
+ben1_exp_abz_fn <- c(
   png = "figures/figure_S1/figure_S1.png",
   eps = "figures/figure_S1/figure_S1.eps"
 )
 
-figure_S2_paths <- c(
+tbb1_tbb2_abz_fn <- c(
   png = "figures/figure_S2/figure_S2.png",
   eps = "figures/figure_S2/figure_S2.eps"
 )
@@ -201,7 +202,8 @@ ben1_bz_var_cat_exp <- create_expression_scatter_plot(
     fill_scale = meta_cat_cols,
     x_label = expression(bolditalic("ben-1") * bold(" expression (TPM)")),
     y_label = expression(bold("Normalized ABZ Response")),
-    fill_label = expression(italic("ben-1") * " consequence"),
+    fill_label = expression(bold("BEN-1 Variation")),
+    fill_labels = custom_meta_cat_labels,
     res_threshold = all_phenotyped_iso_threshold
   )
 
@@ -261,7 +263,7 @@ ben1_var_exp_wilcox_df <- ben1_var_exp_wilcox %>%
   ) %>% 
   rstatix::add_xy_position(
     x = "ben1_var_cat_meta",
-    step.increase = 0.01
+    step.increase = 0.03
     ) 
 
 
@@ -293,8 +295,9 @@ ben1_exp_var_cat_boxplot <- ggplot2::ggplot(
   # add significant comparisons
   ggsignif::geom_signif(
     comparisons = sig_comparisons,
-    map_signif_level = TRUE,
     y_position = ben1_var_exp_wilcox_df$y.position,
+    margin_top = 0.01,
+    map_signif_level = TRUE,
     annotations = ben1_var_exp_wilcox_df$p.signif
   ) +
   ggplot2::geom_jitter(
@@ -306,7 +309,10 @@ ben1_exp_var_cat_boxplot <- ggplot2::ggplot(
     fill = "grey",
     color = "black"
   ) +
-  ggplot2::scale_fill_manual(values = meta_cat_cols) +
+  ggplot2::scale_fill_manual(
+    values = meta_cat_cols,
+    labels = custom_meta_cat_labels
+    ) +
   ggplot2::labs(
     x = expression(bolditalic("ben-1") * bold(" consequence")),
     y = expression(bolditalic("ben-1") * bold(" expression (TPM)"))
@@ -325,7 +331,7 @@ ben1_exp_var_cat_boxplot <- ggplot2::ggplot(
 
 
 # create tbb-1 expression scatter plot with variant categories
-tbb1_bz_var_cat_exp_plot <-
+tbb1_bz_var_cat_exp_out <-
   create_expression_scatter_plot(
     exp_data = ben1_meta,
     x_column_id = "tbb-1_exp",
@@ -334,13 +340,40 @@ tbb1_bz_var_cat_exp_plot <-
     fill_scale = meta_cat_cols,
     x_label = expression(bolditalic("tbb-1") * bold(" expression (TPM)")),
     y_label = "Normalized ABZ Response",
-    fill_label = expression(italic("ben-1") * " consequence"),
-    res_threshold = all_phenotyped_iso_threshold
+    fill_label = expression(bold("BEN-1 Variation")),
+    res_threshold = all_phenotyped_iso_threshold,
+    fill_labels = custom_meta_cat_labels
   ) 
 
+# adjust theme elements of of tbb1
+
+tbb1_bz_var_cat_exp_plot <- tbb1_bz_var_cat_exp_out$plot +
+  ggplot2::theme(
+    axis.title.y = element_text(
+      size = 11,
+      face = "bold",
+      color = "black",
+      family = "Arial"
+    ),
+    axis.text.y = element_text(
+      size = 11,
+      family = "Arial",
+      color = "black"
+    ),
+    axis.text.x = element_text(
+      size = 11,
+      family = "Arial",
+      color = "black"
+    ),
+    axis.title.x = element_text(
+      size = 11,
+      face = "bold",
+      family = "Arial"
+    ),
+  )
 
 # create tbb-2 expression scatter plot with variant categories
-tbb2_bz_var_cat_exp_plot <-
+tbb2_bz_var_cat_exp_out <-
   create_expression_scatter_plot(
     exp_data = ben1_meta,
     x_column_id = "tbb-2_exp",
@@ -349,36 +382,81 @@ tbb2_bz_var_cat_exp_plot <-
     fill_scale = meta_cat_cols,
     x_label = expression(bolditalic("tbb-2") * bold(" expression (TPM)")),
     y_label = "Normalized ABZ Response",
-    fill_label = expression(bolditalic("ben-1") * bold(" consequence")),
-    res_threshold = all_phenotyped_iso_threshold
+    fill_label = expression(bold("BEN-1 Variation")),
+    res_threshold = all_phenotyped_iso_threshold,
+    fill_labels = custom_meta_cat_labels
   ) 
 
+# adjust theme elements of of tbb2
+tbb2_bz_var_cat_exp_plot <- tbb2_bz_var_cat_exp_out$plot +
+  ggplot2::theme(
+    axis.title.y = element_text(
+      size = 11,
+      face = "bold",
+      color = "black",
+      family = "Arial"
+    ),
+    axis.text.y = element_text(
+      size = 11,
+      family = "Arial",
+      color = "black"
+    ),
+    axis.text.x = element_text(
+      size = 11,
+      family = "Arial",
+      color = "black"
+    ),
+    axis.title.x = element_text(
+      size = 11,
+      face = "bold",
+      family = "Arial"
+    ),
+  )
 
-# create a combined plot
-tbb1_tbb2_exp_plot <- ggpubr::ggarrange(
-  tbb1_bz_var_cat_exp_plot$plot +
-    theme(axis.title.y = element_blank()),
-  tbb2_bz_var_cat_exp_plot$plot +
-    theme(
-      legend.position = "none",
-      axis.title.x = element_text(face = "bold"),
-      axis.title.y = element_blank()),
-  ncol = 1,
-  labels = c("A", "B"),
-  font.label = list(
-    size = 10,
-    color = "black",
-    family = "Helvetica"
-  ),
-  common.legend = TRUE,
-  legend = "top"
-)
+# # create a combined plot
+# tbb1_tbb2_exp_plot <- ggpubr::ggarrange(
+#   tbb1_bz_var_cat_exp_plot$plot +
+#     theme(axis.title.y = element_blank()),
+#   tbb2_bz_var_cat_exp_plot$plot +
+#     theme(
+#       legend.position = "none"
+#       ),
+#   ncol = 1,
+#   labels = c("A", "B"),
+#   font.label = list(
+#     size = 10,
+#     color = "black",
+#     family = "Helvetica"
+#   ),
+#   common.legend = TRUE,
+#   legend = "top"
+# )
 
-# Add a common y-axis title
-tbb1_tbb2_exp_plot <- annotate_figure(
-  tbb1_tbb2_exp_plot,
-  left = text_grob("Normalized ABZ Response", rot = 90, size = 10, face = "bold", family = "Helvetica")
-)
+# # Add a common y-axis title
+# tbb1_tbb2_exp_plot <- annotate_figure(
+#   tbb1_tbb2_exp_plot,
+#   left = text_grob("Normalized ABZ Response", rot = 90, size = 10, face = "bold", family = "Helvetica")
+# )
+
+
+tbb1_tbb2_exp_plot <-
+  tbb1_bz_var_cat_exp_plot / tbb2_bz_var_cat_exp_plot +
+  plot_layout(
+    guides = "collect",
+    axes = "collect_y"
+  ) &
+  theme(legend.position = "top") &
+  plot_annotation(
+    tag_levels = "A",
+    theme = theme(
+      plot.tag = element_text(
+        face = "bold",
+        size = 11,
+        family = "Arial",
+        color = "black"
+        ))
+  )
+
 
 
 
@@ -409,16 +487,36 @@ print("Figure ben-1 var x ben-1 exp created")
 p1 <- ben1_bz_var_cat_exp_plot +
   ggplot2::labs(caption = NULL) +
   ggplot2::theme(
+    legend.text = element_text(
+      size = 11,
+      family = "Arial"
+    ),
+    legend.title = element_text(
+      size = 11,
+      family = "Arial",
+      face = "bold"
+    ),
     axis.title.x = element_text(
-      size = 10,
+      size = 11,
       face = "bold",
-      family = "Helvetica"
+      family = "Arial"
       ),  # Bold x-axis label in Arial
     axis.title.y = element_text(
-    size = 10,
-    face = "bold",
-    family = "Helvetica"
-    ),  
+      size = 11,
+      face = "bold",
+      family = "Arial"
+    ),
+    axis.text.y = element_text(
+      size = 11,
+      family = "Arial",
+      color = "black"
+    ),
+    axis.text.x = element_text(
+      size = 11,
+      family = "Arial",
+      face = "bold"
+    ),
+
     legend.position = "top",
     legend.direction = "horizontal",
     legend.box = "horizontal"
@@ -433,7 +531,12 @@ p2 <- ben1_exp_var_cat_boxplot +
     legend.position = "none",
     axis.title.x = element_blank(),
     axis.text.x = element_blank(),
-    axis.ticks.x = element_blank()
+    axis.ticks.x = element_blank(),
+    axis.text.y = element_text(
+      size = 11,
+      family = "Arial",
+      color = "black"
+    )
     )
 
 
@@ -444,7 +547,7 @@ main_figure <- ggpubr::ggarrange(
   ncol = 1,
   labels = c("A", "B"),
   font.label = list(
-    size = 10,
+    size = 12,
     color = "black", 
     family = "Arial"
     )
@@ -452,9 +555,9 @@ main_figure <- ggpubr::ggarrange(
 
 save_plot(
   tplot = main_figure,
-  fn_list = figure_S1_paths, 
+  fn_list = ben1_exp_abz_fn, 
   w_in = 7.5,
-  h_in = 5
+  h_in = 7
   )
 
 
@@ -462,7 +565,7 @@ save_plot(
 
 save_plot(
   tplot = tbb1_tbb2_exp_plot,
-  fn_list = figure_S2_paths, 
+  fn_list = tbb1_tbb2_abz_fn, 
   w_in = 7.5,
-  h_in = 5
+  h_in = 7
   )
