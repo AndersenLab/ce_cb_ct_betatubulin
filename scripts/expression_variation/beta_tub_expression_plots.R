@@ -52,12 +52,12 @@ ref_threshold <- 0.75
 
 #### Define outputs ####
 
-figure_S1_paths <- c(
+ben1_exp_abz_fn <- c(
   png = "figures/figure_S1/figure_S1.png",
   eps = "figures/figure_S1/figure_S1.eps"
 )
 
-figure_S2_paths <- c(
+tbb1_tbb2_abz_fn <- c(
   png = "figures/figure_S2/figure_S2.png",
   eps = "figures/figure_S2/figure_S2.eps"
 )
@@ -452,7 +452,7 @@ main_figure <- ggpubr::ggarrange(
 
 save_plot(
   tplot = main_figure,
-  fn_list = figure_S1_paths, 
+  fn_list = ben1_exp_abz_fn, 
   w_in = 7.5,
   h_in = 5
   )
@@ -462,7 +462,7 @@ save_plot(
 
 save_plot(
   tplot = tbb1_tbb2_exp_plot,
-  fn_list = figure_S2_paths, 
+  fn_list = tbb1_tbb2_abz_fn, 
   w_in = 7.5,
   h_in = 5
   )
