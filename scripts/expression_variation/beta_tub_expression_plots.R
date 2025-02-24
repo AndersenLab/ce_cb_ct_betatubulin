@@ -8,20 +8,61 @@ source("bin/get_res_threshold.R")
 
 source("scripts/expression_variation/exp_plots.R")
 
+#### Functions ####
+
+#define funtion to save the plots
+save_plot <- function(tplot, fn_list, w_in, h_in) {
+  # get the folder name from the first file name
+  folder <- dirname(fn_list[1])
+  
+  # Create the output directory if it doesn't exist
+  if (!dir.exists(folder)) {
+    dir.create(folder, recursive = TRUE)
+  }
+
+  fn_png <- fn_list[1]
+  fn_eps <- fn_list[2]
+
+
+  # save eps plot
+  ggplot2::ggsave(
+    filename = fn_eps,
+    plot = tplot,
+    width = w_in,
+    height = h_in,
+    units = "in",
+    dpi = 300
+  )
+  # save png plot
+  ggplot2::ggsave(
+    filename = fn_png,
+    plot = tplot,
+    width = w_in,
+    height = h_in,
+    units = "in",
+    dpi = 300
+  )
+  # Check if either fn_eps or fn_png exist
+  # if so delete
+}
 
 ### Inputs ###
 isotype_folder_id <- "20250128"
 ref_threshold <- 0.75
-#### Output ####
+
+#### Define outputs ####
+
+figure_S1_paths <- c(
+  png = "figures/figure_S1/figure_S1.png",
+  eps = "figures/figure_S1/figure_S1.eps"
+)
+
+figure_S2_paths <- c(
+  png = "figures/figure_S2/figure_S2.png",
+  eps = "figures/figure_S2/figure_S2.eps"
+)
 
 
-
-figure_out_dir <- "figures/figure_S4"
-
-# if it does exist, delete the contents
-if (dir.exists(figure_out_dir)) {
-  unlink(figure_out_dir, recursive = TRUE)
-}
 
 #### Load data ####
 
@@ -259,7 +300,9 @@ ben1_exp_var_cat_boxplot <- ggplot2::ggplot(
   ggplot2::geom_jitter(
     width = 0.2,
     height = 0,
-    size = 2
+    size = 2,
+    alpha = 0.8,
+    color = "lightgrey"
   ) +
   ggplot2::scale_fill_manual(values = meta_cat_cols) +
   ggplot2::labs(
@@ -275,6 +318,65 @@ ben1_exp_var_cat_boxplot <- ggplot2::ggplot(
 
 
 
+#### plot figure S2 tbb1 & tbb2 exp x ABZ response ####
+
+
+
+# create tbb-1 expression scatter plot with variant categories
+tbb1_bz_var_cat_exp_plot <-
+  create_expression_scatter_plot(
+    exp_data = ben1_meta,
+    x_column_id = "tbb-1_exp",
+    y_column_id = "abz_hta_norm_pheno",
+    fill_column_id = "ben1_var_cat_meta",
+    fill_scale = meta_cat_cols,
+    x_label = expression(bolditalic("tbb-1") * bold(" expression (TPM)")),
+    y_label = "Normalized ABZ Response",
+    fill_label = expression(italic("ben-1") * " consequence"),
+    res_threshold = all_phenotyped_iso_threshold
+  ) 
+
+
+# create tbb-2 expression scatter plot with variant categories
+tbb2_bz_var_cat_exp_plot <-
+  create_expression_scatter_plot(
+    exp_data = ben1_meta,
+    x_column_id = "tbb-2_exp",
+    y_column_id = "abz_hta_norm_pheno",
+    fill_column_id = "ben1_var_cat_meta",
+    fill_scale = meta_cat_cols,
+    x_label = expression(bolditalic("tbb-2") * bold(" expression (TPM)")),
+    y_label = "Normalized ABZ Response",
+    fill_label = expression(bolditalic("ben-1") * bold(" consequence")),
+    res_threshold = all_phenotyped_iso_threshold
+  ) 
+
+
+# create a combined plot
+tbb1_tbb2_exp_plot <- ggpubr::ggarrange(
+  tbb1_bz_var_cat_exp_plot$plot +
+    theme(axis.title.y = element_blank()),
+  tbb2_bz_var_cat_exp_plot$plot +
+    theme(
+      legend.position = "none",
+      axis.title.x = element_text(face = "bold"),
+      axis.title.y = element_blank()),
+  ncol = 1,
+  labels = c("A", "B"),
+  font.label = list(
+    size = 10,
+    color = "black",
+    family = "Helvetica"
+  ),
+  common.legend = TRUE,
+  legend = "top"
+)
+
+# Add a common y-axis title
+tbb1_tbb2_exp_plot <- annotate_figure(
+  tbb1_tbb2_exp_plot,
+  left = text_grob("Normalized ABZ Response", rot = 90, size = 10, face = "bold", family = "Helvetica")
+)
 
 
 
@@ -298,11 +400,10 @@ ben1_exp_var_cat_boxplot <- ggplot2::ggplot(
 
 print("Figure ben-1 var x ben-1 exp created")
 
-#### Combine into manuscript Main figure ####
+#### Save figures ####
 
-print("Creating main figure")
+## Save ben-1 exp x ABZ response sactter & bp  ###
 
-# Modify panel 1 for plot
 p1 <- ben1_bz_var_cat_exp_plot +
   ggplot2::labs(caption = NULL) +
   ggplot2::theme(
@@ -347,178 +448,19 @@ main_figure <- ggpubr::ggarrange(
     )
 )
 
-# save the plot
-ggsave(
-  filename = glue::glue("{figure_out_dir}/figure_S4.png"),
-  plot = main_figure,
-  width = 7.5,
-  height = 5,
-  units = "in",
-  dpi = 300
-)
+save_plot(
+  tplot = main_figure,
+  fn_list = figure_S1_paths, 
+  w_in = 7.5,
+  h_in = 5
+  )
 
 
-ggsave(
-  filename = glue::glue("{figure_out_dir}/figure_S4.eps"),
-  plot = main_figure,
-  width = 7.5,
-  height = 5,
-  units = "in",
-  dpi = 300
-)
+## Save tbb-1 & tbb-2 exp x ABZ response scatter ###
 
-#### Combine into supplementary figure ####
-
-# # create a supplementary figure of tbb-1 and tbb-2 results
-# supplementary_other_tub_exp <- ggpubr::ggarrange(
-#   tbb1_bz_var_cat_exp_plot,
-#   tbb2_bz_var_cat_exp_plot,
-#   tbb1_exp_var_cat_boxplot +
-#     ggplot2::theme(axis.text.x = element_text(angle = 45, hjust = 1)),
-#   tbb2_exp_var_cat_boxplot +
-#     ggplot2::theme(axis.text.x = element_text(angle = 45, hjust = 1)),
-#   common.legend = TRUE,
-#   labels = c("a", "b", "c", "d")
-# )
-
-# # save the plot
-# ggplot2::ggsave(
-#   filename = glue::glue("{figure_out_dir}/supplementary_figure_tbb1_tbb2.jpg"),
-#   plot = supplementary_other_tub_exp,
-#   width = 7.5,
-#   height = 10,
-#   units = "in",
-#   dpi = 300
-# )
-
-# # create supplementary figure of scatter plots x assay
-# supplementary_figure <- ggpubr::ggarrange(
-#   ben1_bz_var_cat_exp_assay_plot,
-#   tbb1_bz_var_cat_exp_assay_plot,
-#   tbb2_bz_var_cat_exp_assay_plot,
-#   common.legend = TRUE,
-#   labels = c("a", "b", "c")
-# )
-
-# # save the plot
-# ggplot2::ggsave(
-#   filename = glue::glue("{figure_out_dir}/supplementary_figure_scatter_x_assay.jpg"),
-#   plot = supplementary_figure,
-#   width = 7.5,
-#   height = 10,
-#   units = "in",
-#   dpi = 300
-# )
-
-
-#### Archive ####
-## Linear Model if ben-1 variant category is associated with ben-1 expression ##
-
-# # create a linear model to test if ben-1 variant meta category is associated with ben-1 expression
-# ben1_var_cat_exp_lm <- lm(`ben-1_exp` ~ ben1_var_cat_meta - 1, data = exp_summary)
-
-# ## plot relationship as coefficient plot ###
-# ## create a coefficient plot
-# ## plot the coefficients as points with error bars
-
-# # extract the coefficients and standard errors + clean up the data
-# coef_df <- broom::tidy(ben1_var_cat_exp_lm) %>%
-#   dplyr::filter(term != "(Intercept)") %>%
-#   dplyr::mutate(
-#     ben1_var_cat = stringr::str_replace(
-#       term,
-#       pattern = "^ben1_var_cat_meta",
-#       replacement = ""
-#     ),
-#     log10_p_value = -log10(p.value)
-#   )
-# # # create the ben1_var_cat_meta column based on the term column
-# # coef_df <- coef_df %>%
-# #   mutate(
-# #     ben1_var_cat_meta = case_when(
-# #       str_detect(term, "SV") ~ "SV",
-# #       str_detect(term, "Frame Altering") ~ "Frame Altering",
-# #       str_detect(term, "Missense") ~ "Missense",
-# #       str_detect(term, "Start/Stop Codon") ~ "Start/Stop Codon",
-# #       TRUE ~ "No variant"
-# #     )
-# #   )
-
-# # create a plot
-# coef_plot <- ggplot(
-#   coef_df,
-#   aes(
-#     x = ben1_var_cat,
-#     y = estimate,
-#     ymin = estimate - std.error,
-#     ymax = estimate + std.error,
-#     color = p.value,
-#     shape = p.value < 0.05
-#   )
-# ) +
-#   geom_pointrange() +
-#   labs(
-#     x = "ben-1 variant meta category",
-#     y = "Coefficient",
-#     title = "Association between ben-1 variant meta category and ben-1 expression"
-#   ) +
-#   theme_minimal() +
-#   ggplot2::coord_flip() +
-#   # Add color scale for significance
-#   scale_color_gradient(low = "red", high = "blue", limits = c(0, 1))
-
-# # save the plot
-# ggsave(
-#   filename = glue::glue("{figure_out_dir}/ben1_var_cat_x_ben1_exp_coef.jpg"),
-#   plot = coef_plot,
-#   width = 7.5,
-#   height = 7.5,
-#   units = "in",
-#   dpi = 300
-# )
-
-# ### Test plotting volcano plot where x-axis is the coefficient and y-axis is the -log10 p-value
-# volcano_plot <- ggplot(
-#   coef_df,
-#   aes(
-#     x = estimate,
-#     # VARIABLE IS MISSING
-#     y = log_p_value,
-#     color = term
-#   )
-# ) +
-#   geom_point() +
-#   labs(
-#     x = "Coefficient",
-#     y = "-log10 p-value",
-#     title = "Volcano plot for ben-1 variant meta category association with ben-1 expression"
-#   ) +
-#   theme_minimal()
-
-# # save the plot
-# ggsave(
-#   filename = glue::glue("{figure_out_dir}/ben1_var_cat_x_ben1_exp_volcano.jpg"),
-#   plot = volcano_plot,
-#   width = 7.5,
-#   height = 7.5,
-#   units = "in",
-#   dpi = 300
-# )
-
-# ## Test if ben-1 variant category is associated with BZ response ##
-# ben1_var_cat_bz_lm <- lm(strain_norm_abz_response ~ ben1_var_cat_meta, data = exp_summary)
-
-# # summary of the linear model
-# summary(ben1_var_cat_bz_lm)
-
-# ## Test if ben-1 variant category is associated with tbb-2 expression ##
-# ben1_var_cat_tbb2_lm <- lm(`tbb-2_exp` ~ ben1_var_cat_meta, data = exp_summary)
-
-# # summary of the linear model
-# summary(ben1_var_cat_tbb2_lm)
-
-# ## Test if ben-1 variant category is associated with tbb-1 expression ##
-# ben1_var_cat_tbb1_lm <- lm(`tbb-1_exp` ~ ben1_var_cat_meta, data = exp_summary)
-
-# # summary of the linear model
-# summary(ben1_var_cat_tbb1_lm)
+save_plot(
+  tplot = tbb1_tbb2_exp_plot,
+  fn_list = figure_S2_paths, 
+  w_in = 7.5,
+  h_in = 5
+  )

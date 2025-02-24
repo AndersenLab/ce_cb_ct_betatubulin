@@ -69,7 +69,8 @@ create_expression_scatter_plot <- function(
         fill = !!sym(fill_column_id)
       ),
       shape = 21,
-      size = 3
+      alpha = 0.8,
+      size = 2
     ) +
     ggplot2::scale_fill_manual(
       values = fill_scale
@@ -123,7 +124,10 @@ create_expression_boxplot <- function(data, x_col, y_col, x_label, y_label, comp
     ggplot2::geom_jitter(
       width = 0.2,
       height = 0,
-      size = 2
+      size = 2,
+      alpha = 0.8,
+      color = "lightgrey",
+      shape = 21
     ) +
     ggplot2::scale_fill_manual(values = fill_scale) +
     ggplot2::labs(
