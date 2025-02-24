@@ -262,7 +262,7 @@ ben1_var_exp_wilcox_df <- ben1_var_exp_wilcox %>%
   ) %>% 
   rstatix::add_xy_position(
     x = "ben1_var_cat_meta",
-    step.increase = 0.01
+    step.increase = 0.03
     ) 
 
 
@@ -294,8 +294,9 @@ ben1_exp_var_cat_boxplot <- ggplot2::ggplot(
   # add significant comparisons
   ggsignif::geom_signif(
     comparisons = sig_comparisons,
-    map_signif_level = TRUE,
     y_position = ben1_var_exp_wilcox_df$y.position,
+    margin_top = 0.01,
+    map_signif_level = TRUE,
     annotations = ben1_var_exp_wilcox_df$p.signif
   ) +
   ggplot2::geom_jitter(
@@ -437,7 +438,7 @@ p1 <- ben1_bz_var_cat_exp_plot +
     axis.text.y = element_text(
       size = 11,
       family = "Arial",
-      face = "bold"
+      color = "black"
     ),
     axis.text.x = element_text(
       size = 11,
@@ -463,7 +464,7 @@ p2 <- ben1_exp_var_cat_boxplot +
     axis.text.y = element_text(
       size = 11,
       family = "Arial",
-      face = "bold"
+      color = "black"
     )
     )
 

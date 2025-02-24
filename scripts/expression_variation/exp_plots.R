@@ -88,7 +88,7 @@ create_expression_scatter_plot <- function(
       x = x_label,
       y = y_label,
       fill = fill_label,
-      caption = bquote(italic("p-value") ~ ":" ~ .(format(p_value, digits = 3)) ~ ", " ~ italic("R²") ~ ":" ~ .(format(r_squared, digits = 3)))
+      caption = bquote(italic("p") ~ "-value:" ~ .(format(p_value, digits = 3)) ~ ", " ~ italic("R²") ~ ":" ~ .(format(r_squared, digits = 3)))
     ) +
     ggplot2::theme_bw() +
     ggplot2::theme(
