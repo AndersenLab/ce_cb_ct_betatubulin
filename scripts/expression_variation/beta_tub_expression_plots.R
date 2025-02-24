@@ -1,5 +1,6 @@
 library(tidyverse)
 library(ggpubr)
+library(patchwork)
 set.seed(123)
 
 # Load the variant color scale
@@ -330,7 +331,7 @@ ben1_exp_var_cat_boxplot <- ggplot2::ggplot(
 
 
 # create tbb-1 expression scatter plot with variant categories
-tbb1_bz_var_cat_exp_plot <-
+tbb1_bz_var_cat_exp_out <-
   create_expression_scatter_plot(
     exp_data = ben1_meta,
     x_column_id = "tbb-1_exp",
@@ -339,15 +340,40 @@ tbb1_bz_var_cat_exp_plot <-
     fill_scale = meta_cat_cols,
     x_label = expression(bolditalic("tbb-1") * bold(" expression (TPM)")),
     y_label = "Normalized ABZ Response",
-    fill_label = expression(italic("ben-1") * " consequence"),
+    fill_label = expression(bold("BEN-1 Variation")),
     res_threshold = all_phenotyped_iso_threshold,
     fill_labels = custom_meta_cat_labels
   ) 
 
+# adjust theme elements of of tbb1
 
+tbb1_bz_var_cat_exp_plot <- tbb1_bz_var_cat_exp_out$plot +
+  ggplot2::theme(
+    axis.title.y = element_text(
+      size = 11,
+      face = "bold",
+      color = "black",
+      family = "Arial"
+    ),
+    axis.text.y = element_text(
+      size = 11,
+      family = "Arial",
+      color = "black"
+    ),
+    axis.text.x = element_text(
+      size = 11,
+      family = "Arial",
+      color = "black"
+    ),
+    axis.title.x = element_text(
+      size = 11,
+      face = "bold",
+      family = "Arial"
+    ),
+  )
 
 # create tbb-2 expression scatter plot with variant categories
-tbb2_bz_var_cat_exp_plot <-
+tbb2_bz_var_cat_exp_out <-
   create_expression_scatter_plot(
     exp_data = ben1_meta,
     x_column_id = "tbb-2_exp",
@@ -356,36 +382,81 @@ tbb2_bz_var_cat_exp_plot <-
     fill_scale = meta_cat_cols,
     x_label = expression(bolditalic("tbb-2") * bold(" expression (TPM)")),
     y_label = "Normalized ABZ Response",
-    fill_label = expression(bold("BEN-1") * bold(" variation")),
+    fill_label = expression(bold("BEN-1 Variation")),
     res_threshold = all_phenotyped_iso_threshold,
     fill_labels = custom_meta_cat_labels
   ) 
 
+# adjust theme elements of of tbb2
+tbb2_bz_var_cat_exp_plot <- tbb2_bz_var_cat_exp_out$plot +
+  ggplot2::theme(
+    axis.title.y = element_text(
+      size = 11,
+      face = "bold",
+      color = "black",
+      family = "Arial"
+    ),
+    axis.text.y = element_text(
+      size = 11,
+      family = "Arial",
+      color = "black"
+    ),
+    axis.text.x = element_text(
+      size = 11,
+      family = "Arial",
+      color = "black"
+    ),
+    axis.title.x = element_text(
+      size = 11,
+      face = "bold",
+      family = "Arial"
+    ),
+  )
 
-# create a combined plot
-tbb1_tbb2_exp_plot <- ggpubr::ggarrange(
-  tbb1_bz_var_cat_exp_plot$plot +
-    theme(axis.title.y = element_blank()),
-  tbb2_bz_var_cat_exp_plot$plot +
-    theme(
-      legend.position = "none"
-      ),
-  ncol = 1,
-  labels = c("A", "B"),
-  font.label = list(
-    size = 10,
-    color = "black",
-    family = "Helvetica"
-  ),
-  common.legend = TRUE,
-  legend = "top"
-)
+# # create a combined plot
+# tbb1_tbb2_exp_plot <- ggpubr::ggarrange(
+#   tbb1_bz_var_cat_exp_plot$plot +
+#     theme(axis.title.y = element_blank()),
+#   tbb2_bz_var_cat_exp_plot$plot +
+#     theme(
+#       legend.position = "none"
+#       ),
+#   ncol = 1,
+#   labels = c("A", "B"),
+#   font.label = list(
+#     size = 10,
+#     color = "black",
+#     family = "Helvetica"
+#   ),
+#   common.legend = TRUE,
+#   legend = "top"
+# )
 
-# Add a common y-axis title
-tbb1_tbb2_exp_plot <- annotate_figure(
-  tbb1_tbb2_exp_plot,
-  left = text_grob("Normalized ABZ Response", rot = 90, size = 10, face = "bold", family = "Helvetica")
-)
+# # Add a common y-axis title
+# tbb1_tbb2_exp_plot <- annotate_figure(
+#   tbb1_tbb2_exp_plot,
+#   left = text_grob("Normalized ABZ Response", rot = 90, size = 10, face = "bold", family = "Helvetica")
+# )
+
+
+tbb1_tbb2_exp_plot <-
+  tbb1_bz_var_cat_exp_plot / tbb2_bz_var_cat_exp_plot +
+  plot_layout(
+    guides = "collect",
+    axes = "collect_y"
+  ) &
+  theme(legend.position = "top") &
+  plot_annotation(
+    tag_levels = "A",
+    theme = theme(
+      plot.tag = element_text(
+        face = "bold",
+        size = 11,
+        family = "Arial",
+        color = "black"
+        ))
+  )
+
 
 
 
@@ -496,5 +567,5 @@ save_plot(
   tplot = tbb1_tbb2_exp_plot,
   fn_list = tbb1_tbb2_abz_fn, 
   w_in = 7.5,
-  h_in = 5
+  h_in = 7
   )
