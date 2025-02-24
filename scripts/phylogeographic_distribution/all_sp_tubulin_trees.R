@@ -40,73 +40,75 @@ ct_var_file <-
 ## Figure 5 Trees ##
 
 # Ce ben-1 high impact tree
-figure_5b_out_paths <- c(
-  png = "figures/figure_5/figure_5b.png",
-  eps = "figures/figure_5/figure_5b.eps"
+ce_ben1_fp <- c(
+  png = "figures/figure_6/figure_6b.png",
+  eps = "figures/figure_6/figure_6b.eps"
 )
 
 # Cb ben-1 high impact tree
-figure_5c_out_paths <- c(
-  png = "figures/figure_5/figure_5c.png",
-  eps = "figures/figure_5/figure_5c.eps"
+cb_ben1_fp <- c(
+  png = "figures/figure_6/figure_6c.png",
+  eps = "figures/figure_6/figure_6c.eps"
 )
 
 # Ct ben-1 high impact tree
-figure_5d_out_paths <- c(
-  png = "figures/figure_5/figure_5d.png",
-  eps = "figures/figure_5/figure_5d.eps"
+ct_ben1_fp <- c(
+  png = "figures/figure_6/figure_6d.png",
+  eps = "figures/figure_6/figure_6d.eps"
 )
 
-## Figure S10 Trees ##
+## tbb-2 trees ##
 
-# Ce tbb-1 high impact tree
-figure_S10b_out_paths <- c(
+ce_tbb2_fp <- c(
   png = "figures/figure_S10/figure_S10b.png",
   eps = "figures/figure_S10/figure_S10b.eps"
 )
 
-# Cb tbb-1 high impact tree
-figure_S10c_out_paths <- c(
+# Cb tbb-2 high impact tree
+cb_tbb2_fp <- c(
   png = "figures/figure_S10/figure_S10c.png",
   eps = "figures/figure_S10/figure_S10c.eps"
 )
 
-# Ct tbb-1 high impact tree
-figure_S10d_out_paths <- c(
+# Ct tbb-2 high impact tree
+ct_tbb2_fp <- c(
   png = "figures/figure_S10/figure_S10d.png",
   eps = "figures/figure_S10/figure_S10d.eps"
 )
 
 ## Figure S11 Trees ##
-# Ce tbb-2 high impact tree
-figure_S11b_out_paths <- c(
+
+# Ce tbb-1 high impact tree
+ce_tbb1_fp <- c(
   png = "figures/figure_S11/figure_S11b.png",
   eps = "figures/figure_S11/figure_S11b.eps"
 )
 
-# Cb tbb-2 high impact tree
-figure_S11c_out_paths <- c(
+# Cb tbb-1 high impact tree
+cb_tbb1_fp <- c(
   png = "figures/figure_S11/figure_S11c.png",
   eps = "figures/figure_S11/figure_S11c.eps"
 )
 
-# Ct tbb-2 high impact tree
-figure_S11d_out_paths <- c(
+# Ct tbb-1 high impact tree
+ct_tbb1_fp <- c(
   png = "figures/figure_S11/figure_S11d.png",
   eps = "figures/figure_S11/figure_S11d.eps"
 )
 
+
+
 ## Figure S1 CB HTA strains ##
 
-figure_S1_paths <- c(
-  png = "figures/figure_S1/figure_S1.png",
-  eps = "figures/figure_S1/figure_S1.eps"
+cb_hta_fp <- c(
+  png = "figures/figure_S3/figure_S3.png",
+  eps = "figures/figure_S3/figure_S3.eps"
 )
 
 ## Figure S2 CT HTA strains ##
-figure_S2_paths <- c(
-  png = "figures/figure_S2/figure_S2.png",
-  eps = "figures/figure_S2/figure_S2.eps"
+ct_hta_fp <- c(
+  png = "figures/figure_S4/figure_S4.png",
+  eps = "figures/figure_S4/figure_S4.eps"
 )
 
 # # if it does exist, delete the contents
@@ -169,15 +171,16 @@ add_var_to_tree <- function(tree, tree_anno_df, col_scale, input_col, xpos = NUL
       data = ggtree::td_filter(isTip & !!rlang::sym(input_col) != "No variant"),
       ggplot2::aes_string(fill = input_col),
       shape = 21,
-      size = 2
+      size = 1.5
     ) +
     ggplot2::scale_fill_manual(values = col_scale) +
     ggtree::geom_treescale(
-      offset = 0.001,
+      offset = 0.005,
       x = xpos,
       y = ypos,
+      linesize = 1,
       fontsize = 5,
-      family = "Arial"
+      family = "Helvetica"
     ) # Adjust offset, x, and y as needed
   return(base_tree_anno)
 }
@@ -282,7 +285,7 @@ save_tree <- function(tree_plot, fn_list, w_in, h_in) {
 #   process_gene(gene, ce_iso_var_sum_df, cb_iso_var_sum_df, ct_iso_var_sum_df, ce_tree, cb_tree, ct_tree, figure_out_dir)
 # }
 
-#### Figure 5 Trees ####
+#### ben-1 Trees ####
 
 ## Ce ben-1 high impact tree 5a ##
 
@@ -305,7 +308,7 @@ ce_ben1_tree_plot <- add_var_to_tree(
 # save the tree
 save_tree(
   ce_ben1_tree_plot + theme(legend.position = "none"),
-  figure_5b_out_paths,
+  ce_ben1_fp,
   2.5,
   4
   )
@@ -331,7 +334,7 @@ cb_ben1_tree_plot <- add_var_to_tree(
 # save the tree
 save_tree(
   cb_ben1_tree_plot + theme(legend.position = "none"),
-  figure_5c_out_paths,
+  cb_ben1_fp,
   2.5,
   4
   )
@@ -357,12 +360,12 @@ ct_ben1_tree_plot <- add_var_to_tree(
 
 save_tree(
   ct_ben1_tree_plot + theme(legend.position = "none"),
-  figure_5d_out_paths,
+  ct_ben1_fp,
   2.5,
   4
   )
 
-#### Figure S10 Trees ####
+#### tbb-2 trees ####
 
 ## Ce tbb-2 high impact tree S10a ##
 #create data frame for tbb-2
@@ -384,7 +387,7 @@ ce_tbb2_tree_plot <- add_var_to_tree(
 # save the tree
 save_tree(
   ce_tbb2_tree_plot + theme(legend.position = "none"),
-  figure_S10b_out_paths,
+  ce_tbb2_fp,
   2.5,
   4
   )
@@ -409,7 +412,7 @@ cb_tbb2_tree_plot <- add_var_to_tree(
 # save the tree
 save_tree(
   cb_tbb2_tree_plot + theme(legend.position = "none"),
-  figure_S10c_out_paths,
+  cb_tbb2_fp,
   2.5,
   4
   )
@@ -434,26 +437,26 @@ ct_tbb2_tree_plot <- add_var_to_tree(
 # save the tree
 save_tree(
   ct_tbb2_tree_plot + theme(legend.position = "none"),
-  figure_S10d_out_paths,
+  ct_tbb2_fp,
   2.5,
   4
   )
 
-#### Figure S11 Trees ####
+#### tbb-1 trees ####
 
-## Ce tbb-2 high impact tree S11a ##
-#create data frame for tbb-2
-ce_tbb2_anno_df <- create_tree_anno_df(
+## Ce tbb-1  ##
+
+ce_tbb1_anno_df <- create_tree_anno_df(
   ce_iso_var_sum_df,
-  "tbb-2_clean_call"
+  "tbb-1_clean_call"
   )
 
 # add the variant data to the tree
-ce_tbb2_tree_plot <- add_var_to_tree(
+ce_tbb1_tree_plot <- add_var_to_tree(
   ce_tree,
-  ce_tbb2_anno_df,
+  ce_tbb1_anno_df,
   strain_var_colors,
-  "tbb2_clean_call",
+  "tbb1_clean_call",
   xpos = -0.05,
   ypos = -0.09
   )
@@ -461,27 +464,27 @@ ce_tbb2_tree_plot <- add_var_to_tree(
 # save the tree
 
 save_tree(
-  ce_tbb2_tree_plot + theme(legend.position = "none"),
-  figure_S11b_out_paths,
+  ce_tbb1_tree_plot + theme(legend.position = "none"),
+  ce_tbb1_fp,
   2.5,
   4
   )
 
-## Cb tbb-2 high impact tree S11b ##
-#create data frame for tbb-2
 
-cb_tbb2_anno_df <- create_tree_anno_df(
+## Cb tbb-1 tree ## 
+
+cb_tbb1_anno_df <- create_tree_anno_df(
   cb_iso_var_sum_df,
-  "tbb-2_clean_call"
+  "tbb-1_clean_call"
   )
 
 
 # add the variant data to the tree
-cb_tbb2_tree_plot <- add_var_to_tree(
+cb_tbb1_tree_plot <- add_var_to_tree(
   cb_tree,
-  cb_tbb2_anno_df,
+  cb_tbb1_anno_df,
   strain_var_colors,
-  "tbb2_clean_call",
+  "tbb1_clean_call",
   xpos = -0.01,
   ypos = -0.135
   )
@@ -489,25 +492,25 @@ cb_tbb2_tree_plot <- add_var_to_tree(
 # save the tree
 
 save_tree(
-  cb_tbb2_tree_plot + theme(legend.position = "none"),
-  figure_S11c_out_paths,
+  cb_tbb1_tree_plot + theme(legend.position = "none"),
+  cb_tbb1_fp,
   2.5,
   4
   )
 
 ## Ct tbb-2 high impact tree S11c ##
 #create data frame for tbb-2
-ct_tbb2_anno_df <- create_tree_anno_df(
+ct_tbb1_anno_df <- create_tree_anno_df(
   ct_iso_var_sum_df,
-  "tbb-2_clean_call"
+  "tbb-1_clean_call"
   )
 
 # add the variant data to the tree
-ct_tbb2_tree_plot <- add_var_to_tree(
+ct_tbb1_tree_plot <- add_var_to_tree(
   ct_tree,
-  ct_tbb2_anno_df,
+  ct_tbb1_anno_df,
   strain_var_colors,
-  "tbb2_clean_call",
+  "tbb1_clean_call",
   xpos = -0.01,
   ypos = -0.125
   )
@@ -515,8 +518,8 @@ ct_tbb2_tree_plot <- add_var_to_tree(
 # save the tree
 
 save_tree(
-  ct_tbb2_tree_plot + theme(legend.position = "none"),
-  figure_S11d_out_paths,
+  ct_tbb1_tree_plot + theme(legend.position = "none"),
+  ct_tbb1_fp,
   2.5,
   4
   )
@@ -565,9 +568,10 @@ plot_hta_strains_tree <- function(tree, tree_anno_df, col_scale, input_col, xpos
       guide = "none"
       ) +
     ggtree::geom_treescale(
-      offset = 0.001,
+      offset = 0.005,
       x = xpos,
       y = ypos,
+      linesize = 1,
       fontsize = 5,
       family = "Arial"
     ) # Adjust offset, x, and y as needed
@@ -632,9 +636,13 @@ save_tree(
   cb_hta_tree_plot + 
     theme(
       legend.position = "top",
+      legend.text = ggplot2::element_text(
+        size = 11,
+        family = "Arial"
+        ),
       legend.title = ggplot2::element_text(face = "bold")
       ),
-  figure_S1_paths,
+  cb_hta_fp,
   w_in = 7.5,
   h_in = 4
   )
@@ -643,9 +651,13 @@ save_tree(
   ct_hta_tree_plot +
     theme(
     legend.position = "top",
+    legend.text = ggplot2::element_text(
+      size = 11,
+      family = "Arial"
+      ),
     legend.title = ggplot2::element_text(face = "bold")
     ),
-  figure_S2_paths,
+  ct_hta_fp,
   w_in = 7.5,
   h_in = 4
   )

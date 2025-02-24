@@ -302,7 +302,9 @@ ben1_exp_var_cat_boxplot <- ggplot2::ggplot(
     height = 0,
     size = 2,
     alpha = 0.8,
-    color = "lightgrey"
+    shape = 21,
+    fill = "grey",
+    color = "black"
   ) +
   ggplot2::scale_fill_manual(values = meta_cat_cols) +
   ggplot2::labs(
