@@ -156,8 +156,7 @@ plot_high_impact_variants_map <- function(world, all_var_sf) {
       data = all_var_sf,
       ggplot2::aes(fill = species),
       shape = 21,
-      size = 1.5,
-      alpha = 0.7
+      size = 1.5
       ) +
     ggplot2::scale_fill_manual(
       values = c(
