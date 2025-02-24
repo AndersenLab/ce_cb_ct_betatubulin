@@ -11,6 +11,9 @@ Benzimidazoles (BZs), a widely used class of anthelmintic drugs, target beta-tub
 
 
 # Scripts
-`expression_variation` - folder containing scripts to generate figures for S4
+`expression_variation` - folder containing scripts to generate figures for 
+    - S1. The realationship between ben-1 expression levels and ABZ responses 
+    in C. elegans strains.
+    - S2. The relationship between tbb-1 (S2A) and tbb-2 (S2B) expression levels and ABZ responses
 `phylogeographic_distribution` - folder containing scripts to generate figures for 5, S10, and S11
 `hta_res_threshold` - folder containing scripts to set the resistance threshold for HTA data collected in paper. 
