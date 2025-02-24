@@ -15,6 +15,7 @@
 #' @param y_label A string for the y-axis label.
 #' @param fill_label A string or expression for the legend title.
 #' @param res_threshold A numeric value specifying the y-axis threshold for drawing a horizontal line.
+#' @param fill_labels A named vector specifying custom labels for each category in the `fill_column_id`.
 #'
 #' @return A ggplot object representing the scatter plot.
 #' @import ggplot2
@@ -39,13 +40,20 @@ create_expression_scatter_plot <- function(
     x_label,
     y_label,
     fill_label,
-    res_threshold) {
+    res_threshold,
+    fill_labels = NULL) {
   # Perform linear regression
   lm_formula <- as.formula(glue::glue("`{y_column_id}` ~ `{x_column_id}`"))
   lm_model <- lm(lm_formula, data = exp_data)
   summary_lm <- summary(lm_model)
   p_value <- summary_lm$coefficients[2, 4]
   r_squared <- summary_lm$r.squared
+
+  if (!is.null(fill_labels)) {
+    if (!all(names(fill_scale) %in% names(fill_labels))) {
+      stop("The names of fill_scale and fill_labels must match.")
+    }
+  }
 
   plot <- ggplot2::ggplot(
     exp_data,
@@ -73,13 +81,14 @@ create_expression_scatter_plot <- function(
       size = 2
     ) +
     ggplot2::scale_fill_manual(
-      values = fill_scale
+      values = fill_scale,
+      labels = fill_labels
     ) +
     ggplot2::labs(
       x = x_label,
       y = y_label,
       fill = fill_label,
-      caption = glue::glue("p-value: {format(p_value, digits = 3)}, R²: {format(r_squared, digits = 3)}")
+      caption = bquote(italic("p-value") ~ ":" ~ .(format(p_value, digits = 3)) ~ ", " ~ italic("R²") ~ ":" ~ .(format(r_squared, digits = 3)))
     ) +
     ggplot2::theme_bw() +
     ggplot2::theme(

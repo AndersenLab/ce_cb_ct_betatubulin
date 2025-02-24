@@ -23,3 +23,13 @@ meta_cat_cols <- c(
   "No variant" = "white",
   "Low ben-1 expression" = "#FFDCDE"
 )
+
+# Define custom labels with one label italicized
+custom_meta_cat_labels <- c(
+  "SV" = "SV",
+  "Frame altering" = "Frame altering",
+  "Missense" = "Missense",
+  "Start/stop altering" = "Start/stop altering",
+  "No variant" = "No variant",
+  "Low ben-1 expression" = expression("Low " * italic("ben-1") * " expression")
+)
