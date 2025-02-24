@@ -12,37 +12,19 @@ source("scripts/phylogeographic_distribution/plot_maps.R")
 isotype_folder_id <- "20250128"
 
 #### Outputs ####
-# data_out_dir <- glue::glue(
-#   "data/proc/phylogeographic_distribution/{isotype_folder_id}"
-# )
 
-# # if it does exist, delete the contents
-# if (dir.exists(data_out_dir)) {
-#   unlink(data_out_dir, recursive = TRUE)
-# }
-# # if it doesn't exist, create it
-# dir.create(data_out_dir, recursive = TRUE)
 
-# figure_out_dir <- glue::glue(
-#   "figures/phylogeographic_distribution/{isotype_folder_id}"
-# )
-
-# # create the output directory if it doesn't exist
-# if (!dir.exists(figure_out_dir)) {
-#   dir.create(figure_out_dir, recursive = TRUE)
-# }
-
-figure_5a_out_paths <- c(
-  png = "figures/figure_5/figure_5a.png",
-  eps = "figures/figure_5/figure_5a.eps"
+ben1_maps <- list(
+  png = "figures/figure_6/figure_6a.png",
+  eps = "figures/figure_6/figure_6a.eps"
 )
 
-figure_S10a_out_paths <- c(
+tbb2_maps <- list(
   png = "figures/figure_S10/figure_S10a.png",
   eps = "figures/figure_S10/figure_S10a.eps"
 )
 
-figure_S11a_out_paths <- c(
+tbb1_maps <- list(
   png = "figures/figure_S11/figure_S11a.png",
   eps = "figures/figure_S11/figure_S11a.eps"
 )
@@ -147,22 +129,33 @@ tbb2_map <- plot_high_impact_variants_map(
 
 #### Save plots ####
 
+print(
+  'saving ben-1 map'
+)
+
 # Ben-1
 save_plot(
-  fn_list = figure_5a_out_paths,
+  fn_list = ben1_maps,
   plot = ben1_map
+)
+
+print(
+  'saving tbb-2 map'
 )
 
 # tbb-2
 save_plot(
-  fn_list = figure_S10a_out_paths,
+  fn_list = tbb2_maps,
   plot = tbb2_map
+)
+
+print(
+  'saving tbb-1 map'
 )
 
 # tbb-1
 save_plot(
-  fn_list = figure_S11a_out_paths,
+  fn_list = tbb1_maps,
   plot = tbb1_map
 )
-
 

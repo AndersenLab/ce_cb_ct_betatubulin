@@ -152,7 +152,13 @@ convert_to_sf <- function(df) {
 plot_high_impact_variants_map <- function(world, all_var_sf) {
   all_var_map <- ggplot2::ggplot() +
     ggplot2::geom_sf(data = world, fill = "white") +
-    ggplot2::geom_sf(data = all_var_sf, ggplot2::aes(fill = species), shape = 21) +
+    ggplot2::geom_sf(
+      data = all_var_sf,
+      ggplot2::aes(fill = species),
+      shape = 21,
+      size = 1.5,
+      alpha = 0.7
+      ) +
     ggplot2::scale_fill_manual(
       values = c(
         "C. elegans" = "#FFA500",
@@ -200,24 +206,21 @@ plot_high_impact_variants_map <- function(world, all_var_sf) {
 
 #' Save a plot of high-impact variants on a world map
 #'
-#' @param gene_id A string representing the gene identifier.
-#' @param figure_dir A string representing the base directory for saving figures.
-#' @param plot A ggplot object representing the map with high-impact variants.
-#' @return None
-#' @import ggplot2
-#' @import glue
+
 save_plot <- function(fn_list, plot) {
   
   # get the folder name from the first file name
-  folder <- dirname(fn_list[1])
+  folder <- dirname(fn_list$eps)
   
   # Create the output directory if it doesn't exist
   if (!dir.exists(folder)) {
     dir.create(folder, recursive = TRUE)
+  } else {
+
   }
 
-  fn_png <- fn_list[1]
-  fn_eps <- fn_list[2]
+  fn_png <- fn_list$png
+  fn_eps <- fn_list$eps
 
   # Save as eps
   ggplot2::ggsave(
