@@ -163,7 +163,13 @@ create_tree_anno_df <- function(iso_sum_df, col_id) {
 source("bin/var_color_scale.R")
 
 add_var_to_tree <- function(tree, tree_anno_df, col_scale, input_col, xpos = NULL, ypos = NULL) {
-  base_tree <- ggtree(tree, layout = "equal_angle")
+  
+  # load the tree
+  base_tree <- ggtree(
+    tree,
+    layout = "equal_angle",
+    linewidth = 0.15
+    )
 
   # add data to base tree
   base_tree_anno <- base_tree %<+% tree_anno_df +
