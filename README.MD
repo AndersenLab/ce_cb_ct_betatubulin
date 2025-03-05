@@ -15,5 +15,12 @@ Benzimidazoles (BZs), a widely used class of anthelmintic drugs, target beta-tub
     - S1. The realationship between ben-1 expression levels and ABZ responses 
     in C. elegans strains.
     - S2. The relationship between tbb-1 (S2A) and tbb-2 (S2B) expression levels and ABZ responses
-`phylogeographic_distribution` - folder containing scripts to generate figures for 5, S10, and S11
+`phylogeographic_distribution` - folder containing scripts to generate figures for 5, S14, and S15
 `hta_res_threshold` - folder containing scripts to set the resistance threshold for HTA data collected in paper. 
+`pull_bg.R` - Script to examine Blossum and Grantham scores for beta-tubulin missense variants. Generates figures S10, S11, S12, and S13. 
+
+# Data
+
+- `blast_summary`: Summary of the recipoval best hits for beta-tubulin genes in C. elegans, C. briggsae, and C. tropicalis.
+- `caendr_annotation`: Contains annotation files downloaded from CaeNDR
+- `hta_summaries`: Summary of ABZ responses for strains assyed in this paper.
