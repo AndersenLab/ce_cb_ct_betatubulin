@@ -211,19 +211,19 @@ ce_missense_fn <- c(
   eps = "figures/figure_S10/figure_S10.eps"
 )
 
-ce_abz_missense_fn <- c(
+# ce_abz_missense_fn <- c(
+#   png = "figures/figure_S11/figure_S11.png",
+#   eps = "figures/figure_S11/figure_S11.eps"
+# )
+
+cb_missense_fn <- c(
   png = "figures/figure_S11/figure_S11.png",
   eps = "figures/figure_S11/figure_S11.eps"
 )
 
-cb_missense_fn <- c(
+ct_missense_fn <- c(
   png = "figures/figure_S12/figure_S12.png",
   eps = "figures/figure_S12/figure_S12.eps"
-)
-
-ct_missense_fn <- c(
-  png = "figures/figure_S13/figure_S13.png",
-  eps = "figures/figure_S13/figure_S13.eps"
 )
 
 
