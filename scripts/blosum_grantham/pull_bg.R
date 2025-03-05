@@ -572,13 +572,13 @@ save_plot(
   tplot = cb_combined_p,
   fn_list = cb_missense_fn,
   w_in = 7.5,
-  h_in = 7
+  h_in = 5
 )
 save_plot(
   tplot = ct_combined_p,
   fn_list = ct_missense_fn,
   w_in = 7.5,
-  h_in = 7
+  h_in = 5
 )
 
 # # Create an extra plot where ce_combined and ce_abz_combined are presented in two columns on the same plot
