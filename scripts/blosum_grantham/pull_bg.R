@@ -196,9 +196,9 @@ rest_thres_file <- 'data/hta_res_threshold/res_thresholds.csv'
 
 ## Data ##
 
-table_out_name <- "tables/table_S7/table_S7.tsv"
+subscores_out_name <- "tables/table_S7/table_S7.tsv"
 
-table_out_dir <- dirname(table_out_name)
+table_out_dir <- dirname(subscores_out_name)
 
 # create the output directory if it doesn't exist
 if (!dir.exists(table_out_dir)) {
@@ -404,6 +404,9 @@ all_beta_tub_blossum_grantham <- dplyr::bind_rows(
   ensure_structure(pull_blossum_grantham_scores(ct_iso_var_sum_df, ct_anno_df, ct_beta_tubs, "tbb-2", "c_tropicalis"))
 )
 
+all_beta_tub_blossum_grantham
+
+data.table::fwrite(all_beta_tub_blossum_grantham, subscores_out_name, sep = "\t", quote = FALSE, col.names = TRUE)
 
 # Create a combined dataframe for c_elegans
 ce_df <- all_beta_tub_blossum_grantham %>%

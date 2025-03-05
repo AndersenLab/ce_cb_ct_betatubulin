@@ -9,7 +9,7 @@ source("bin/get_res_threshold.R")
 
 # output directory named with the summary
 data_out_dir <- glue::glue(
-  "data/tables/hta_res_threshold"
+  "data/hta_res_threshold"
 )
 
 # if it does exist, delete the contents

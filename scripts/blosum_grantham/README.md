@@ -1,0 +1,1 @@
+Code to pull Blossum Grantham and percent protein from the annotation file for all three species
