@@ -19,6 +19,15 @@ Benzimidazoles (BZs), a widely used class of anthelmintic drugs, target beta-tub
 `hta_res_threshold` - folder containing scripts to set the resistance threshold for HTA data collected in paper. 
 `pull_bg.R` - Script to examine Blossum and Grantham scores for beta-tubulin missense variants. Generates figures S10, S11, S12, and S13. 
 
+# Figures
+
+Figure S1:  The relationship between ben-1 expression levels and albendazole response in C. elegans strains.
+  - `scripts/expression_variation/beta_tub_expression_plots.R`
+
+Figure S2: The relationship between C. elegans beta-tubulin expression and albendazole response
+  - `scripts/expression_variation/beta_tub_expression_plots.R`
+
+
 # Data
 
 - `blast_summary`: Summary of the recipoval best hits for beta-tubulin genes in C. elegans, C. briggsae, and C. tropicalis.
