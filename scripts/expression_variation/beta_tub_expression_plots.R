@@ -438,24 +438,17 @@ tbb2_bz_var_cat_exp_plot <- tbb2_bz_var_cat_exp_out$plot +
 #   left = text_grob("Normalized ABZ Response", rot = 90, size = 10, face = "bold", family = "Helvetica")
 # )
 
+tbb1_tbb2_exp_plot <- cowplot::plot_grid(
+  tbb1_bz_var_cat_exp_plot,
+  tbb2_bz_var_cat_exp_plot + theme(legend.position = "none"),
+  nrow = 2,
+  labels = c("A", "B"),
+  label_fontfamily = "Arial",
+  align = "v",
+  axis = "l",
+  rel_heights = c(1, 0.9)
+)
 
-tbb1_tbb2_exp_plot <-
-  tbb1_bz_var_cat_exp_plot / tbb2_bz_var_cat_exp_plot +
-  plot_layout(
-    guides = "collect",
-    axes = "collect_y"
-  ) &
-  theme(legend.position = "top") &
-  plot_annotation(
-    tag_levels = "A",
-    theme = theme(
-      plot.tag = element_text(
-        face = "bold",
-        size = 11,
-        family = "Arial",
-        color = "black"
-        ))
-  )
 
 
 
