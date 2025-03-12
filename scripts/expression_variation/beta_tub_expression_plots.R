@@ -361,7 +361,7 @@ tbb1_bz_var_cat_exp_plot <- tbb1_bz_var_cat_exp_out$plot +
       color = "black"
     ),
     axis.text.x = element_text(
-      size = 11,
+      size = 10,
       family = "Arial",
       color = "black"
     ),
@@ -390,6 +390,7 @@ tbb2_bz_var_cat_exp_out <-
 # adjust theme elements of of tbb2
 tbb2_bz_var_cat_exp_plot <- tbb2_bz_var_cat_exp_out$plot +
   ggplot2::theme(
+    legend.position = "none",
     axis.title.y = element_text(
       size = 11,
       face = "bold",
@@ -402,7 +403,7 @@ tbb2_bz_var_cat_exp_plot <- tbb2_bz_var_cat_exp_out$plot +
       color = "black"
     ),
     axis.text.x = element_text(
-      size = 11,
+      size = 10,
       family = "Arial",
       color = "black"
     ),
@@ -410,7 +411,7 @@ tbb2_bz_var_cat_exp_plot <- tbb2_bz_var_cat_exp_out$plot +
       size = 11,
       face = "bold",
       family = "Arial"
-    ),
+    )
   )
 
 # # create a combined plot
@@ -437,19 +438,32 @@ tbb2_bz_var_cat_exp_plot <- tbb2_bz_var_cat_exp_out$plot +
 #   tbb1_tbb2_exp_plot,
 #   left = text_grob("Normalized ABZ Response", rot = 90, size = 10, face = "bold", family = "Helvetica")
 # )
+tbb1_tbb2_exp_plot <- tbb1_bz_var_cat_exp_plot / tbb2_bz_var_cat_exp_plot +
+  plot_annotation(
+    tag_levels = 'A',
+    tag_prefix = '',
+    tag_suffix = '',
+    theme = theme(
+      plot.tag = element_text(
+        size = 12,
+        family = "helvetica",
+        face = "bold"
+      )
+    )
+  ) &
+  theme(
+    plot.tag.position = c(0, 1)
+  )
 
-tbb1_tbb2_exp_plot <- cowplot::plot_grid(
-  tbb1_bz_var_cat_exp_plot,
-  tbb2_bz_var_cat_exp_plot + theme(legend.position = "none"),
-  nrow = 2,
-  labels = c("A", "B"),
-  label_fontfamily = "Arial",
-  align = "v",
-  axis = "l",
-  rel_heights = c(1, 0.9)
-)
 
+## Save tbb-1 & tbb-2 exp x ABZ response scatter ###
 
+save_plot(
+  tplot = tbb1_tbb2_exp_plot,
+  fn_list = tbb1_tbb2_abz_fn, 
+  w_in = 7.5,
+  h_in = 7
+  )
 
 
 
@@ -554,11 +568,3 @@ save_plot(
   )
 
 
-## Save tbb-1 & tbb-2 exp x ABZ response scatter ###
-
-save_plot(
-  tplot = tbb1_tbb2_exp_plot,
-  fn_list = tbb1_tbb2_abz_fn, 
-  w_in = 7.5,
-  h_in = 7
-  )
