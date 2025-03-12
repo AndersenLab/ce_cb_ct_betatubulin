@@ -549,7 +549,8 @@ theme_pub <- function() {
 ce_combined_p <- create_faceted_scatter_plot(ce_df) +
   # remove legend since there is only 1 beta-tubulin
   theme(
-    legend.position = "none"
+    legend.position = "none",
+    axis.title.y = element_text(size = 10)
   )
 
 ce_combined_abz_p <- create_faceted_scatter_plot(
@@ -559,7 +560,8 @@ ce_combined_abz_p <- create_faceted_scatter_plot(
 ) + 
   # remove legend since there is only 1 beta-tubulin
   theme(
-    legend.position = "none"
+    legend.position = "none",
+    axis.title.y = element_text(size = 10)
   )
 
 
@@ -585,7 +587,7 @@ save_plot(
   tplot = ce_plot,
   fn_list = ce_missense_fn,
   w_in = 7.5,
-  h_in = 5
+  h_in = 6.5
 )
 # save_plot(
 #   tplot = ce_abz_combined_plot_with_legend,
