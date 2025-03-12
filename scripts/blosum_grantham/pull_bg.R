@@ -546,7 +546,32 @@ theme_pub <- function() {
 
 # Function to create combined plot with legend
 
-ce_combined_p <- create_faceted_scatter_plot(ce_df)
+ce_combined_p <- create_faceted_scatter_plot(ce_df) +
+  # remove legend since there is only 1 beta-tubulin
+  theme(
+    legend.position = "none"
+  )
+
+ce_combined_abz_p <- create_faceted_scatter_plot(
+  ce_df %>% 
+    dplyr::select(-mean_median_wormlength_um_delta_reg) %>%
+    dplyr::rename(mean_median_wormlength_um_delta_reg = abz_hta_norm_pheno)
+) + 
+  # remove legend since there is only 1 beta-tubulin
+  theme(
+    legend.position = "none"
+  )
+
+
+ce_plot <- cowplot::plot_grid(
+  ce_combined_abz_p,
+  ce_combined_p,
+  ncol = 1,
+  labels = c("A", "B"),
+  label_size = 12,
+  label_fontfamily = "Helvetica",
+  label_fontface = "bold"
+)
 
 cb_combined_p <- create_faceted_scatter_plot(cb_df)
 
@@ -557,7 +582,7 @@ ct_combined_p <- create_faceted_scatter_plot(
 
 # Save the combined plots using the save_plot function
 save_plot(
-  tplot = ce_combined_p,
+  tplot = ce_plot,
   fn_list = ce_missense_fn,
   w_in = 7.5,
   h_in = 5
