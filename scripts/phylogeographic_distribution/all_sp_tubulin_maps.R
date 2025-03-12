@@ -20,13 +20,13 @@ ben1_maps <- list(
 )
 
 tbb2_maps <- list(
-  png = "figures/figure_S10/figure_S10a.png",
-  eps = "figures/figure_S10/figure_S10a.eps"
+  png = "figures/figure_S13/figure_S13a.png",
+  eps = "figures/figure_S13/figure_S13a.eps"
 )
 
 tbb1_maps <- list(
-  png = "figures/figure_S11/figure_S11a.png",
-  eps = "figures/figure_S11/figure_S11a.eps"
+  png = "figures/figure_S14/figure_S14a.png",
+  eps = "figures/figure_S14/figure_S14a.eps"
 )
 
 #### Load data ####

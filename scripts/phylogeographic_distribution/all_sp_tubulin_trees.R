@@ -60,40 +60,40 @@ ct_ben1_fp <- c(
 ## tbb-2 trees ##
 
 ce_tbb2_fp <- c(
-  png = "figures/figure_S10/figure_S10b.png",
-  eps = "figures/figure_S10/figure_S10b.eps"
+  png = "figures/figure_S13/figure_S13b.png",
+  eps = "figures/figure_S13/figure_S13b.eps"
 )
 
 # Cb tbb-2 high impact tree
 cb_tbb2_fp <- c(
-  png = "figures/figure_S10/figure_S10c.png",
-  eps = "figures/figure_S10/figure_S10c.eps"
+  png = "figures/figure_S13/figure_S13c.png",
+  eps = "figures/figure_S13/figure_S13c.eps"
 )
 
 # Ct tbb-2 high impact tree
 ct_tbb2_fp <- c(
-  png = "figures/figure_S10/figure_S10d.png",
-  eps = "figures/figure_S10/figure_S10d.eps"
+  png = "figures/figure_S13/figure_S13d.png",
+  eps = "figures/figure_S13/figure_S13d.eps"
 )
 
 ## Figure S11 Trees ##
 
 # Ce tbb-1 high impact tree
 ce_tbb1_fp <- c(
-  png = "figures/figure_S11/figure_S11b.png",
-  eps = "figures/figure_S11/figure_S11b.eps"
+  png = "figures/figure_S14/figure_S14b.png",
+  eps = "figures/figure_S14/figure_S14b.eps"
 )
 
 # Cb tbb-1 high impact tree
 cb_tbb1_fp <- c(
-  png = "figures/figure_S11/figure_S11c.png",
-  eps = "figures/figure_S11/figure_S11c.eps"
+  png = "figures/figure_S14/figure_S14c.png",
+  eps = "figures/figure_S14/figure_S14c.eps"
 )
 
 # Ct tbb-1 high impact tree
 ct_tbb1_fp <- c(
-  png = "figures/figure_S11/figure_S11d.png",
-  eps = "figures/figure_S11/figure_S11d.eps"
+  png = "figures/figure_S14/figure_S14d.png",
+  eps = "figures/figure_S14/figure_S14d.eps"
 )
 
 
