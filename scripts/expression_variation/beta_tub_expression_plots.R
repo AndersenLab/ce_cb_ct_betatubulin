@@ -11,11 +11,11 @@ source("scripts/expression_variation/exp_plots.R")
 
 #### Functions ####
 
-#define funtion to save the plots
+# define funtion to save the plots
 save_plot <- function(tplot, fn_list, w_in, h_in) {
   # get the folder name from the first file name
   folder <- dirname(fn_list[1])
-  
+
   # Create the output directory if it doesn't exist
   if (!dir.exists(folder)) {
     dir.create(folder, recursive = TRUE)
@@ -152,7 +152,7 @@ print(
 
 
 
-#23 but 4 have low-exp calls
+# 23 but 4 have low-exp calls
 
 #### Define the resistance thresholds ####
 
@@ -164,10 +164,10 @@ all_phenotyped_iso_var_summary <- isotype_summary %>%
 
 
 ce_res <- get_res_strains_ref(
-    exp_summary_df = all_phenotyped_iso_var_summary,
-    pheno_col = "abz_hta_norm_pheno",
-    ref_strain = "N2",
-    threshold_per = ref_threshold
+  exp_summary_df = all_phenotyped_iso_var_summary,
+  pheno_col = "abz_hta_norm_pheno",
+  ref_strain = "N2",
+  threshold_per = ref_threshold
 )
 
 
@@ -195,17 +195,17 @@ print("Creating figure ben-1 exp x BZ response with variant categories")
 
 # use the function to generate the plot and get the p-value and r-squared
 ben1_bz_var_cat_exp <- create_expression_scatter_plot(
-    exp_data = ben1_meta,
-    x_column_id = "ben-1_exp",
-    y_column_id = "abz_hta_norm_pheno",
-    fill_column_id = "ben1_var_cat_meta",
-    fill_scale = meta_cat_cols,
-    x_label = expression(bolditalic("ben-1") * bold(" expression (TPM)")),
-    y_label = expression(bold("Normalized ABZ Response")),
-    fill_label = expression(bold("BEN-1 Variation")),
-    fill_labels = custom_meta_cat_labels,
-    res_threshold = all_phenotyped_iso_threshold
-  )
+  exp_data = ben1_meta,
+  x_column_id = "ben-1_exp",
+  y_column_id = "abz_hta_norm_pheno",
+  fill_column_id = "ben1_var_cat_meta",
+  fill_scale = meta_cat_cols,
+  x_label = expression(bolditalic("ben-1") * bold(" expression (TPM)")),
+  y_label = expression(bold("Normalized ABZ Response")),
+  fill_label = expression(bold("BEN-1 Variation")),
+  fill_labels = custom_meta_cat_labels,
+  res_threshold = all_phenotyped_iso_threshold
+)
 
 
 ben1_bz_var_cat_exp_plot <- ben1_bz_var_cat_exp$plot
@@ -238,7 +238,7 @@ print("Creating figure ben-1 variant catagory x ben-1 exp")
 # unique(ben1_var_dat_no_low$ben1_var_cat_meta)
 
 # # group by the ben-1 variant category and the number of strains in each category
-# ben1_meta %>% 
+# ben1_meta %>%
 #   dplyr::group_by(ben1_var_cat_meta) %>%
 #   dplyr::summarize(
 #     n = n()
@@ -256,15 +256,15 @@ ben1_var_exp_wilcox_df <- ben1_var_exp_wilcox %>%
   rstatix::add_significance() %>%
   dplyr::rename(
     p.signif = p.adj.signif
-  ) %>% 
+  ) %>%
   # remove ns comparisons
   dplyr::filter(
     p.signif != "ns"
-  ) %>% 
+  ) %>%
   rstatix::add_xy_position(
     x = "ben1_var_cat_meta",
     step.increase = 0.03
-    ) 
+  )
 
 
 # get list of significant comparisons from the wilcox test
@@ -287,11 +287,11 @@ ben1_exp_var_cat_boxplot <- ggplot2::ggplot(
     x = ben1_var_cat_meta,
     y = `ben-1_exp`,
     fill = ben1_var_cat_meta
-    )
-  )+
+  )
+) +
   ggplot2::geom_boxplot(
     outliers = FALSE
-  )+
+  ) +
   # add significant comparisons
   ggsignif::geom_signif(
     comparisons = sig_comparisons,
@@ -312,7 +312,7 @@ ben1_exp_var_cat_boxplot <- ggplot2::ggplot(
   ggplot2::scale_fill_manual(
     values = meta_cat_cols,
     labels = custom_meta_cat_labels
-    ) +
+  ) +
   ggplot2::labs(
     x = expression(bolditalic("ben-1") * bold(" consequence")),
     y = expression(bolditalic("ben-1") * bold(" expression (TPM)"))
@@ -343,7 +343,7 @@ tbb1_bz_var_cat_exp_out <-
     fill_label = expression(bold("BEN-1 Variation")),
     res_threshold = all_phenotyped_iso_threshold,
     fill_labels = custom_meta_cat_labels
-  ) 
+  )
 
 # adjust theme elements of of tbb1
 
@@ -385,7 +385,7 @@ tbb2_bz_var_cat_exp_out <-
     fill_label = expression(bold("BEN-1 Variation")),
     res_threshold = all_phenotyped_iso_threshold,
     fill_labels = custom_meta_cat_labels
-  ) 
+  )
 
 # adjust theme elements of of tbb2
 tbb2_bz_var_cat_exp_plot <- tbb2_bz_var_cat_exp_out$plot +
@@ -440,30 +440,22 @@ tbb2_bz_var_cat_exp_plot <- tbb2_bz_var_cat_exp_out$plot +
 # )
 tbb1_tbb2_exp_plot <- tbb1_bz_var_cat_exp_plot / tbb2_bz_var_cat_exp_plot +
   plot_annotation(
-    tag_levels = 'A',
-    tag_prefix = '',
-    tag_suffix = '',
-    theme = theme(
-      plot.tag = element_text(
-        size = 12,
-        family = "helvetica",
-        face = "bold"
-      )
-    )
-  ) &
-  theme(
-    plot.tag.position = c(0, 1)
-  )
+    tag_levels = "A",
+    tag_prefix = "",
+    tag_suffix = ""
+  ) & theme(
+  plot.tag = element_text(face = "bold", size = 12, family = "Helvetica")
+)
 
 
 ## Save tbb-1 & tbb-2 exp x ABZ response scatter ###
 
 save_plot(
   tplot = tbb1_tbb2_exp_plot,
-  fn_list = tbb1_tbb2_abz_fn, 
+  fn_list = tbb1_tbb2_abz_fn,
   w_in = 7.5,
   h_in = 7
-  )
+)
 
 
 
@@ -507,7 +499,7 @@ p1 <- ben1_bz_var_cat_exp_plot +
       size = 11,
       face = "bold",
       family = "Arial"
-      ),  # Bold x-axis label in Arial
+    ), # Bold x-axis label in Arial
     axis.title.y = element_text(
       size = 11,
       face = "bold",
@@ -523,7 +515,6 @@ p1 <- ben1_bz_var_cat_exp_plot +
       family = "Arial",
       face = "bold"
     ),
-
     legend.position = "top",
     legend.direction = "horizontal",
     legend.box = "horizontal"
@@ -544,7 +535,7 @@ p2 <- ben1_exp_var_cat_boxplot +
       family = "Arial",
       color = "black"
     )
-    )
+  )
 
 
 # create a combined plot
@@ -555,16 +546,14 @@ main_figure <- ggpubr::ggarrange(
   labels = c("A", "B"),
   font.label = list(
     size = 12,
-    color = "black", 
+    color = "black",
     family = "Arial"
-    )
+  )
 )
 
 save_plot(
   tplot = main_figure,
-  fn_list = ben1_exp_abz_fn, 
+  fn_list = ben1_exp_abz_fn,
   w_in = 7.5,
   h_in = 7
-  )
-
-
+)
