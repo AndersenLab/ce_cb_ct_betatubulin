@@ -100,6 +100,6 @@ ggplot2::ggsave(
     glue::glue("{out_dir}/tub_alignments_combined.jpg"),
     combined_plot,
     width = 7.5,
-    height = 4.5, # Adjust height as needed
+    height = 3, # Adjust height as needed
     dpi = 300
 )
