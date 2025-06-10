@@ -28,7 +28,8 @@ tbb1_align_zoom <- ggmsa(
     # position_highlight = 200, - will highlight the position 200 - no other colors
     color = "Clustal",
     seq_name = TRUE
-)
+) +
+    ggplot2::theme(plot.margin = ggplot2::margin(t = 2, r = 5, b = 2, l = 5, unit = "pt")) # Adjust margins: top, right, bottom, left
 
 # save the plot
 ggplot2::ggsave(
@@ -50,7 +51,8 @@ tbb2_align_zoom <- ggmsa(
     # position_highlight = 200, - will highlight the position 200 - no other colors
     color = "Clustal",
     seq_name = TRUE
-)
+) +
+    ggplot2::theme(plot.margin = ggplot2::margin(t = 2, r = 5, b = 2, l = 5, unit = "pt")) # Adjust margins
 
 # save the plot
 ggplot2::ggsave(
@@ -72,7 +74,8 @@ ben1_align_zoom <- ggmsa(
     # position_highlight = 200, - will highlight the position 200 - no other colors
     color = "Clustal",
     seq_name = TRUE
-)
+) +
+    ggplot2::theme(plot.margin = ggplot2::margin(t = 2, r = 5, b = 2, l = 5, unit = "pt")) # Adjust margins
 
 # save the plot
 ggplot2::ggsave(
@@ -89,13 +92,14 @@ ggplot2::ggsave(
 plot_list <- list(tbb1_align_zoom, tbb2_align_zoom, ben1_align_zoom)
 
 # combine the plots
-combined_plot <- cowplot::plot_grid(plotlist = plot_list, ncol = 1)
+combined_plot <- cowplot::plot_grid(plotlist = plot_list, ncol = 1, align = "v")
 
 # save the plot
+# Consider reducing the height if the plots are now more compact
 ggplot2::ggsave(
     glue::glue("{out_dir}/tub_alignments_combined.jpg"),
     combined_plot,
     width = 7.5,
-    height = 7.5,
+    height = 4.5, # Adjust height as needed
     dpi = 300
 )
