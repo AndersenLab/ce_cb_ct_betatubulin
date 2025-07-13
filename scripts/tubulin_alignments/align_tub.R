@@ -69,7 +69,7 @@ tbb1_align_zoom <- ggmsa(
   start = 175,
   end = 225,
   # position_highlight = 200, - will highlight the position 200 - no other colors
-  color = "Clustal",
+  color = "Chemistry_AA",
   seq_name = TRUE
 ) +
   ggplot2::theme(
@@ -99,7 +99,7 @@ tbb2_align_zoom <- ggmsa(
   start = 175,
   end = 225,
   # position_highlight = 200, - will highlight the position 200 - no other colors
-  color = "Clustal",
+  color = "Chemistry_AA",
   seq_name = TRUE
 ) +
   ggplot2::theme(
@@ -129,7 +129,7 @@ ben1_align_zoom <- ggmsa(
   start = 175,
   end = 225,
   # position_highlight = 200, - will highlight the position 200 - no other colors
-  color = "Clustal",
+  color = "Chemistry_AA",
   seq_name = TRUE
 ) +
   ggplot2::theme(
