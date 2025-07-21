@@ -10,7 +10,7 @@ alignments_dir <- "data/tubulin_alignments/20240828_tubulin_protein_seqs_2024082
 
 
 #### Outputs #### ----------
-out_dir <- glue::glue("figures/tubulin_alignments/tub_alignments")
+out_dir <- glue::glue("figures/figure_S1")
 
 # check if the directory exists
 if (!dir.exists(out_dir)) {
@@ -128,9 +128,14 @@ plot_list <- lapply(plot_list, function(p) {
       ),
       axis.text.y = ggtext::element_markdown(
         family = "Arial", # Set font family for y-axis labels
-        size = 10, # Set font size for y-axis labels
+        size = 11, # Set font size for y-axis labels
         color = "black" # Set color for y-axis labels
-      )
+      ),
+      axis.text.x = ggtext::element_markdown(
+        family = "Arial", # Set font family for x-axis labels
+        size = 11, # Set font size for x-axis labels
+        color = "black" # Set color for x-axis labels
+      ),
     )
 })
 
