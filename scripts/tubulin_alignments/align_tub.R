@@ -145,7 +145,7 @@ combined_plot <- cowplot::plot_grid(plotlist = plot_list, ncol = 1, align = "v")
 # save the plot
 # Consider reducing the height if the plots are now more compact
 ggplot2::ggsave(
-  glue::glue("{out_dir}/tub_alignments_combined.jpg"),
+  glue::glue("{out_dir}/figure_S1.png"),
   combined_plot,
   width = 7.5,
   height = 3, # Adjust height as needed. You might need more height if names are longer.
