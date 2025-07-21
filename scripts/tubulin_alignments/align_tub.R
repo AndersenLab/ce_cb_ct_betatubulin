@@ -151,6 +151,15 @@ ggplot2::ggsave(
 # create a list of the three plots
 plot_list <- list(tbb1_align_zoom, tbb2_align_zoom, ben1_align_zoom)
 
+# add the same theme to all plots
+plot_list <- lapply(plot_list, function(p) {
+  p +
+    ggplot2::theme_bw() +
+    ggplot2::theme(
+      axis.text = ggplot2::element_text(family = "Arial", color = "black")
+    )
+})
+
 # combine the plots
 combined_plot <- cowplot::plot_grid(plotlist = plot_list, ncol = 1, align = "v")
 
