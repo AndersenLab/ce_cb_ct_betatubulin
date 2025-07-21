@@ -71,20 +71,8 @@ tbb1_align_zoom <- ggmsa(
   # position_highlight = 200, - will highlight the position 200 - no other colors
   color = "Chemistry_AA",
   seq_name = TRUE
-) +
-  ggplot2::theme(
-    plot.margin = ggplot2::margin(t = 2, r = 5, b = 2, l = 5, unit = "pt"),
-    axis.text.y = ggtext::element_markdown() # Render markdown for y-axis labels
-  )
-
-# save the plot
-ggplot2::ggsave(
-  glue::glue("{out_dir}/tbb1_aln_zoom.jpg"),
-  tbb1_align_zoom,
-  width = 7.5,
-  height = 7.5,
-  dpi = 300
 )
+
 
 #### tbb-2 ####
 # set path to the MSA file
@@ -101,19 +89,6 @@ tbb2_align_zoom <- ggmsa(
   # position_highlight = 200, - will highlight the position 200 - no other colors
   color = "Chemistry_AA",
   seq_name = TRUE
-) +
-  ggplot2::theme(
-    plot.margin = ggplot2::margin(t = 2, r = 5, b = 2, l = 5, unit = "pt"),
-    axis.text.y = ggtext::element_markdown() # Render markdown for y-axis labels
-  )
-
-# save the plot
-ggplot2::ggsave(
-  glue::glue("{out_dir}/tbb2_aln_zoom.jpg"),
-  tbb2_align_zoom,
-  width = 7.5,
-  height = 7.5,
-  dpi = 300
 )
 
 #### ben-1 ####
@@ -131,19 +106,6 @@ ben1_align_zoom <- ggmsa(
   # position_highlight = 200, - will highlight the position 200 - no other colors
   color = "Chemistry_AA",
   seq_name = TRUE
-) +
-  ggplot2::theme(
-    plot.margin = ggplot2::margin(t = 2, r = 5, b = 2, l = 5, unit = "pt"),
-    axis.text.y = ggtext::element_markdown() # Render markdown for y-axis labels
-  )
-
-# save the plot
-ggplot2::ggsave(
-  glue::glue("{out_dir}/ben1_aln_zoom.jpg"),
-  ben1_align_zoom,
-  width = 7.5,
-  height = 7.5,
-  dpi = 300
 )
 
 #### combine all three plots ####
@@ -155,8 +117,20 @@ plot_list <- list(tbb1_align_zoom, tbb2_align_zoom, ben1_align_zoom)
 plot_list <- lapply(plot_list, function(p) {
   p +
     ggplot2::theme_bw() +
+
     ggplot2::theme(
-      axis.text = ggplot2::element_text(family = "Arial", color = "black")
+      plot.margin = ggplot2::margin(
+        t = 2,
+        r = 5,
+        b = 2,
+        l = 5,
+        unit = "pt"
+      ),
+      axis.text.y = ggtext::element_markdown(
+        family = "Arial", # Set font family for y-axis labels
+        size = 10, # Set font size for y-axis labels
+        color = "black" # Set color for y-axis labels
+      )
     )
 })
 
