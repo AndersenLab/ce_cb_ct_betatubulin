@@ -54,13 +54,13 @@ ref_threshold <- 0.75
 #### Define outputs ####
 
 ben1_exp_abz_fn <- c(
-  png = "figures/figure_S1/figure_S1.png",
-  eps = "figures/figure_S1/figure_S1.eps"
-)
-
-tbb1_tbb2_abz_fn <- c(
   png = "figures/figure_S2/figure_S2.png",
   eps = "figures/figure_S2/figure_S2.eps"
+)
+
+other_beta_tubulin_abz_fn <- c(
+  png = "figures/figure_S3/figure_S3.png",
+  eps = "figures/figure_S3/figure_S3.eps"
 )
 
 
@@ -455,135 +455,22 @@ adjusted_plot_list <- lapply(
 )
 
 # combine
-test <- adjusted_plot_list[[1]] / adjusted_plot_list[[2]] / adjusted_plot_list[[3]] / adjusted_plot_list[[4]] +
+other_beta_tubulin_expression <- adjusted_plot_list[[1]] / adjusted_plot_list[[2]] / adjusted_plot_list[[3]] / adjusted_plot_list[[4]] +
   plot_annotation(
-    tag_levels = "A",
+    tag_levels = "a",
     tag_prefix = "",
     tag_suffix = ""
   ) & theme(
   plot.tag = element_text(face = "bold", size = 12, family = "Helvetica")
 )
-
-# # adjust theme elements of of tbb1
-
-# tbb1_bz_var_cat_exp_plot <- tbb1_bz_var_cat_exp_out$plot +
-#   ggplot2::theme(
-#     axis.title.y = element_text(
-#       size = 11,
-#       face = "bold",
-#       color = "black",
-#       family = "Arial"
-#     ),
-#     axis.text.y = element_text(
-#       size = 11,
-#       family = "Arial",
-#       color = "black"
-#     ),
-#     axis.text.x = element_text(
-#       size = 10,
-#       family = "Arial",
-#       color = "black"
-#     ),
-#     axis.title.x = element_text(
-#       size = 11,
-#       face = "bold",
-#       family = "Arial"
-#     ),
-#   )
-
-
-
-# # adjust theme elements of of tbb2
-# tbb2_bz_var_cat_exp_plot <- tbb2_bz_var_cat_exp_out$plot +
-#   ggplot2::theme(
-#     legend.position = "none",
-#     axis.title.y = element_text(
-#       size = 11,
-#       face = "bold",
-#       color = "black",
-#       family = "Arial"
-#     ),
-#     axis.text.y = element_text(
-#       size = 11,
-#       family = "Arial",
-#       color = "black"
-#     ),
-#     axis.text.x = element_text(
-#       size = 10,
-#       family = "Arial",
-#       color = "black"
-#     ),
-#     axis.title.x = element_text(
-#       size = 11,
-#       face = "bold",
-#       family = "Arial"
-#     )
-#   )
-
-# # create a combined plot
-# tbb1_tbb2_exp_plot <- ggpubr::ggarrange(
-#   tbb1_bz_var_cat_exp_plot$plot +
-#     theme(axis.title.y = element_blank()),
-#   tbb2_bz_var_cat_exp_plot$plot +
-#     theme(
-#       legend.position = "none"
-#       ),
-#   ncol = 1,
-#   labels = c("A", "B"),
-#   font.label = list(
-#     size = 10,
-#     color = "black",
-#     family = "Helvetica"
-#   ),
-#   common.legend = TRUE,
-#   legend = "top"
-# )
-
-# # Add a common y-axis title
-# tbb1_tbb2_exp_plot <- annotate_figure(
-#   tbb1_tbb2_exp_plot,
-#   left = text_grob("Normalized ABZ Response", rot = 90, size = 10, face = "bold", family = "Helvetica")
-# )
-tbb1_tbb2_exp_plot <- tbb1_bz_var_cat_exp_plot / tbb2_bz_var_cat_exp_plot +
-  plot_annotation(
-    tag_levels = "A",
-    tag_prefix = "",
-    tag_suffix = ""
-  ) & theme(
-  plot.tag = element_text(face = "bold", size = 12, family = "Helvetica")
-)
-
-
-## Save tbb-1 & tbb-2 exp x ABZ response scatter ###
 
 save_plot(
-  tplot = tbb1_tbb2_exp_plot,
-  fn_list = tbb1_tbb2_abz_fn,
+  tplot = other_beta_tubulin_expression,
+  fn_list = other_beta_tubulin_abz_fn,
   w_in = 7.5,
   h_in = 7
 )
 
-
-
-# ben1_exp_var_cat_boxplot <- create_expression_boxplot(
-#   data = ben1_meta  %>% dplyr::filter(strain != "CX11254"),
-#   x_col = "ben1_var_cat_meta",
-#   y_col = "ben-1_exp",
-#   x_label = expression(bolditalic("ben-1") * bold(" consequence")),
-#   y_label = expression(bolditalic("ben-1") * bold(" expression (TPM)")),
-#   comparisons_list = list(
-#     c("No variant", "SV"),
-#     c("No variant", "Frame altering"),
-#     c("No variant", "Missense"),
-#     c("No variant", "Start/Stop altering")
-#   ),
-#   fill_column = "ben1_var_cat_meta",
-#   fill_scale = meta_cat_cols
-# )
-
-# ben1_exp_var_cat_boxplot
-
-print("Figure ben-1 var x ben-1 exp created")
 
 #### Save figures ####
 
