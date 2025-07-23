@@ -397,17 +397,17 @@ tbb4_bz_var_cat_exp_out <-
   )
 
 ## Adjust theme ##
-adjust_theme <- function(plot, top = FALSE) {
+adjust_theme <- function(plot, top = FALSE, y_title_width = 15) {
   p <- plot +
     ggplot2::theme(
       axis.title.y = element_text(
-        size = 11,
+        size = 9,
         face = "bold",
         color = "black",
         family = "Arial"
       ),
       axis.text.y = element_text(
-        size = 11,
+        size = 9,
         family = "Arial",
         color = "black"
       ),
@@ -422,6 +422,12 @@ adjust_theme <- function(plot, top = FALSE) {
         family = "Arial"
       ),
     )
+
+  # Wrap y-axis title if it exists
+  if (!is.null(p$labels$y)) {
+    p$labels$y <- stringr::str_wrap(p$labels$y, width = y_title_width)
+  }
+
   # if the top argument is TRUE, add a top legend
   if (top) {
     p <- p +
@@ -450,7 +456,7 @@ plot_list <- list(
 adjusted_plot_list <- lapply(
   seq_along(plot_list),
   function(i) {
-    adjust_theme(plot_list[[i]], top = (i == 1))
+    adjust_theme(plot_list[[i]], top = (i == 1), y_title_width = 15)
   }
 )
 
