@@ -401,13 +401,13 @@ adjust_theme <- function(plot, top = FALSE, y_title_width = 15) {
   p <- plot +
     ggplot2::theme(
       axis.title.y = element_text(
-        size = 9,
+        size = 10,
         face = "bold",
         color = "black",
         family = "Arial"
       ),
       axis.text.y = element_text(
-        size = 9,
+        size = 10,
         family = "Arial",
         color = "black"
       ),
@@ -474,7 +474,7 @@ save_plot(
   tplot = other_beta_tubulin_expression,
   fn_list = other_beta_tubulin_abz_fn,
   w_in = 7.5,
-  h_in = 7
+  h_in = 10
 )
 
 
