@@ -15,18 +15,28 @@ isotype_folder_id <- "20250128"
 
 
 ben1_maps <- list(
-  png = "figures/figure_6/figure_6a.png",
-  eps = "figures/figure_6/figure_6a.eps"
-)
-
-tbb2_maps <- list(
-  png = "figures/figure_S13/figure_S13a.png",
-  eps = "figures/figure_S13/figure_S13a.eps"
+  png = "figures/figure_8/figure_8a.png",
+  eps = "figures/figure_8/figure_8a.eps"
 )
 
 tbb1_maps <- list(
-  png = "figures/figure_S14/figure_S14a.png",
-  eps = "figures/figure_S14/figure_S14a.eps"
+  png = "figures/figure_S20/figure_S20a.png",
+  eps = "figures/figure_S20/figure_S20a.eps"
+)
+
+tbb2_maps <- list(
+  png = "figures/figure_S21/figure_S21a.png",
+  eps = "figures/figure_S21/figure_S21a.eps"
+)
+
+mec7_maps <- list(
+  png = "figures/figure_S22/figure_S22a.png",
+  eps = "figures/figure_S22/figure_S22a.eps"
+)
+
+tbb4_maps <- list(
+  png = "figures/figure_S23/figure_S23a.png",
+  eps = "figures/figure_S23/figure_S23a.eps"
 )
 
 #### Load data ####
@@ -76,6 +86,16 @@ ce_tbb2_var_df <- filter_high_impact_variants(ce_df, "tbb-2_clean_call", "C. ele
 cb_tbb2_var_df <- filter_high_impact_variants(cb_df, "tbb-2_clean_call", "C. briggsae")
 ct_tbb2_var_df <- filter_high_impact_variants(ct_df, "tbb-2_clean_call", "C. tropicalis")
 
+# mec-7
+ce_mec7_var_df <- filter_high_impact_variants(ce_df, "mec-7_clean_call", "C. elegans")
+cb_mec7_var_df <- filter_high_impact_variants(cb_df, "mec-7_clean_call", "C. briggsae")
+ct_mec7_var_df <- filter_high_impact_variants(ct_df, "mec-7_clean_call", "C. tropicalis")
+
+# tbb-4
+ce_tbb4_var_df <- filter_high_impact_variants(ce_df, "tbb-4_clean_call", "C. elegans")
+cb_tbb4_var_df <- filter_high_impact_variants(cb_df, "tbb-4_clean_call", "C. briggsae")
+ct_tbb4_var_df <- filter_high_impact_variants(ct_df, "tbb-4_clean_call", "C. tropicalis")
+
 #### Combine species data ####
 
 ## ben-1 ##
@@ -97,6 +117,18 @@ tbb2_var_df <- combine_filtered_data_frames(
   ct_tbb2_var_df
 )
 
+mec7_var_df <- combine_filtered_data_frames(
+  ce_mec7_var_df,
+  cb_mec7_var_df,
+  ct_mec7_var_df
+)
+
+tbb4_var_df <- combine_filtered_data_frames(
+  ce_tbb4_var_df,
+  cb_tbb4_var_df,
+  ct_tbb4_var_df
+)
+
 #### Create sf obj. from combined data ####
 
 ## ben-1
@@ -108,8 +140,11 @@ tbb1_var_sf <- convert_to_sf(tbb1_var_df)
 ## tbb-2
 tbb2_var_sf <- convert_to_sf(tbb2_var_df)
 
+## mec-7
+mec7_var_sf <- convert_to_sf(mec7_var_df)
 
-
+## tbb-4
+tbb4_var_sf <- convert_to_sf(tbb4_var_df)
 
 #### Generate map plots ####
 ben1_map <- plot_high_impact_variants_map(
@@ -127,10 +162,20 @@ tbb2_map <- plot_high_impact_variants_map(
   all_var_sf = tbb2_var_sf$all_var_sf
 )
 
+mec7_map <- plot_high_impact_variants_map(
+  world = mec7_var_sf$world,
+  all_var_sf = mec7_var_sf$all_var_sf
+)
+
+tbb4_map <- plot_high_impact_variants_map(
+  world = tbb4_var_sf$world,
+  all_var_sf = tbb4_var_sf$all_var_sf
+)
+
 #### Save plots ####
 
 print(
-  'saving ben-1 map'
+  "saving ben-1 map"
 )
 
 # Ben-1
@@ -140,7 +185,7 @@ save_plot(
 )
 
 print(
-  'saving tbb-2 map'
+  "saving tbb-2 map"
 )
 
 # tbb-2
@@ -150,7 +195,7 @@ save_plot(
 )
 
 print(
-  'saving tbb-1 map'
+  "saving tbb-1 map"
 )
 
 # tbb-1
@@ -159,3 +204,21 @@ save_plot(
   plot = tbb1_map
 )
 
+print(
+  "saving mec-7 map"
+)
+
+# mec-7
+save_plot(
+  fn_list = mec7_maps,
+  plot = mec7_map
+)
+print(
+  "saving tbb-4 map"
+)
+
+# tbb-4
+save_plot(
+  fn_list = tbb4_maps,
+  plot = tbb4_map
+)
