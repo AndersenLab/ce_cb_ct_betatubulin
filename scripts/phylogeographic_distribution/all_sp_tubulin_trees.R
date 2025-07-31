@@ -489,6 +489,14 @@ save_tree(
   4
 )
 
+# ### Troubleshooting
+# ce_mec7_anno_df <- create_tree_anno_df(
+#   ce_iso_var_sum_df,
+#   "mec-7_clean_call"
+# )
+
+# head(ce_mec7_anno_df)
+
 #### Wrapper function for generating tubulin trees ####
 
 generate_tubulin_tree <- function(species, tubulin_id) {

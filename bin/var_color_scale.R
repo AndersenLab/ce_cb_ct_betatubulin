@@ -9,6 +9,7 @@ strain_var_colors <- c(
   "Inversion" = "#9BE3BD",
   "Missense" = "#FDDE9C",
   "Splice Donor" = "#FF928E",
+  "Splice donor" = "#FF928E",
   "Start/stop altering" = "darkred",
   "Low ben-1 expression" = "#FFDCDE",
   "Transposon insertion" = "#620273"
