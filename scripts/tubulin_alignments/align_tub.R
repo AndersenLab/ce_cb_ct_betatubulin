@@ -87,7 +87,7 @@ tbb4_align_zoom <- load_and_plot_alignment("tbb_4", alignments_dir)
 #### combine all three plots ####
 
 # create a list of the three plots
-plot_list <- list(tbb1_align_zoom, tbb2_align_zoom, ben1_align_zoom)
+plot_list <- list(tbb1_align_zoom, tbb2_align_zoom, mec7_align_zoom, tbb4_align_zoom, ben1_align_zoom)
 
 # add the same theme to all plots
 plot_list <- lapply(plot_list, function(p) {
