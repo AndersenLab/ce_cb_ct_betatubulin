@@ -135,3 +135,33 @@ if os.path.exists(out_file):
     os.remove(out_file)
 
 process_protein_sequences(tbb_2, ce_prot_file, cb_prot_file, ct_prot_file, out_file)
+
+mec_7 = {
+    "ce": ["ZK154.3.1", "CE_mec-7"],
+    "cb": ["QX1410.17185.1", "CB_mec-7"],
+    "ct": ["NIC58.18736.4", "CT_mec-7"],
+}
+
+out_file = f"{out_dir}/mec_7.fa"
+
+# check if the file exists and contains data, if so, delete it
+if os.path.exists(out_file):
+    print(f"Deleting existing file: {out_file}")
+    os.remove(out_file)
+
+process_protein_sequences(mec_7, ce_prot_file, cb_prot_file, ct_prot_file, out_file)
+
+tbb_4 = {
+    "ce": ["B0272.1.1", "CE_tbb-4"],
+    "cb": ["QX1410.15075.1", "CB_tbb-4"],
+    "ct": ["NIC58.17262.1", "CT_tbb-4"],
+}
+
+out_file = f"{out_dir}/tbb_4.fa"
+
+# check if the file exists and contains data, if so, delete it
+if os.path.exists(out_file):
+    print(f"Deleting existing file: {out_file}")
+    os.remove(out_file)
+
+process_protein_sequences(tbb_4, ce_prot_file, cb_prot_file, ct_prot_file, out_file)
