@@ -6,7 +6,7 @@ library(Biostrings) # Added for reading FASTA files
 library(ggtext) # Added for Markdown in axis text
 
 #### Inputs #### ----------
-alignments_dir <- "data/tubulin_alignments/20240828_tubulin_protein_seqs_20240828"
+alignments_dir <- "data/proc/tubulin_alignments/20251002_tubulin_protein_seqs_20251002"
 
 
 #### Outputs #### ----------
@@ -54,59 +54,35 @@ transform_seq_name <- function(original_name) {
   )
 }
 
+#### Function to load and plot tubulin alignment ####
+load_and_plot_alignment <- function(gene_name, alignments_dir, start = 175, end = 225) {
+  # Construct path to the MSA file
+  aln_file <- glue::glue("{alignments_dir}/{gene_name}.fa")
 
-#### tbb-1 ####
-# set path to the MSA file
-tbb1_aln_file <- glue::glue("{alignments_dir}/tbb_1.fa")
+  # Read and transform sequence names
+  seqs <- readAAStringSet(aln_file)
+  names(seqs) <- sapply(names(seqs), transform_seq_name)
 
-# Read and transform sequence names
-tbb1_seqs <- readAAStringSet(tbb1_aln_file)
-names(tbb1_seqs) <- sapply(names(tbb1_seqs), transform_seq_name)
+  # Create the alignment plot
+  align_plot <- ggmsa(
+    seqs,
+    start = start,
+    end = end,
+    color = "Chemistry_AA",
+    seq_name = TRUE
+  )
 
-# create the alignment plot
-tbb1_align_zoom <- ggmsa(
-  tbb1_seqs, # Use modified sequences
-  start = 175,
-  end = 225,
-  # position_highlight = 200, - will highlight the position 200 - no other colors
-  color = "Chemistry_AA",
-  seq_name = TRUE
-)
+  return(align_plot)
+}
 
 
-#### tbb-2 ####
-# set path to the MSA file
-tbb2_aln_file <- glue::glue("{alignments_dir}/tbb_2.fa")
+#### Generate alignment plots for each gene ####
+tbb1_align_zoom <- load_and_plot_alignment("tbb_1", alignments_dir)
+tbb2_align_zoom <- load_and_plot_alignment("tbb_2", alignments_dir)
+ben1_align_zoom <- load_and_plot_alignment("ben_1", alignments_dir)
+mec7_align_zoom <- load_and_plot_alignment("mec_7", alignments_dir)
+tbb4_align_zoom <- load_and_plot_alignment("tbb_4", alignments_dir)
 
-# Read and transform sequence names
-tbb2_seqs <- readAAStringSet(tbb2_aln_file)
-names(tbb2_seqs) <- sapply(names(tbb2_seqs), transform_seq_name)
-
-tbb2_align_zoom <- ggmsa(
-  tbb2_seqs, # Use modified sequences
-  start = 175,
-  end = 225,
-  # position_highlight = 200, - will highlight the position 200 - no other colors
-  color = "Chemistry_AA",
-  seq_name = TRUE
-)
-
-#### ben-1 ####
-# set path to the MSA file
-ben1_aln_file <- glue::glue("{alignments_dir}/ben_1.fa")
-
-# Read and transform sequence names
-ben1_seqs <- readAAStringSet(ben1_aln_file)
-names(ben1_seqs) <- sapply(names(ben1_seqs), transform_seq_name)
-
-ben1_align_zoom <- ggmsa(
-  ben1_seqs, # Use modified sequences
-  start = 175,
-  end = 225,
-  # position_highlight = 200, - will highlight the position 200 - no other colors
-  color = "Chemistry_AA",
-  seq_name = TRUE
-)
 
 #### combine all three plots ####
 
