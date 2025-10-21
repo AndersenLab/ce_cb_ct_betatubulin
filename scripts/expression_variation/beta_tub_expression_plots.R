@@ -332,11 +332,9 @@ ben1_exp_var_cat_boxplot <- ggplot2::ggplot(
 
 
 
-#### plot figure S2 tbb1 & tbb2 exp x ABZ response ####
+#### plot figure all other tubulin exp x ABZ response ####
 
-## Create expression scatter plots ##
-
-# create tbb-1 expression scatter plot with variant categories
+# ## Create expression scatter plots ##
 tbb1_bz_var_cat_exp_out <-
   create_expression_scatter_plot(
     exp_data = ben1_meta,
@@ -351,7 +349,6 @@ tbb1_bz_var_cat_exp_out <-
     fill_labels = custom_meta_cat_labels
   )
 
-# create tbb-2 expression scatter plot with variant categories
 tbb2_bz_var_cat_exp_out <-
   create_expression_scatter_plot(
     exp_data = ben1_meta,
@@ -366,7 +363,6 @@ tbb2_bz_var_cat_exp_out <-
     fill_labels = custom_meta_cat_labels
   )
 
-# create mec-7 expression scatter plot with variant categories
 mec7_bz_var_cat_exp_out <-
   create_expression_scatter_plot(
     exp_data = ben1_meta,
@@ -396,86 +392,220 @@ tbb4_bz_var_cat_exp_out <-
     fill_labels = custom_meta_cat_labels
   )
 
-## Adjust theme ##
-adjust_theme <- function(plot, top = FALSE, y_title_width = 15) {
+# Function to prepare individual plots (remove legend and adjust theme)
+prepare_plot <- function(plot, remove_y_title = FALSE) {
   p <- plot +
-    ggplot2::theme(
-      axis.title.y = element_text(
-        size = 9,
-        face = "bold",
-        color = "black",
-        family = "Arial"
-      ),
-      axis.text.y = element_text(
-        size = 10,
-        family = "Arial",
-        color = "black"
-      ),
-      axis.text.x = element_text(
-        size = 10,
-        family = "Arial",
-        color = "black"
-      ),
-      axis.title.x = element_text(
-        size = 11,
-        face = "bold",
-        family = "Arial"
-      ),
+    theme(
+      legend.position = "none",
+      axis.title.y = if (remove_y_title) {
+        element_blank()
+      } else {
+        element_text(
+          size = 11,
+          face = "bold",
+          color = "black",
+          family = "Arial"
+        )
+      },
+      axis.text.y = element_text(size = 10, family = "Arial", color = "black"),
+      axis.text.x = element_text(size = 10, family = "Arial", color = "black"),
+      axis.title.x = element_text(size = 11, face = "bold", family = "Arial"),
+      plot.margin = margin(5, 5, 5, 5)
     )
-
-  # Wrap y-axis title if it exists
-  if (!is.null(p$labels$y)) {
-    p$labels$y <- stringr::str_wrap(p$labels$y, width = y_title_width)
-  }
-
-  # if the top argument is TRUE, add a top legend
-  if (top) {
-    p <- p +
-      ggplot2::theme(
-        legend.position = "top"
-      )
-  } else {
-    p <- p +
-      ggplot2::theme(
-        legend.position = "none"
-      )
-  }
   return(p)
 }
 
-plot_list <- list(
-  tbb1_bz_var_cat_exp_out$plot,
-  tbb2_bz_var_cat_exp_out$plot,
-  mec7_bz_var_cat_exp_out$plot,
-  tbb4_bz_var_cat_exp_out$plot
-)
+# plot with patchwork to get legend
+p1_with_legend <- tbb1_bz_var_cat_exp_out$plot +
+  theme(
+    legend.position = "top",
+    axis.title.y = element_blank(),
+    axis.text.y = element_text(size = 10, family = "Arial", color = "black"),
+    axis.text.x = element_text(size = 10, family = "Arial", color = "black"),
+    axis.title.x = element_text(size = 11, face = "bold", family = "Arial"),
+    plot.margin = margin(5, 5, 5, 5),
+    legend.text = element_text(size = 10, family = "Arial"),
+    legend.title = element_text(size = 11, face = "bold", family = "Arial")
+  )
 
-# adjust the theme of each plot with the
-# adjust_theme function, for the first plot
-# in the list set top = TRUE
-adjusted_plot_list <- lapply(
-  seq_along(plot_list),
-  function(i) {
-    adjust_theme(plot_list[[i]], top = (i == 1), y_title_width = 15)
-  }
-)
+# Remove legends and y-axis titles from other plots
+p2_no_legend <- prepare_plot(tbb2_bz_var_cat_exp_out$plot, remove_y_title = TRUE)
+p3_no_legend <- prepare_plot(mec7_bz_var_cat_exp_out$plot, remove_y_title = TRUE)
+p4_no_legend <- prepare_plot(tbb4_bz_var_cat_exp_out$plot, remove_y_title = TRUE)
 
-# combine
-other_beta_tubulin_expression <- adjusted_plot_list[[1]] / adjusted_plot_list[[2]] / adjusted_plot_list[[3]] / adjusted_plot_list[[4]] +
+# Combine with patchwork
+combined_patchwork <- (p1_with_legend / p2_no_legend / p3_no_legend / p4_no_legend) +
   plot_annotation(
     tag_levels = "a",
     tag_prefix = "",
     tag_suffix = ""
-  ) & theme(
-  plot.tag = element_text(face = "bold", size = 12, family = "Helvetica")
+  ) &
+  theme(
+    plot.tag = element_text(face = "bold", size = 12, family = "Helvetica")
+  )
+
+# Add common y-axis label
+final_plot_patchwork <- cowplot::plot_grid(
+  grid::textGrob(
+    "Normalized ABZ Response",
+    gp = grid::gpar(fontsize = 11, fontface = "bold", fontfamily = "Arial"),
+    rot = 90
+  ),
+  combined_patchwork,
+  ncol = 2,
+  rel_widths = c(0.03, 0.97)
 )
 
+
 save_plot(
-  tplot = other_beta_tubulin_expression,
+  tplot = final_plot_patchwork,
   fn_list = other_beta_tubulin_abz_fn,
   w_in = 7.5,
-  h_in = 8
+  h_in = 10
 )
+
+
+
+# # create tbb-1 expression scatter plot with variant categories
+# tbb1_bz_var_cat_exp_out <-
+#   create_expression_scatter_plot(
+#     exp_data = ben1_meta,
+#     x_column_id = "tbb-1_exp",
+#     y_column_id = "abz_hta_norm_pheno",
+#     fill_column_id = "ben1_var_cat_meta",
+#     fill_scale = meta_cat_cols,
+#     x_label = expression(bolditalic("tbb-1") * bold(" expression (TPM)")),
+#     y_label = "Normalized ABZ Response",
+#     fill_label = expression(bold("BEN-1 Variation")),
+#     res_threshold = all_phenotyped_iso_threshold,
+#     fill_labels = custom_meta_cat_labels
+#   )
+
+# # create tbb-2 expression scatter plot with variant categories
+# tbb2_bz_var_cat_exp_out <-
+#   create_expression_scatter_plot(
+#     exp_data = ben1_meta,
+#     x_column_id = "tbb-2_exp",
+#     y_column_id = "abz_hta_norm_pheno",
+#     fill_column_id = "ben1_var_cat_meta",
+#     fill_scale = meta_cat_cols,
+#     x_label = expression(bolditalic("tbb-2") * bold(" expression (TPM)")),
+#     y_label = "Normalized ABZ Response",
+#     fill_label = expression(bold("BEN-1 Variation")),
+#     res_threshold = all_phenotyped_iso_threshold,
+#     fill_labels = custom_meta_cat_labels
+#   )
+
+# # create mec-7 expression scatter plot with variant categories
+# mec7_bz_var_cat_exp_out <-
+#   create_expression_scatter_plot(
+#     exp_data = ben1_meta,
+#     x_column_id = "mec-7_exp",
+#     y_column_id = "abz_hta_norm_pheno",
+#     fill_column_id = "ben1_var_cat_meta",
+#     fill_scale = meta_cat_cols,
+#     x_label = expression(bolditalic("mec-7") * bold(" expression (TPM)")),
+#     y_label = "Normalized ABZ Response",
+#     fill_label = expression(bold("BEN-1 Variation")),
+#     res_threshold = all_phenotyped_iso_threshold,
+#     fill_labels = custom_meta_cat_labels
+#   )
+
+# # create tbb-4 expression scatter plot with variant categories
+# tbb4_bz_var_cat_exp_out <-
+#   create_expression_scatter_plot(
+#     exp_data = ben1_meta,
+#     x_column_id = "tbb-4_exp",
+#     y_column_id = "abz_hta_norm_pheno",
+#     fill_column_id = "ben1_var_cat_meta",
+#     fill_scale = meta_cat_cols,
+#     x_label = expression(bolditalic("tbb-4") * bold(" expression (TPM)")),
+#     y_label = "Normalized ABZ Response",
+#     fill_label = expression(bold("BEN-1 Variation")),
+#     res_threshold = all_phenotyped_iso_threshold,
+#     fill_labels = custom_meta_cat_labels
+#   )
+
+# ## Adjust theme ##
+# adjust_theme <- function(plot, top = FALSE, y_title_width = 15) {
+#   p <- plot +
+#     ggplot2::theme(
+#       axis.title.y = element_text(
+#         size = 9,
+#         face = "bold",
+#         color = "black",
+#         family = "Arial"
+#       ),
+#       axis.text.y = element_text(
+#         size = 10,
+#         family = "Arial",
+#         color = "black"
+#       ),
+#       axis.text.x = element_text(
+#         size = 10,
+#         family = "Arial",
+#         color = "black"
+#       ),
+#       axis.title.x = element_text(
+#         size = 11,
+#         face = "bold",
+#         family = "Arial"
+#       ),
+#     )
+
+#   # Wrap y-axis title if it exists
+#   if (!is.null(p$labels$y)) {
+#     p$labels$y <- stringr::str_wrap(p$labels$y, width = y_title_width)
+#   }
+
+#   # if the top argument is TRUE, add a top legend
+#   if (top) {
+#     p <- p +
+#       ggplot2::theme(
+#         legend.position = "top"
+#       )
+#   } else {
+#     p <- p +
+#       ggplot2::theme(
+#         legend.position = "none"
+#       )
+#   }
+#   return(p)
+# }
+
+# plot_list <- list(
+#   tbb1_bz_var_cat_exp_out$plot,
+#   tbb2_bz_var_cat_exp_out$plot,
+#   mec7_bz_var_cat_exp_out$plot,
+#   tbb4_bz_var_cat_exp_out$plot
+# )
+
+# # adjust the theme of each plot with the
+# # adjust_theme function, for the first plot
+# # in the list set top = TRUE
+# adjusted_plot_list <- lapply(
+#   seq_along(plot_list),
+#   function(i) {
+#     adjust_theme(plot_list[[i]], top = (i == 1), y_title_width = 15)
+#   }
+# )
+
+# # combine
+# other_beta_tubulin_expression <- adjusted_plot_list[[1]] / adjusted_plot_list[[2]] / adjusted_plot_list[[3]] / adjusted_plot_list[[4]] +
+#   plot_annotation(
+#     tag_levels = "a",
+#     tag_prefix = "",
+#     tag_suffix = ""
+#   ) & theme(
+#   plot.tag = element_text(face = "bold", size = 12, family = "Helvetica")
+# )
+
+# save_plot(
+#   tplot = other_beta_tubulin_expression,
+#   fn_list = other_beta_tubulin_abz_fn,
+#   w_in = 7.5,
+#   h_in = 8
+# )
 
 
 #### Save figures ####
