@@ -32,7 +32,7 @@ save_plot <- function(tplot, fn_list, w_in, h_in) {
     width = w_in,
     height = h_in,
     units = "in",
-    dpi = 300
+    dpi = 600
   )
   # save png plot
   ggplot2::ggsave(
@@ -41,7 +41,7 @@ save_plot <- function(tplot, fn_list, w_in, h_in) {
     width = w_in,
     height = h_in,
     units = "in",
-    dpi = 300
+    dpi = 600
   )
   # Check if either fn_eps or fn_png exist
   # if so delete
@@ -672,7 +672,7 @@ main_figure <- ggpubr::ggarrange(
   p1,
   p2,
   ncol = 1,
-  labels = c("A", "B"),
+  labels = c("a", "b"),
   font.label = list(
     size = 12,
     color = "black",
