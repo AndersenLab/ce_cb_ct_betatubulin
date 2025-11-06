@@ -15,8 +15,8 @@ isotype_folder_id <- "20250128"
 
 
 ben1_maps <- list(
-  png = "figures/figure_8/figure_8a.png",
-  eps = "figures/figure_8/figure_8a.eps"
+  png = "figures/figure_9/figure_9a.png",
+  eps = "figures/figure_9/figure_9a.eps"
 )
 
 tbb1_maps <- list(

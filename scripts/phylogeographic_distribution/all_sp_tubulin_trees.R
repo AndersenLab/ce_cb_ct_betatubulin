@@ -41,20 +41,20 @@ ct_var_file <-
 
 # Ce ben-1 high impact tree
 ce_ben1_fp <- c(
-  png = "figures/figure_8/figure_8b.png",
-  eps = "figures/figure_8/figure_8b.eps"
+  png = "figures/figure_9/figure_9b.png",
+  eps = "figures/figure_9/figure_9b.eps"
 )
 
 # Cb ben-1 high impact tree
 cb_ben1_fp <- c(
-  png = "figures/figure_8/figure_8c.png",
-  eps = "figures/figure_8/figure_8c.eps"
+  png = "figures/figure_9/figure_9c.png",
+  eps = "figures/figure_9/figure_9c.eps"
 )
 
 # Ct ben-1 high impact tree
 ct_ben1_fp <- c(
-  png = "figures/figure_8/figure_8d.png",
-  eps = "figures/figure_8/figure_8d.eps"
+  png = "figures/figure_9/figure_9d.png",
+  eps = "figures/figure_9/figure_9d.eps"
 )
 
 # Ce tbb-1 high impact tree
