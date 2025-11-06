@@ -124,6 +124,6 @@ ggplot2::ggsave(
   glue::glue("{out_dir}/figure_S1.jpg"),
   combined_plot,
   width = 7.5,
-  height = 3, # Adjust height as needed. You might need more height if names are longer.
+  height = 5,
   dpi = 300
 )
