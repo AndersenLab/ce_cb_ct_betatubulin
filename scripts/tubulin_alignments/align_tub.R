@@ -125,5 +125,5 @@ ggplot2::ggsave(
   combined_plot,
   width = 7.5,
   height = 5,
-  dpi = 300
+  dpi = 600
 )
