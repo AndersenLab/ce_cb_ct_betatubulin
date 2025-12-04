@@ -121,7 +121,7 @@ jsd_supp_table <- jsd_values %>%
 # save as supplementary table 14
 data.table::fwrite(
   jsd_supp_table,
-  file = "tables/supplementary_table_14_jsd_values_beta_tubulin_genes.csv"
+  file = "tables/table_s14_jsd_values_beta_tubulin_genes.csv"
 )
 
 ## Tau
@@ -136,7 +136,7 @@ tau_supp_table <- tau_values %>%
 # save as supplementary table 14
 data.table::fwrite(
   tau_supp_table,
-  file = "tables/supplementary_table_15_tau_values_beta_tubulin_genes.csv"
+  file = "tables/table_s15_tau_values_beta_tubulin_genes.csv"
 )
 
 
