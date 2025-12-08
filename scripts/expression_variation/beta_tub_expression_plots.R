@@ -209,8 +209,7 @@ ben1_bz_var_cat_exp <- create_expression_scatter_plot(
   x_label = expression(bolditalic("ben-1") * bold(" expression (TPM)")),
   y_label = expression(bold("Normalized ABZ Response")),
   fill_label = expression(bold("BEN-1 Variation")),
-  fill_labels = custom_meta_cat_labels,
-  res_threshold = all_phenotyped_iso_threshold
+  fill_labels = custom_meta_cat_labels
 )
 
 
@@ -345,7 +344,6 @@ tbb1_bz_var_cat_exp_out <-
     x_label = expression(bolditalic("tbb-1") * bold(" expression (TPM)")),
     y_label = "Normalized ABZ Response",
     fill_label = expression(bold("BEN-1 Variation")),
-    res_threshold = all_phenotyped_iso_threshold,
     fill_labels = custom_meta_cat_labels
   )
 
@@ -359,7 +357,6 @@ tbb2_bz_var_cat_exp_out <-
     x_label = expression(bolditalic("tbb-2") * bold(" expression (TPM)")),
     y_label = "Normalized ABZ Response",
     fill_label = expression(bold("BEN-1 Variation")),
-    res_threshold = all_phenotyped_iso_threshold,
     fill_labels = custom_meta_cat_labels
   )
 
@@ -373,7 +370,6 @@ mec7_bz_var_cat_exp_out <-
     x_label = expression(bolditalic("mec-7") * bold(" expression (TPM)")),
     y_label = "Normalized ABZ Response",
     fill_label = expression(bold("BEN-1 Variation")),
-    res_threshold = all_phenotyped_iso_threshold,
     fill_labels = custom_meta_cat_labels
   )
 
@@ -388,7 +384,6 @@ tbb4_bz_var_cat_exp_out <-
     x_label = expression(bolditalic("tbb-4") * bold(" expression (TPM)")),
     y_label = "Normalized ABZ Response",
     fill_label = expression(bold("BEN-1 Variation")),
-    res_threshold = all_phenotyped_iso_threshold,
     fill_labels = custom_meta_cat_labels
   )
 
