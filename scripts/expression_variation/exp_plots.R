@@ -14,7 +14,7 @@
 #' @param x_label A string or expression for the x-axis label.
 #' @param y_label A string for the y-axis label.
 #' @param fill_label A string or expression for the legend title.
-#' @param res_threshold A numeric value specifying the y-axis threshold for drawing a horizontal line.
+#' @param res_threshold (Optional) A numeric value specifying the y-axis threshold for drawing a horizontal line. If NULL, no threshold line is drawn.
 #' @param fill_labels A named vector specifying custom labels for each category in the `fill_column_id`.
 #'
 #' @return A ggplot object representing the scatter plot.
@@ -40,7 +40,7 @@ create_expression_scatter_plot <- function(
     x_label,
     y_label,
     fill_label,
-    res_threshold,
+    res_threshold = NULL,
     fill_labels = NULL) {
   # Perform linear regression
   lm_formula <- as.formula(glue::glue("`{y_column_id}` ~ `{x_column_id}`"))
@@ -67,11 +67,6 @@ create_expression_scatter_plot <- function(
       se = FALSE,
       color = "grey"
     ) +
-    ggplot2::geom_hline(
-      yintercept = res_threshold,
-      linetype = "dashed",
-      color = "red"
-    ) +
     ggplot2::geom_point(
       ggplot2::aes(
         fill = !!sym(fill_column_id)
@@ -84,6 +79,15 @@ create_expression_scatter_plot <- function(
       values = fill_scale,
       labels = fill_labels
     ) +
+    {
+      if (!is.null(res_threshold)) {
+        ggplot2::geom_hline(
+          yintercept = res_threshold,
+          linetype = "dashed",
+          color = "red"
+        )
+      }
+    } +
     ggplot2::labs(
       x = x_label,
       y = y_label,
@@ -97,7 +101,7 @@ create_expression_scatter_plot <- function(
       legend.position = "top"
     )
 
-  out = list(plot = plot, p_value = p_value, r_squared = r_squared)
+  out <- list(plot = plot, p_value = p_value, r_squared = r_squared)
 
   return(out)
 }
