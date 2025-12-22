@@ -20,23 +20,23 @@ ben1_maps <- list(
 )
 
 tbb1_maps <- list(
-  png = "figures/figure_S20/figure_S20a.png",
-  eps = "figures/figure_S20/figure_S20a.eps"
-)
-
-tbb2_maps <- list(
-  png = "figures/figure_S21/figure_S21a.png",
-  eps = "figures/figure_S21/figure_S21a.eps"
-)
-
-mec7_maps <- list(
   png = "figures/figure_S22/figure_S22a.png",
   eps = "figures/figure_S22/figure_S22a.eps"
 )
 
-tbb4_maps <- list(
+tbb2_maps <- list(
   png = "figures/figure_S23/figure_S23a.png",
   eps = "figures/figure_S23/figure_S23a.eps"
+)
+
+mec7_maps <- list(
+  png = "figures/figure_S24/figure_S24a.png",
+  eps = "figures/figure_S24/figure_S24a.eps"
+)
+
+tbb4_maps <- list(
+  png = "figures/figure_S25/figure_S25a.png",
+  eps = "figures/figure_S25/figure_S25a.eps"
 )
 
 #### Load data ####
