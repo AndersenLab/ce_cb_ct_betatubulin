@@ -26,14 +26,15 @@ create_scatter_plot <- function(df, x_var, y_var, x_label, y_label) {
         "tbb1" = expression(italic("tbb-1")),
         "tbb2" = expression(italic("tbb-2")),
         "ben1" = expression(italic("ben-1"))
-      )) +
+      )
+    ) +
     ggplot2::labs(
       x = x_label,
       y = y_label,
       color = "Beta-tubulin gene"
     ) +
     ggplot2::theme_bw()
-  
+
   # Set x-axis limits based on x_var
   if (x_var == "BLOSUM") {
     plot <- plot + ggplot2::xlim(-4, 4)
@@ -42,7 +43,7 @@ create_scatter_plot <- function(df, x_var, y_var, x_label, y_label) {
   } else if (x_var == "Percent_Protein") {
     plot <- plot + ggplot2::xlim(0, 100)
   }
-  
+
   # Calculate R2 and p-value
   lm_model <- lm(as.formula(paste(y_var, "~", x_var)), data = df)
   model_summary <- broom::glance(lm_model)
@@ -55,10 +56,10 @@ create_scatter_plot <- function(df, x_var, y_var, x_label, y_label) {
       "text",
       x = Inf,
       y = Inf,
-    label = paste(
-      "italic(R)^2 == ", round(r2, 2), 
-      "*','~italic(p) == ", format.pval(p_value, digits = 2)
-    ),      hjust = 1.1,
+      label = paste(
+        "italic(R)^2 == ", round(r2, 2),
+        "*','~italic(p) == ", format.pval(p_value, digits = 2)
+      ), hjust = 1.1,
       vjust = 1.1,
       parse = TRUE,
       size = 5,
@@ -78,8 +79,8 @@ create_faceted_scatter_plot <- function(df) {
     ) %>%
     dplyr::mutate(
       Metric = dplyr::recode(Metric, Percent_Protein = "Percent Protein")
-      )
-  
+    )
+
   plot <- ggplot2::ggplot(df_long, aes(x = Value, y = mean_median_wormlength_um_delta_reg, color = tubulin_id)) +
     ggplot2::geom_point() +
     ggplot2::geom_smooth(
@@ -89,7 +90,7 @@ create_faceted_scatter_plot <- function(df) {
       color = "grey",
       alpha = 0.8
     ) +
-    ggplot2::facet_wrap(~ Metric, scales = "free_x") +
+    ggplot2::facet_wrap(~Metric, scales = "free_x") +
     ggplot2::scale_color_manual(
       values = c(
         "tbb1" = "blue",
@@ -100,7 +101,8 @@ create_faceted_scatter_plot <- function(df) {
         "tbb1" = "TBB-1",
         "tbb2" = "TBB-2",
         "ben1" = "BEN-1"
-      )) +
+      )
+    ) +
     ggplot2::labs(
       x = "Metric Value",
       y = "Normalized animal length (µm)",
@@ -119,7 +121,7 @@ create_faceted_scatter_plot <- function(df) {
       strip.background = element_rect(fill = "white"),
       strip.text = element_text(face = "bold")
     )
-  
+
   return(plot)
 }
 
@@ -127,7 +129,7 @@ create_faceted_scatter_plot <- function(df) {
 save_plot <- function(tplot, fn_list, w_in, h_in) {
   # get the folder name from the first file name
   folder <- dirname(fn_list[1])
-  
+
   # Create the output directory if it doesn't exist
   if (!dir.exists(folder)) {
     dir.create(folder, recursive = TRUE)
@@ -157,7 +159,7 @@ save_plot <- function(tplot, fn_list, w_in, h_in) {
 }
 
 # Create faceted scatter plot for c_elegans
-#ce_faceted_plot <- create_faceted_scatter_plot(ce_df)
+# ce_faceted_plot <- create_faceted_scatter_plot(ce_df)
 
 
 
@@ -189,14 +191,14 @@ cb_hta_data_file <- "data/hta_summaries/briggsae_df_ABZ_summary_mean_median_worm
 ct_hta_data_file <- "data/hta_summaries/tropicalis_df_ABZ_summary_mean_median_wormlength.csv"
 
 # resistance thresholds for each species
-rest_thres_file <- 'data/hta_res_threshold/res_thresholds.csv'
+rest_thres_file <- "data/hta_res_threshold/res_thresholds.csv"
 
 
 #### Outputs ####
 
 ## Data ##
 
-subscores_out_name <- "tables/table_S7/table_S7.tsv"
+subscores_out_name <- "tables/table_s13_blossum_grantham_pp.tsv"
 
 table_out_dir <- dirname(subscores_out_name)
 
@@ -207,8 +209,8 @@ if (!dir.exists(table_out_dir)) {
 
 ## Figures ##
 ce_missense_fn <- c(
-  png = "figures/figure_S10/figure_S10.png",
-  eps = "figures/figure_S10/figure_S10.eps"
+  png = "figures/figure_S21/figure_S21.png",
+  eps = "figures/figure_S21/figure_S21.eps"
 )
 
 # ce_abz_missense_fn <- c(
@@ -216,15 +218,15 @@ ce_missense_fn <- c(
 #   eps = "figures/figure_S11/figure_S11.eps"
 # )
 
-cb_missense_fn <- c(
-  png = "figures/figure_S11/figure_S11.png",
-  eps = "figures/figure_S11/figure_S11.eps"
-)
+# cb_missense_fn <- c(
+#   png = "figures/figure_S11/figure_S11.png",
+#   eps = "figures/figure_S11/figure_S11.eps"
+# )
 
-ct_missense_fn <- c(
-  png = "figures/figure_S12/figure_S12.png",
-  eps = "figures/figure_S12/figure_S12.eps"
-)
+# ct_missense_fn <- c(
+#   png = "figures/figure_S12/figure_S12.png",
+#   eps = "figures/figure_S12/figure_S12.eps"
+# )
 
 
 
@@ -289,37 +291,37 @@ ce_hta_data <- data.table::fread(ce_hta_data_file)
 cb_hta_data <- data.table::fread(cb_hta_data_file)
 ct_hta_data <- data.table::fread(ct_hta_data_file)
 
-# Read in the resistance thresholds
-res_thres_df <- data.table::fread(rest_thres_file)
+# # Read in the resistance thresholds
+# res_thres_df <- data.table::fread(rest_thres_file)
 
-ce_res_thres <- res_thres_df %>%
-  dplyr::filter(species == "c_elegans") %>%
-  dplyr::pull(hta_threshold)
+# ce_res_thres <- res_thres_df %>%
+#   dplyr::filter(species == "c_elegans") %>%
+#   dplyr::pull(hta_threshold)
 
-cb_res_thres <- res_thres_df %>%
-  dplyr::filter(species == "c_briggsae") %>%
-  dplyr::pull(hta_threshold)
+# cb_res_thres <- res_thres_df %>%
+#   dplyr::filter(species == "c_briggsae") %>%
+#   dplyr::pull(hta_threshold)
 
-ct_res_thres <- res_thres_df %>%
-  dplyr::filter(species == "c_tropicalis") %>%
-  dplyr::pull(hta_threshold)
+# ct_res_thres <- res_thres_df %>%
+#   dplyr::filter(species == "c_tropicalis") %>%
+#   dplyr::pull(hta_threshold)
 
-# flag the resistant strains in the HTA data for each species
+# # flag the resistant strains in the HTA data for each species
 
-ce_hta_data <- ce_hta_data %>%
-  dplyr::mutate(
-    resistant = mean_median_wormlength_um_delta_reg > ce_res_thres
-  )
+# ce_hta_data <- ce_hta_data %>%
+#   dplyr::mutate(
+#     resistant = mean_median_wormlength_um_delta_reg > ce_res_thres
+#   )
 
-cb_hta_data <- cb_hta_data %>%
-  dplyr::mutate(
-    resistant = mean_median_wormlength_um_delta_reg > cb_res_thres
-  )
+# cb_hta_data <- cb_hta_data %>%
+#   dplyr::mutate(
+#     resistant = mean_median_wormlength_um_delta_reg > cb_res_thres
+#   )
 
-ct_hta_data <- ct_hta_data %>%
-  dplyr::mutate(
-    resistant = mean_median_wormlength_um_reg_delta > ct_res_thres
-  )
+# ct_hta_data <- ct_hta_data %>%
+#   dplyr::mutate(
+#     resistant = mean_median_wormlength_um_reg_delta > ct_res_thres
+#   )
 
 #### Filter the annotation file to beta-tubulins ####
 
@@ -333,18 +335,18 @@ filter_isotype_missense <- function(iso_sum_df, gene_id) {
   clean_call_col <- paste0(gene_id, "_clean_call")
   snv_call_col <- paste0(gene_id, "_high_impact_SNV")
   tubulin_id <- gsub("-", "", gene_id)
-  
+
   iso_df_missense <- iso_sum_df %>%
     dplyr::filter(!!rlang::sym(clean_call_col) == "Missense") %>%
     dplyr::select(
       strain,
-      #abz_hta_norm_pheno,
-      #abz_hta_norm_res,
+      # abz_hta_norm_pheno,
+      # abz_hta_norm_res,
       clean_var = !!rlang::sym(clean_call_col),
       snv_call = !!rlang::sym(snv_call_col)
     ) %>%
     dplyr::mutate(tubulin_id = tubulin_id)
-  
+
   return(iso_df_missense)
 }
 
@@ -356,7 +358,7 @@ filter_blossum_grantham <- function(anno_df, transcript_ids, gene_id) {
     dplyr::filter(GENE == gene_id, CONSEQUENCE == "missense") %>%
     dplyr::select(GENE, AMINO_ACID_CHANGE, BLOSUM, Grantham, Percent_Protein, Strains) %>%
     tidyr::separate_rows(Strains, sep = ",")
-  
+
   return(anno_df)
 }
 
@@ -364,11 +366,11 @@ filter_blossum_grantham <- function(anno_df, transcript_ids, gene_id) {
 pull_blossum_grantham_scores <- function(iso_sum_df, anno_df, transcript_ids, gene_id, species) {
   iso_missense_df <- filter_isotype_missense(iso_sum_df, gene_id)
   anno_missense_df <- filter_blossum_grantham(anno_df, transcript_ids, gene_id)
-  
+
   strain_scores_df <- iso_missense_df %>%
     dplyr::left_join(anno_missense_df, by = c("strain" = "Strains")) %>%
     dplyr::mutate(Species = species)
-  
+
   return(strain_scores_df)
 }
 
@@ -532,7 +534,7 @@ theme_pub <- function() {
       panel.grid.minor = element_blank(),
       text = element_text(family = "Helvetica", size = 11),
       ## text formatting ##
-      # bold x-axis title 
+      # bold x-axis title
       axis.title.x = element_text(face = "bold"),
       # bold y-axis title
       axis.title.y = element_blank(),
@@ -554,10 +556,10 @@ ce_combined_p <- create_faceted_scatter_plot(ce_df) +
   )
 
 ce_combined_abz_p <- create_faceted_scatter_plot(
-  ce_df %>% 
+  ce_df %>%
     dplyr::select(-mean_median_wormlength_um_delta_reg) %>%
     dplyr::rename(mean_median_wormlength_um_delta_reg = abz_hta_norm_pheno)
-) + 
+) +
   # remove legend since there is only 1 beta-tubulin
   theme(
     legend.position = "none",
@@ -569,7 +571,7 @@ ce_plot <- cowplot::plot_grid(
   ce_combined_abz_p,
   ce_combined_p,
   ncol = 1,
-  labels = c("A", "B"),
+  labels = c("a", "b"),
   label_size = 12,
   label_fontfamily = "Helvetica",
   label_fontface = "bold"
@@ -578,9 +580,9 @@ ce_plot <- cowplot::plot_grid(
 cb_combined_p <- create_faceted_scatter_plot(cb_df)
 
 ct_combined_p <- create_faceted_scatter_plot(
-  ct_df  %>% 
+  ct_df %>%
     dplyr::rename(mean_median_wormlength_um_delta_reg = mean_median_wormlength_um_reg_delta)
-  )
+)
 
 # Save the combined plots using the save_plot function
 save_plot(
@@ -595,18 +597,18 @@ save_plot(
 #   w_in = 7.5,
 #   h_in = 7
 # )
-save_plot(
-  tplot = cb_combined_p,
-  fn_list = cb_missense_fn,
-  w_in = 7.5,
-  h_in = 5
-)
-save_plot(
-  tplot = ct_combined_p,
-  fn_list = ct_missense_fn,
-  w_in = 7.5,
-  h_in = 5
-)
+# save_plot(
+#   tplot = cb_combined_p,
+#   fn_list = cb_missense_fn,
+#   w_in = 7.5,
+#   h_in = 5
+# )
+# save_plot(
+#   tplot = ct_combined_p,
+#   fn_list = ct_missense_fn,
+#   w_in = 7.5,
+#   h_in = 5
+# )
 
 # # Create an extra plot where ce_combined and ce_abz_combined are presented in two columns on the same plot
 # combined_ce_abz_plot <- cowplot::plot_grid(
@@ -625,4 +627,3 @@ save_plot(
 #   w_in = 15,
 #   h_in = 7
 # )
-
