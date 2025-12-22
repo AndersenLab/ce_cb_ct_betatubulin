@@ -59,80 +59,80 @@ ct_ben1_fp <- c(
 
 # Ce tbb-1 high impact tree
 ce_tbb1_fp <- c(
-  png = "figures/figure_S20/figure_S20b.png",
-  eps = "figures/figure_S20/figure_S20b.eps"
+  png = "figures/figure_S22/figure_S22b.png",
+  eps = "figures/figure_S22/figure_S22b.eps"
 )
 
 # Cb tbb-1 high impact tree
 cb_tbb1_fp <- c(
-  png = "figures/figure_S20/figure_S20c.png",
-  eps = "figures/figure_S20/figure_S20c.eps"
+  png = "figures/figure_S22/figure_S22c.png",
+  eps = "figures/figure_S22/figure_S22c.eps"
 )
 
 # Ct tbb-1 high impact tree
 ct_tbb1_fp <- c(
-  png = "figures/figure_S20/figure_S20d.png",
-  eps = "figures/figure_S20/figure_S20d.eps"
+  png = "figures/figure_S22/figure_S22d.png",
+  eps = "figures/figure_S22/figure_S22d.eps"
 )
 
 
 ## tbb-2 trees ##
 
 ce_tbb2_fp <- c(
-  png = "figures/figure_S21/figure_S21b.png",
-  eps = "figures/figure_S21/figure_S21b.eps"
+  png = "figures/figure_S23/figure_S23b.png",
+  eps = "figures/figure_S23/figure_S23b.eps"
 )
 
 # Cb tbb-2 high impact tree
 cb_tbb2_fp <- c(
-  png = "figures/figure_S21/figure_S21c.png",
-  eps = "figures/figure_S21/figure_S21c.eps"
+  png = "figures/figure_S23/figure_S23c.png",
+  eps = "figures/figure_S23/figure_S23c.eps"
 )
 
 # Ct tbb-2 high impact tree
 ct_tbb2_fp <- c(
-  png = "figures/figure_S21/figure_S21d.png",
-  eps = "figures/figure_S21/figure_S21d.eps"
+  png = "figures/figure_S23/figure_S23d.png",
+  eps = "figures/figure_S23/figure_S23d.eps"
 )
 
 ## mec-7 trees ##
 
 # Ce mec-7 high impact tree
 ce_mec7_fp <- c(
-  png = "figures/figure_S22/figure_S22b.png",
-  eps = "figures/figure_S22/figure_S22b.eps"
+  png = "figures/figure_S24/figure_S24b.png",
+  eps = "figures/figure_S24/figure_S24b.eps"
 )
 
 # Cb mec-7 high impact tree
 cb_mec7_fp <- c(
-  png = "figures/figure_S22/figure_S22c.png",
-  eps = "figures/figure_S22/figure_S22c.eps"
+  png = "figures/figure_S24/figure_S24c.png",
+  eps = "figures/figure_S24/figure_S24c.eps"
 )
 
 # Ct mec-7 high impact tree
 ct_mec7_fp <- c(
-  png = "figures/figure_S22/figure_S22d.png",
-  eps = "figures/figure_S22/figure_S22d.eps"
+  png = "figures/figure_S24/figure_S24d.png",
+  eps = "figures/figure_S24/figure_S24d.eps"
 )
 
 ## tbb-4 trees ##
 
 # Ce tbb-4 high impact tree
 ce_tbb4_fp <- c(
-  png = "figures/figure_S23/figure_S23b.png",
-  eps = "figures/figure_S23/figure_S23b.eps"
+  png = "figures/figure_S25/figure_S25b.png",
+  eps = "figures/figure_S25/figure_S25b.eps"
 )
 
 # Cb tbb-4 high impact tree
 cb_tbb4_fp <- c(
-  png = "figures/figure_S23/figure_S23c.png",
-  eps = "figures/figure_S23/figure_S23c.eps"
+  png = "figures/figure_S25/figure_S25c.png",
+  eps = "figures/figure_S25/figure_S25c.eps"
 )
 
 # Ct tbb-4 high impact tree
 ct_tbb4_fp <- c(
-  png = "figures/figure_S23/figure_S23d.png",
-  eps = "figures/figure_S23/figure_S23d.eps"
+  png = "figures/figure_S25/figure_S25d.png",
+  eps = "figures/figure_S25/figure_S25d.eps"
 )
 
 
@@ -489,88 +489,219 @@ save_tree(
   4
 )
 
-# ### Troubleshooting
-# ce_mec7_anno_df <- create_tree_anno_df(
-#   ce_iso_var_sum_df,
-#   "mec-7_clean_call"
-# )
+#### mec-7 trees ####
+
+ce_mec7_anno_df <- create_tree_anno_df(
+  ce_iso_var_sum_df,
+  "mec-7_clean_call"
+)
+
+ce_mec7_tree_plot <- add_var_to_tree(
+  ce_tree,
+  ce_mec7_anno_df,
+  strain_var_colors,
+  "mec7_clean_call",
+  xpos = -0.05,
+  ypos = -0.09
+)
+
+# save the tree
+save_tree(
+  ce_mec7_tree_plot + theme(legend.position = "none"),
+  ce_mec7_fp,
+  2.5,
+  4
+)
+
+cb_mec7_anno_df <- create_tree_anno_df(
+  cb_iso_var_sum_df,
+  "mec-7_clean_call"
+)
+
+cb_mec7_tree_plot <- add_var_to_tree(
+  cb_tree,
+  cb_mec7_anno_df,
+  strain_var_colors,
+  "mec7_clean_call",
+  xpos = -0.01,
+  ypos = -0.135
+)
+
+# save the tree
+save_tree(
+  cb_mec7_tree_plot + theme(legend.position = "none"),
+  cb_mec7_fp,
+  2.5,
+  4
+)
+
+ct_mec7_anno_df <- create_tree_anno_df(
+  ct_iso_var_sum_df,
+  "mec-7_clean_call"
+)
+
+ct_mec7_tree_plot <- add_var_to_tree(
+  ct_tree,
+  ct_mec7_anno_df,
+  strain_var_colors,
+  "mec7_clean_call",
+  xpos = -0.01,
+  ypos = -0.125
+)
+
+# save the tree
+save_tree(
+  ct_mec7_tree_plot + theme(legend.position = "none"),
+  ct_mec7_fp,
+  2.5,
+  4
+)
+
+### tbb-4 trees ####
+
+ce_tbb4_anno_df <- create_tree_anno_df(
+  ce_iso_var_sum_df,
+  "tbb-4_clean_call"
+)
+
+ce_tbb4_tree_plot <- add_var_to_tree(
+  ce_tree,
+  ce_tbb4_anno_df,
+  strain_var_colors,
+  "tbb4_clean_call",
+  xpos = -0.05,
+  ypos = -0.09
+)
+
+# save the tree
+save_tree(
+  ce_tbb4_tree_plot + theme(legend.position = "none"),
+  ce_tbb4_fp,
+  2.5,
+  4
+)
+
+cb_tbb4_anno_df <- create_tree_anno_df(
+  cb_iso_var_sum_df,
+  "tbb-4_clean_call"
+)
+
+cb_tbb4_tree_plot <- add_var_to_tree(
+  cb_tree,
+  cb_tbb4_anno_df,
+  strain_var_colors,
+  "tbb4_clean_call",
+  xpos = -0.01,
+  ypos = -0.135
+)
+
+# save the tree
+save_tree(
+  cb_tbb4_tree_plot + theme(legend.position = "none"),
+  cb_tbb4_fp,
+  2.5,
+  4
+)
+
+ct_tbb4_anno_df <- create_tree_anno_df(
+  ct_iso_var_sum_df,
+  "tbb-4_clean_call"
+)
+
+ct_tbb4_tree_plot <- add_var_to_tree(
+  ct_tree,
+  ct_tbb4_anno_df,
+  strain_var_colors,
+  "tbb4_clean_call",
+  xpos = -0.01,
+  ypos = -0.125
+)
+
+# save the tree
+save_tree(
+  ct_tbb4_tree_plot + theme(legend.position = "none"),
+  ct_tbb4_fp,
+  2.5,
+  4
+)
+
 
 # head(ce_mec7_anno_df)
 
-#### Wrapper function for generating tubulin trees ####
+# #### Wrapper function for generating tubulin trees ####
 
-generate_tubulin_tree <- function(species, tubulin_id) {
-  # Define species parameters
-  if (species == "ce") {
-    tree <- ce_tree
-    iso_var_sum_df <- ce_iso_var_sum_df
-    xpos <- -0.05
-    ypos <- -0.09
-  } else if (species == "cb") {
-    tree <- cb_tree
-    iso_var_sum_df <- cb_iso_var_sum_df
-    xpos <- -0.01
-    ypos <- -0.135
-  } else if (species == "ct") {
-    tree <- ct_tree
-    iso_var_sum_df <- ct_iso_var_sum_df
-    xpos <- -0.01
-    ypos <- -0.125
-  } else {
-    stop("Species must be 'ce', 'cb', or 'ct'")
-  }
+# generate_tubulin_tree <- function(species, tubulin_id) {
+#   # Define species parameters
+#   if (species == "ce") {
+#     tree <- ce_tree
+#     iso_var_sum_df <- ce_iso_var_sum_df
+#     xpos <- -0.05
+#     ypos <- -0.09
+#   } else if (species == "cb") {
+#     tree <- cb_tree
+#     iso_var_sum_df <- cb_iso_var_sum_df
+#     xpos <- -0.01
+#     ypos <- -0.135
+#   } else if (species == "ct") {
+#     tree <- ct_tree
+#     iso_var_sum_df <- ct_iso_var_sum_df
+#     xpos <- -0.01
+#     ypos <- -0.125
+#   } else {
+#     stop("Species must be 'ce', 'cb', or 'ct'")
+#   }
 
-  # Create file paths variable name
-  fp_var_name <- paste0(species, "_", gsub("-", "", tubulin_id), "_fp")
-  fp <- get(fp_var_name)
+#   # Create file paths variable name
+#   fp_var_name <- paste0(species, "_", gsub("-", "", tubulin_id), "_fp")
+#   fp <- get(fp_var_name)
 
-  # Create annotation dataframe
-  anno_df <- create_tree_anno_df(
-    iso_var_sum_df,
-    paste0(tubulin_id, "_clean_call")
-  )
+#   # Create annotation dataframe
+#   anno_df <- create_tree_anno_df(
+#     iso_var_sum_df,
+#     paste0(tubulin_id, "_clean_call")
+#   )
 
-  # Add variant data to tree
-  tree_plot <- add_var_to_tree(
-    tree,
-    anno_df,
-    strain_var_colors,
-    paste0(gsub("-", "", tubulin_id), "_clean_call"),
-    xpos = xpos,
-    ypos = ypos
-  )
+#   # Add variant data to tree
+#   tree_plot <- add_var_to_tree(
+#     tree,
+#     anno_df,
+#     strain_var_colors,
+#     paste0(gsub("-", "", tubulin_id), "_clean_call"),
+#     xpos = xpos,
+#     ypos = ypos
+#   )
 
-  # Save the tree
-  save_tree(
-    tree_plot + theme(legend.position = "none"),
-    fp,
-    2.5,
-    4
-  )
-}
-#### tbb-1 trees ####
-generate_tubulin_tree("ce", "tbb-1")
-generate_tubulin_tree("cb", "tbb-1")
-generate_tubulin_tree("ct", "tbb-1")
+#   # Save the tree
+#   save_tree(
+#     tree_plot + theme(legend.position = "none"),
+#     fp,
+#     2.5,
+#     4
+#   )
+# }
+# #### tbb-1 trees ####
+# generate_tubulin_tree("ce", "tbb-1")
+# generate_tubulin_tree("cb", "tbb-1")
+# generate_tubulin_tree("ct", "tbb-1")
 
-#### tbb-2 trees ####
-generate_tubulin_tree("ce", "tbb-2")
-generate_tubulin_tree("cb", "tbb-2")
-generate_tubulin_tree("ct", "tbb-2")
+# #### tbb-2 trees ####
+# generate_tubulin_tree("ce", "tbb-2")
+# generate_tubulin_tree("cb", "tbb-2")
+# generate_tubulin_tree("ct", "tbb-2")
 
-#### mec-7 trees ####
+# #### mec-7 trees ####
 
-## Generate mec-7 trees for all species ##
-generate_tubulin_tree("ce", "mec-7")
-generate_tubulin_tree("cb", "mec-7")
-generate_tubulin_tree("ct", "mec-7")
+# ## Generate mec-7 trees for all species ##
+# generate_tubulin_tree("ce", "mec-7")
+# generate_tubulin_tree("cb", "mec-7")
+# generate_tubulin_tree("ct", "mec-7")
 
-#### tbb-4 trees ####
+# #### tbb-4 trees ####
 
-## Generate tbb-4 trees for all species ##
-generate_tubulin_tree("ce", "tbb-4")
-generate_tubulin_tree("cb", "tbb-4")
-generate_tubulin_tree("ct", "tbb-4")
+# ## Generate tbb-4 trees for all species ##
+# generate_tubulin_tree("ce", "tbb-4")
+# generate_tubulin_tree("cb", "tbb-4")
+# generate_tubulin_tree("ct", "tbb-4")
 
 #### Plot HTA strain tree for CB and CT ####
 # Define function to flag HTA strains and add
