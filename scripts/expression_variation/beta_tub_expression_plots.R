@@ -54,13 +54,13 @@ ref_threshold <- 0.75
 #### Define outputs ####
 
 ben1_exp_abz_fn <- c(
-  png = "figures/figure_S2/figure_S2.png",
-  eps = "figures/figure_S2/figure_S2.eps"
+  png = "figures/figure_S1/figure_S1.png",
+  eps = "figures/figure_S1/figure_S1.eps"
 )
 
 other_beta_tubulin_abz_fn <- c(
-  png = "figures/figure_S3/figure_S3.png",
-  eps = "figures/figure_S3/figure_S3.eps"
+  png = "figures/figure_S19/figure_S19.png",
+  eps = "figures/figure_S19/figure_S19.eps"
 )
 
 
@@ -431,7 +431,7 @@ p4_no_legend <- prepare_plot(tbb4_bz_var_cat_exp_out$plot, remove_y_title = TRUE
 # Combine with patchwork
 combined_patchwork <- (p1_with_legend / p2_no_legend / p3_no_legend / p4_no_legend) +
   plot_annotation(
-    tag_levels = "a",
+    tag_levels = "A",
     tag_prefix = "",
     tag_suffix = ""
   ) &
@@ -667,7 +667,7 @@ main_figure <- ggpubr::ggarrange(
   p1,
   p2,
   ncol = 1,
-  labels = c("a", "b"),
+  labels = c("A", "B"),
   font.label = list(
     size = 12,
     color = "black",
