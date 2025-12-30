@@ -1,6 +1,0 @@
-Gene_triplet	Jaccard_dist	union	intersect	...5	...6
-ben-1	0.64285700000000001	98	35	NA	NA
-mec-7	0.54545500000000002	11	5	NA	NA
-tbb-1	0	98	98	NA	NA
-tbb-2	0	98	98	NA	NA
-tbb-4	0.27777800000000002	18	13	NA	NA
