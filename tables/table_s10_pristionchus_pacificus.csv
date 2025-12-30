@@ -1,9 +1,0 @@
-﻿"Table S10. Genes targeted, CRISPR/Cas9 guide RNA  and detection-primer sequences used, and mutant alleles produced in this study.",,
-,Ppa-ben-1.1,Ppa-ben-1.2
-Gene annotation (El Paco v. 3),ppa_stranded_DN31157_c1_g4_i5,PPA35471
-Coding sequence target,Exon 1,Exon 2
-PAM site location,ChrII:7917373-7917395    ,ChrII:7919523-7919545   
-Guide RNA ,CCGCTCGGGACCTTACGGACAGA,GAAGGAGCTCATGATTCTGTCGG
-"Detecetion primer, forward",TCCTCACGGATCTTGGAAATG,GGAGGAACTGGATCTGGAATG
-"Detecetion primer, reverse",AGGCAAACGGAGGCAAATA,CAGAAGGTCTCGTCTGTGTTT
-Lesions produced,80-bp deletion across splice donor,"6-bp deletion (iub61), 1-bp substitution (iub62), 50-bp deletion across splice donor"
