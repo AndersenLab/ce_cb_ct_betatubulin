@@ -23,6 +23,7 @@ save_plot <- function(tplot, fn_list, w_in, h_in) {
 
   fn_png <- fn_list[1]
   fn_eps <- fn_list[2]
+  fn_tiff <- fn_list[3]
 
 
   # save eps plot
@@ -43,8 +44,18 @@ save_plot <- function(tplot, fn_list, w_in, h_in) {
     units = "in",
     dpi = 600
   )
-  # Check if either fn_eps or fn_png exist
-  # if so delete
+
+  # save tiff plot
+  ggplot2::ggsave(
+    filename = fn_tiff,
+    plot = tplot,
+    width = w_in,
+    height = h_in,
+    units = "in",
+    dpi = 600,
+    compression = "lzw",
+    device = "tiff"
+  )
 }
 
 ### Inputs ###
@@ -54,13 +65,15 @@ ref_threshold <- 0.75
 #### Define outputs ####
 
 ben1_exp_abz_fn <- c(
-  png = "figures/figure_S2/figure_S2.png",
-  eps = "figures/figure_S2/figure_S2.eps"
+  png = "figures/S1_FIG/S1_FIG.png",
+  eps = "figures/S1_FIG/S1_FIG.eps",
+  tiff = "figures/S1_FIG/S1_FIG.tiff"
 )
 
 other_beta_tubulin_abz_fn <- c(
-  png = "figures/figure_S3/figure_S3.png",
-  eps = "figures/figure_S3/figure_S3.eps"
+  png = "figures/S19_FIG/S19_FIG.png",
+  eps = "figures/S19_FIG/S19_FIG.eps",
+  tiff = "figures/S19_FIG/S19_FIG.tiff"
 )
 
 
