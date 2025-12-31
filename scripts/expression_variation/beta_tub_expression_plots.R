@@ -667,7 +667,7 @@ main_figure <- ggpubr::ggarrange(
   p1,
   p2,
   ncol = 1,
-  labels = c("a", "b"),
+  labels = c("A", "B"),
   font.label = list(
     size = 12,
     color = "black",
