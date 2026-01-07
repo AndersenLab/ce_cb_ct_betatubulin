@@ -11,10 +11,10 @@ library(gridExtra)
 
 # Define input files
 panel_files <- c(
-  a = "figures/elegans_missense.png",
-  b = "figures/briggsae_missense.png",
-  c = "figures/tropicalis_missense.png",
-  d = "figures/contrortus_missense.png"
+  a = "data/structure/raw_images/elegans_missense.png",
+  b = "data/structure/raw_images/briggsae_missense.png",
+  c = "data/structure/raw_images/tropicalis_missense.png",
+  d = "data/structure/raw_images/contrortus_missense.png"
 )
 
 # Check that all files exist
@@ -55,7 +55,7 @@ combined <- arrangeGrob(
 )
 
 # Output file
-output_file <- "figures/missense_combined.png"
+output_file <- "data/structure/raw_images/missense_combined.png"
 
 # Figure dimensions in inches (adjust as needed for manuscript)
 fig_width <- 7    # inches
