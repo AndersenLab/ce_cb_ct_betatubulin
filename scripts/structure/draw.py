@@ -1,6 +1,11 @@
 #!/usr/bin/env python3
 
 import sys
+import os
+
+# Output directories
+SCRIPT_DIR = "scripts/structure"
+IMAGE_DIR = "data/structure/raw_images"
 
 
 def prereq():
@@ -36,7 +41,7 @@ def draw(name, variants, suffix=""):
         mutants.append(f"show spheres, {name} and resi {position}\n")
         mutants.append(f"color {color}, {name} and resi {position}\n")
 
-    filename = f"figures/{name}{suffix}" if suffix else f"figures/{name}"
+    filename = f"{IMAGE_DIR}/{name}{suffix}" if suffix else f"{IMAGE_DIR}/{name}"
 
     return f"""
 show cartoon, {name}
@@ -97,22 +102,36 @@ def parse_missense(filename):
     return variants
 
 
-variants = parse(sys.argv[1])
-print(variants, file=sys.stderr)
+if __name__ == "__main__":
+    # Ensure output directories exist
+    os.makedirs(IMAGE_DIR, exist_ok=True)
 
-print(prereq())
-print(draw("elegans", variants))
-print(draw("briggsae", variants))
-print(draw("tropicalis", variants))
-print(draw("contrortus", variants))
+    variants = parse(sys.argv[1])
+    print(variants, file=sys.stderr)
 
-# Generate missense-focused figures
-missense_variants = parse_missense(sys.argv[1])
-print("\n# Missense variants only", file=sys.stderr)
-print(missense_variants, file=sys.stderr)
+    # Build the .pml script content
+    pml_content = []
+    pml_content.append(prereq())
+    pml_content.append(draw("elegans", variants))
+    pml_content.append(draw("briggsae", variants))
+    pml_content.append(draw("tropicalis", variants))
+    pml_content.append(draw("contrortus", variants))
 
-print("\n# Missense-focused figures")
-print(draw("elegans", missense_variants, "_missense"))
-print(draw("briggsae", missense_variants, "_missense"))
-print(draw("tropicalis", missense_variants, "_missense"))
-print(draw("contrortus", missense_variants, "_missense"))
+    # Generate missense-focused figures
+    missense_variants = parse_missense(sys.argv[1])
+    print("\n# Missense variants only", file=sys.stderr)
+    print(missense_variants, file=sys.stderr)
+
+    pml_content.append("\n# Missense-focused figures")
+    pml_content.append(draw("elegans", missense_variants, "_missense"))
+    pml_content.append(draw("briggsae", missense_variants, "_missense"))
+    pml_content.append(draw("tropicalis", missense_variants, "_missense"))
+    pml_content.append(draw("contrortus", missense_variants, "_missense"))
+
+    # Write the .pml script to scripts/structure/
+    pml_output_path = os.path.join(SCRIPT_DIR, "draw_structures.pml")
+    with open(pml_output_path, "w") as f:
+        f.write("\n".join(pml_content))
+
+    print(f"\nPyMOL script written to: {pml_output_path}", file=sys.stderr)
+    print(f"Images will be saved to: {IMAGE_DIR}/", file=sys.stderr)
