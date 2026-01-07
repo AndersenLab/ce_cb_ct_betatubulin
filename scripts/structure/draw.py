@@ -4,10 +4,10 @@ import sys
 
 
 def prereq():
-    return """load data/proc/AF3_Predictions/AF3_ABZ/briggsae.cif, briggsae
-load data/proc/AF3_Predictions/AF3_ABZ/elegans.cif, elegans
-load data/proc/AF3_Predictions/AF3_ABZ/tropicalis.cif, tropicalis
-load data/proc/AF3_Predictions/AF3_ABZ/contrortus.cif, contrortus
+    return """load data/structure/AF3_Predictions/AF3_ABZ/briggsae.cif, briggsae
+load data/structure/AF3_Predictions/AF3_ABZ/elegans.cif, elegans
+load data/structure/AF3_Predictions/AF3_ABZ/tropicalis.cif, tropicalis
+load data/structure/AF3_Predictions/AF3_ABZ/contrortus.cif, contrortus
 
 align briggsae,   elegans
 align tropicalis, elegans
