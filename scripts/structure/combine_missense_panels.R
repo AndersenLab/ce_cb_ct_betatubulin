@@ -51,7 +51,7 @@ create_labeled_panel <- function(img, label) {
 panels <- mapply(create_labeled_panel, images, names(panel_files), SIMPLIFY = FALSE)
 
 # Arrange in 2x2 grid
-missense_combined <- arrangeGrob(
+missense_structure_combined <- arrangeGrob(
   grobs = panels,
   nrow = 2,
   ncol = 2,
@@ -59,13 +59,13 @@ missense_combined <- arrangeGrob(
 )
 
 # Figure dimensions in inches (width: 2.63-7.5 in, height: <8.75 in)
-fig_width <- 7    # inches
-fig_height <- 7   # inches
+fig_width <- 7 # inches
+fig_height <- 7 # inches
 
 # Save combined figure using standardized save_grid_plot function
 save_grid_plot(
-  grid_plot = missense_combined,
-  fn_list = sup_figure_fns$missense_combined,
+  grid_plot = missense_structure_combined,
+  fn_list = sup_figure_fns$missense_structure_combined,
   w_in = fig_width,
   h_in = fig_height
 )

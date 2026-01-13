@@ -536,7 +536,7 @@ ce_plot <- cowplot::plot_grid(
   ce_combined_abz_p,
   ce_combined_p,
   ncol = 1,
-  labels = c("a", "b"),
+  labels = c("A", "B"),
   label_size = 12,
   label_fontfamily = "Helvetica",
   label_fontface = "bold"

@@ -39,17 +39,17 @@ sup_figures <- list(
   # S3_FIG - C. tropicalis HTA strains tree (from all_sp_tubulin_trees.R)
   ct_hta_tree_final = 3,
 
+  # S17_FIG - BEN-1 structures (from combine_missense_panels.R)
+  missense_structure_combined = 17,
+
+  # S18_FIG - other beta tubulin expression plots (from pull_bg.R)
+  ce_plot = 18,
+
   # S19_FIG - other beta tubulin expression plots (from beta_tub_expression_plots.R)
-  final_plot_patchwork = 19,
+  other_beta_tubulin_exp_plot = 19,
 
-  # S20_FIG - tubulin alignments MSA (from align_tub.R)
-  combined_plot = 20,
-
-  # S21_FIG - C. elegans missense BLOSUM/Grantham (from pull_bg.R)
-  ce_plot = 21,
-
-  # S26_FIG - combined missense panels (from combine_missense_panels.R)
-  missense_combined = 26
+  # S31_FIG - beta-tubulin alignments (from align_tub.R)
+  bt_align_plot = 31
 )
 
 # Panel figures - figures composed of multiple panels (map + trees)

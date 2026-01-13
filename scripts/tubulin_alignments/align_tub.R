@@ -114,12 +114,12 @@ plot_list <- lapply(plot_list, function(p) {
 })
 
 # combine the plots
-combined_plot <- cowplot::plot_grid(plotlist = plot_list, ncol = 1, align = "v")
+bt_align_plot <- cowplot::plot_grid(plotlist = plot_list, ncol = 1, align = "v")
 
 # save the plot using standardized save_plot function
 save_plot(
-  tplot = combined_plot,
-  fn_list = sup_figure_fns$combined_plot,
+  tplot = bt_align_plot,
+  fn_list = sup_figure_fns$bt_align_plot,
   w_in = 7.5,
   h_in = 5
 )

@@ -394,7 +394,7 @@ combined_patchwork <- (p1_with_legend / p2_no_legend / p3_no_legend / p4_no_lege
   )
 
 # Add common y-axis label
-final_plot_patchwork <- cowplot::plot_grid(
+other_beta_tubulin_exp_plot <- cowplot::plot_grid(
   grid::textGrob(
     "Normalized ABZ Response",
     gp = grid::gpar(fontsize = 11, fontface = "bold", fontfamily = "Arial"),
@@ -407,8 +407,8 @@ final_plot_patchwork <- cowplot::plot_grid(
 
 
 save_plot(
-  tplot = final_plot_patchwork,
-  fn_list = sup_figure_fns$final_plot_patchwork,
+  tplot = other_beta_tubulin_exp_plot,
+  fn_list = sup_figure_fns$other_beta_tubulin_exp_plot,
   w_in = 7.5,
   h_in = 10
 )
