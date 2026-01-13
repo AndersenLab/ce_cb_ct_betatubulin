@@ -48,7 +48,7 @@ create_labeled_panel <- function(img, label) {
 }
 
 # Create labeled panels
-panels <- mapply(create_labeled_panel, images, names(panel_files), SIMPLIFY = FALSE)
+panels <- mapply(create_labeled_panel, images, toupper(names(panel_files)), SIMPLIFY = FALSE)
 
 # Arrange in 2x2 grid
 missense_structure_combined <- arrangeGrob(
