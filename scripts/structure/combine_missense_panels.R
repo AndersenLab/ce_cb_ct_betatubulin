@@ -9,6 +9,10 @@ library(png)
 library(grid)
 library(gridExtra)
 
+# Load standardized output functions and figure mappings
+source("bin/outs.R")
+source("bin/materials_key.R")
+
 # Define input files
 panel_files <- c(
   a = "data/structure/raw_images/elegans_missense.png",
@@ -44,27 +48,26 @@ create_labeled_panel <- function(img, label) {
 }
 
 # Create labeled panels
-panels <- mapply(create_labeled_panel, images, names(panel_files), SIMPLIFY = FALSE)
+panels <- mapply(create_labeled_panel, images, toupper(names(panel_files)), SIMPLIFY = FALSE)
 
 # Arrange in 2x2 grid
-combined <- arrangeGrob(
+missense_structure_combined <- arrangeGrob(
   grobs = panels,
   nrow = 2,
   ncol = 2,
   padding = unit(0.5, "line")
 )
 
-# Output file
-output_file <- "data/structure/raw_images/missense_combined.png"
+# Figure dimensions in inches (width: 2.63-7.5 in, height: <8.75 in)
+fig_width <- 7 # inches
+fig_height <- 7 # inches
 
-# Figure dimensions in inches (adjust as needed for manuscript)
-fig_width <- 7    # inches
-fig_height <- 7   # inches
-fig_res <- 600    # DPI
+# Save combined figure using standardized save_grid_plot function
+save_grid_plot(
+  grid_plot = missense_structure_combined,
+  fn_list = sup_figure_fns$missense_structure_combined,
+  w_in = fig_width,
+  h_in = fig_height
+)
 
-# Save combined figure
-png(output_file, width = fig_width, height = fig_height, res = fig_res, units = "in")
-grid.draw(combined)
-dev.off()
-
-cat("Combined figure saved to:", output_file, "\n")
+cat("Combined figure saved to:", sup_figure_fns$missense_combined$png, "\n")

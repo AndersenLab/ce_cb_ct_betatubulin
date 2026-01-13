@@ -5,17 +5,15 @@ library(glue)
 library(Biostrings) # Added for reading FASTA files
 library(ggtext) # Added for Markdown in axis text
 
+# Load standardized output functions and figure mappings
+source("bin/outs.R")
+source("bin/materials_key.R")
+
 #### Inputs #### ----------
 alignments_dir <- "data/proc/tubulin_alignments/20251002_tubulin_protein_seqs_20251002"
 
-
 #### Outputs #### ----------
-out_dir <- glue::glue("figures/figure_S1")
-
-# check if the directory exists
-if (!dir.exists(out_dir)) {
-  dir.create(out_dir, recursive = TRUE)
-}
+# Output file paths are now managed by materials_key.R: sup_figure_fns$combined_plot
 
 #### Helper function to transform sequence names ####
 transform_seq_name <- function(original_name) {
@@ -116,14 +114,12 @@ plot_list <- lapply(plot_list, function(p) {
 })
 
 # combine the plots
-combined_plot <- cowplot::plot_grid(plotlist = plot_list, ncol = 1, align = "v")
+bt_align_plot <- cowplot::plot_grid(plotlist = plot_list, ncol = 1, align = "v")
 
-# save the plot
-# Consider reducing the height if the plots are now more compact
-ggplot2::ggsave(
-  glue::glue("{out_dir}/figure_S1.jpg"),
-  combined_plot,
-  width = 7.5,
-  height = 5,
-  dpi = 600
+# save the plot using standardized save_plot function
+save_plot(
+  tplot = bt_align_plot,
+  fn_list = sup_figure_fns$bt_align_plot,
+  w_in = 7.5,
+  h_in = 5
 )

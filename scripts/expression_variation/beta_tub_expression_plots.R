@@ -7,74 +7,15 @@ set.seed(123)
 source("bin/var_color_scale.R")
 source("bin/get_res_threshold.R")
 
+# Load standardized output functions and figure mappings
+source("bin/outs.R")
+source("bin/materials_key.R")
+
 source("scripts/expression_variation/exp_plots.R")
-
-#### Functions ####
-
-# define funtion to save the plots
-save_plot <- function(tplot, fn_list, w_in, h_in) {
-  # get the folder name from the first file name
-  folder <- dirname(fn_list[1])
-
-  # Create the output directory if it doesn't exist
-  if (!dir.exists(folder)) {
-    dir.create(folder, recursive = TRUE)
-  }
-
-  fn_png <- fn_list[1]
-  fn_eps <- fn_list[2]
-  fn_tiff <- fn_list[3]
-
-
-  # save eps plot
-  ggplot2::ggsave(
-    filename = fn_eps,
-    plot = tplot,
-    width = w_in,
-    height = h_in,
-    units = "in",
-    dpi = 600
-  )
-  # save png plot
-  ggplot2::ggsave(
-    filename = fn_png,
-    plot = tplot,
-    width = w_in,
-    height = h_in,
-    units = "in",
-    dpi = 600
-  )
-
-  # save tiff plot
-  ggplot2::ggsave(
-    filename = fn_tiff,
-    plot = tplot,
-    width = w_in,
-    height = h_in,
-    units = "in",
-    dpi = 600,
-    compression = "lzw",
-    device = "tiff"
-  )
-}
 
 ### Inputs ###
 isotype_folder_id <- "20250128"
 ref_threshold <- 0.75
-
-#### Define outputs ####
-
-ben1_exp_abz_fn <- c(
-  png = "figures/S1_FIG/S1_FIG.png",
-  eps = "figures/S1_FIG/S1_FIG.eps",
-  tiff = "figures/S1_FIG/S1_FIG.tiff"
-)
-
-other_beta_tubulin_abz_fn <- c(
-  png = "figures/S19_FIG/S19_FIG.png",
-  eps = "figures/S19_FIG/S19_FIG.eps",
-  tiff = "figures/S19_FIG/S19_FIG.tiff"
-)
 
 
 
@@ -444,7 +385,7 @@ p4_no_legend <- prepare_plot(tbb4_bz_var_cat_exp_out$plot, remove_y_title = TRUE
 # Combine with patchwork
 combined_patchwork <- (p1_with_legend / p2_no_legend / p3_no_legend / p4_no_legend) +
   plot_annotation(
-    tag_levels = "a",
+    tag_levels = "A",
     tag_prefix = "",
     tag_suffix = ""
   ) &
@@ -453,7 +394,7 @@ combined_patchwork <- (p1_with_legend / p2_no_legend / p3_no_legend / p4_no_lege
   )
 
 # Add common y-axis label
-final_plot_patchwork <- cowplot::plot_grid(
+other_beta_tubulin_exp_plot <- cowplot::plot_grid(
   grid::textGrob(
     "Normalized ABZ Response",
     gp = grid::gpar(fontsize = 11, fontface = "bold", fontfamily = "Arial"),
@@ -466,8 +407,8 @@ final_plot_patchwork <- cowplot::plot_grid(
 
 
 save_plot(
-  tplot = final_plot_patchwork,
-  fn_list = other_beta_tubulin_abz_fn,
+  tplot = other_beta_tubulin_exp_plot,
+  fn_list = sup_figure_fns$other_beta_tubulin_exp_plot,
   w_in = 7.5,
   h_in = 10
 )
@@ -690,7 +631,7 @@ main_figure <- ggpubr::ggarrange(
 
 save_plot(
   tplot = main_figure,
-  fn_list = ben1_exp_abz_fn,
+  fn_list = sup_figure_fns$main_figure,
   w_in = 7.5,
   h_in = 7
 )
