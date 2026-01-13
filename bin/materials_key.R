@@ -68,24 +68,24 @@ figure_panels <- list(
   ct_ben1_tree_plot = list(figure_num = 5, panel = "d", is_supplementary = FALSE),
 
   # S22_FIG - tbb-1 trees and map
-  ce_tbb1_tree_plot = list(figure_num = 22, panel = "b", is_supplementary = TRUE),
-  cb_tbb1_tree_plot = list(figure_num = 22, panel = "c", is_supplementary = TRUE),
-  ct_tbb1_tree_plot = list(figure_num = 22, panel = "d", is_supplementary = TRUE),
+  ce_tbb1_tree_plot = list(figure_num = 26, panel = "b", is_supplementary = TRUE),
+  cb_tbb1_tree_plot = list(figure_num = 26, panel = "c", is_supplementary = TRUE),
+  ct_tbb1_tree_plot = list(figure_num = 26, panel = "d", is_supplementary = TRUE),
 
   # S23_FIG - tbb-2 trees and map
-  ce_tbb2_tree_plot = list(figure_num = 23, panel = "b", is_supplementary = TRUE),
-  cb_tbb2_tree_plot = list(figure_num = 23, panel = "c", is_supplementary = TRUE),
-  ct_tbb2_tree_plot = list(figure_num = 23, panel = "d", is_supplementary = TRUE),
+  ce_tbb2_tree_plot = list(figure_num = 27, panel = "b", is_supplementary = TRUE),
+  cb_tbb2_tree_plot = list(figure_num = 27, panel = "c", is_supplementary = TRUE),
+  ct_tbb2_tree_plot = list(figure_num = 27, panel = "d", is_supplementary = TRUE),
 
   # S24_FIG - mec-7 trees and map
-  ce_mec7_tree_plot = list(figure_num = 24, panel = "b", is_supplementary = TRUE),
-  cb_mec7_tree_plot = list(figure_num = 24, panel = "c", is_supplementary = TRUE),
-  ct_mec7_tree_plot = list(figure_num = 24, panel = "d", is_supplementary = TRUE),
+  ce_mec7_tree_plot = list(figure_num = 28, panel = "b", is_supplementary = TRUE),
+  cb_mec7_tree_plot = list(figure_num = 28, panel = "c", is_supplementary = TRUE),
+  ct_mec7_tree_plot = list(figure_num = 28, panel = "d", is_supplementary = TRUE),
 
   # S25_FIG - tbb-4 trees and map
-  ce_tbb4_tree_plot = list(figure_num = 25, panel = "b", is_supplementary = TRUE),
-  cb_tbb4_tree_plot = list(figure_num = 25, panel = "c", is_supplementary = TRUE),
-  ct_tbb4_tree_plot = list(figure_num = 25, panel = "d", is_supplementary = TRUE)
+  ce_tbb4_tree_plot = list(figure_num = 29, panel = "b", is_supplementary = TRUE),
+  cb_tbb4_tree_plot = list(figure_num = 29, panel = "c", is_supplementary = TRUE),
+  ct_tbb4_tree_plot = list(figure_num = 29, panel = "d", is_supplementary = TRUE)
 )
 
 # Generate file names for the tables
