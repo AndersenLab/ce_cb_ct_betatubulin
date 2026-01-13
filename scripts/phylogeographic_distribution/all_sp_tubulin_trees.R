@@ -42,7 +42,7 @@ ct_var_file <-
   )
 
 ## Figure output paths are now managed by materials_key.R
-# Tree plots use: figure_fns (for main figures) and sup_figure_fns (for supplementary figures)
+# Tree plots use: panel_fns (for panel figures with subdirectories)
 
 
 #### Load the data ####
@@ -134,7 +134,7 @@ ce_ben1_tree_plot <- add_var_to_tree(
 # save the tree
 save_tree(
   ce_ben1_tree_plot + theme(legend.position = "none"),
-  figure_fns$ce_ben1_tree_plot,
+  panel_fns$ce_ben1_tree_plot,
   2.5,
   4
 )
@@ -160,7 +160,7 @@ cb_ben1_tree_plot <- add_var_to_tree(
 # save the tree
 save_tree(
   cb_ben1_tree_plot + theme(legend.position = "none"),
-  figure_fns$cb_ben1_tree_plot,
+  panel_fns$cb_ben1_tree_plot,
   2.5,
   4
 )
@@ -185,7 +185,7 @@ ct_ben1_tree_plot <- add_var_to_tree(
 # save the tree
 save_tree(
   ct_ben1_tree_plot + theme(legend.position = "none"),
-  figure_fns$ct_ben1_tree_plot,
+  panel_fns$ct_ben1_tree_plot,
   2.5,
   4
 )
@@ -212,7 +212,7 @@ ce_tbb2_tree_plot <- add_var_to_tree(
 # save the tree
 save_tree(
   ce_tbb2_tree_plot + theme(legend.position = "none"),
-  sup_figure_fns$ce_tbb2_tree_plot,
+  panel_fns$ce_tbb2_tree_plot,
   2.5,
   4
 )
@@ -237,7 +237,7 @@ cb_tbb2_tree_plot <- add_var_to_tree(
 # save the tree
 save_tree(
   cb_tbb2_tree_plot + theme(legend.position = "none"),
-  sup_figure_fns$cb_tbb2_tree_plot,
+  panel_fns$cb_tbb2_tree_plot,
   2.5,
   4
 )
@@ -262,7 +262,7 @@ ct_tbb2_tree_plot <- add_var_to_tree(
 # save the tree
 save_tree(
   ct_tbb2_tree_plot + theme(legend.position = "none"),
-  sup_figure_fns$ct_tbb2_tree_plot,
+  panel_fns$ct_tbb2_tree_plot,
   2.5,
   4
 )
@@ -289,7 +289,7 @@ ce_tbb1_tree_plot <- add_var_to_tree(
 # save the tree
 save_tree(
   ce_tbb1_tree_plot + theme(legend.position = "none"),
-  sup_figure_fns$ce_tbb1_tree_plot,
+  panel_fns$ce_tbb1_tree_plot,
   2.5,
   4
 )
@@ -316,7 +316,7 @@ cb_tbb1_tree_plot <- add_var_to_tree(
 # save the tree
 save_tree(
   cb_tbb1_tree_plot + theme(legend.position = "none"),
-  sup_figure_fns$cb_tbb1_tree_plot,
+  panel_fns$cb_tbb1_tree_plot,
   2.5,
   4
 )
@@ -341,7 +341,7 @@ ct_tbb1_tree_plot <- add_var_to_tree(
 # save the tree
 save_tree(
   ct_tbb1_tree_plot + theme(legend.position = "none"),
-  sup_figure_fns$ct_tbb1_tree_plot,
+  panel_fns$ct_tbb1_tree_plot,
   2.5,
   4
 )
@@ -365,7 +365,7 @@ ce_mec7_tree_plot <- add_var_to_tree(
 # save the tree
 save_tree(
   ce_mec7_tree_plot + theme(legend.position = "none"),
-  sup_figure_fns$ce_mec7_tree_plot,
+  panel_fns$ce_mec7_tree_plot,
   2.5,
   4
 )
@@ -387,7 +387,7 @@ cb_mec7_tree_plot <- add_var_to_tree(
 # save the tree
 save_tree(
   cb_mec7_tree_plot + theme(legend.position = "none"),
-  sup_figure_fns$cb_mec7_tree_plot,
+  panel_fns$cb_mec7_tree_plot,
   2.5,
   4
 )
@@ -409,7 +409,7 @@ ct_mec7_tree_plot <- add_var_to_tree(
 # save the tree
 save_tree(
   ct_mec7_tree_plot + theme(legend.position = "none"),
-  sup_figure_fns$ct_mec7_tree_plot,
+  panel_fns$ct_mec7_tree_plot,
   2.5,
   4
 )
@@ -433,7 +433,7 @@ ce_tbb4_tree_plot <- add_var_to_tree(
 # save the tree
 save_tree(
   ce_tbb4_tree_plot + theme(legend.position = "none"),
-  sup_figure_fns$ce_tbb4_tree_plot,
+  panel_fns$ce_tbb4_tree_plot,
   2.5,
   4
 )
@@ -455,7 +455,7 @@ cb_tbb4_tree_plot <- add_var_to_tree(
 # save the tree
 save_tree(
   cb_tbb4_tree_plot + theme(legend.position = "none"),
-  sup_figure_fns$cb_tbb4_tree_plot,
+  panel_fns$cb_tbb4_tree_plot,
   2.5,
   4
 )
@@ -477,7 +477,7 @@ ct_tbb4_tree_plot <- add_var_to_tree(
 # save the tree
 save_tree(
   ct_tbb4_tree_plot + theme(legend.position = "none"),
-  sup_figure_fns$ct_tbb4_tree_plot,
+  panel_fns$ct_tbb4_tree_plot,
   2.5,
   4
 )
@@ -679,7 +679,7 @@ save_tree(
       ),
       legend.title = ggplot2::element_text(face = "bold")
     ),
-  sup_figure_fns$cb_hta_tree_plot,
+  panel_fns$cb_hta_tree_plot,
   w_in = 7.5,
   h_in = 4
 )
@@ -694,7 +694,7 @@ save_tree(
       ),
       legend.title = ggplot2::element_text(face = "bold")
     ),
-  sup_figure_fns$ct_hta_tree_plot,
+  panel_fns$ct_hta_tree_plot,
   w_in = 7.5,
   h_in = 4
 )
