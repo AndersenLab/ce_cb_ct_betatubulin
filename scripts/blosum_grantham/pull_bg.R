@@ -4,6 +4,10 @@ library(glue)
 library(ggplot2)
 library(broom)
 
+# Load standardized output functions and figure mappings
+source("bin/outs.R")
+source("bin/materials_key.R")
+
 #### Functions ####
 # Function to create scatter plots with R2 and p-value
 create_scatter_plot <- function(df, x_var, y_var, x_label, y_label) {
@@ -125,42 +129,6 @@ create_faceted_scatter_plot <- function(df) {
   return(plot)
 }
 
-# Function to save the plots
-save_plot <- function(tplot, fn_list, w_in, h_in) {
-  # get the folder name from the first file name
-  folder <- dirname(fn_list[1])
-
-  # Create the output directory if it doesn't exist
-  if (!dir.exists(folder)) {
-    dir.create(folder, recursive = TRUE)
-  }
-
-  fn_png <- fn_list[1]
-  fn_eps <- fn_list[2]
-
-  # save eps plot
-  ggplot2::ggsave(
-    filename = fn_eps,
-    plot = tplot,
-    width = w_in,
-    height = h_in,
-    units = "in",
-    dpi = 300
-  )
-  # save png plot
-  ggplot2::ggsave(
-    filename = fn_png,
-    plot = tplot,
-    width = w_in,
-    height = h_in,
-    units = "in",
-    dpi = 300
-  )
-}
-
-# Create faceted scatter plot for c_elegans
-# ce_faceted_plot <- create_faceted_scatter_plot(ce_df)
-
 
 
 #### Inputs ####
@@ -208,10 +176,7 @@ if (!dir.exists(table_out_dir)) {
 }
 
 ## Figures ##
-ce_missense_fn <- c(
-  png = "figures/figure_S21/figure_S21.png",
-  eps = "figures/figure_S21/figure_S21.eps"
-)
+# Output file paths from materials_key.R: sup_figure_fns$ce_plot
 
 # ce_abz_missense_fn <- c(
 #   png = "figures/figure_S11/figure_S11.png",
@@ -584,10 +549,10 @@ ct_combined_p <- create_faceted_scatter_plot(
     dplyr::rename(mean_median_wormlength_um_delta_reg = mean_median_wormlength_um_reg_delta)
 )
 
-# Save the combined plots using the save_plot function
+# Save the combined plots using the standardized save_plot function
 save_plot(
   tplot = ce_plot,
-  fn_list = ce_missense_fn,
+  fn_list = sup_figure_fns$ce_plot,
   w_in = 7.5,
   h_in = 6.5
 )

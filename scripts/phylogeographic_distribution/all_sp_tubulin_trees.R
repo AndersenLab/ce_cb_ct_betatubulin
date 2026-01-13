@@ -4,6 +4,10 @@ set.seed(123)
 #### Load required libraries ####
 library(ggtree)
 
+# Load standardized output functions and figure mappings
+source("bin/outs.R")
+source("bin/materials_key.R")
+
 
 #### Define parameters ####
 isotype_folder_id <- "20250128"
@@ -37,118 +41,8 @@ ct_var_file <-
     "data/isotype_variant_table/c_tropicalis/{isotype_folder_id}/isotype_variant_summary.tsv"
   )
 
-## Figure 5 Trees ##
-
-# Ce ben-1 high impact tree
-ce_ben1_fp <- c(
-  png = "figures/figure_9/figure_9b.png",
-  eps = "figures/figure_9/figure_9b.eps"
-)
-
-# Cb ben-1 high impact tree
-cb_ben1_fp <- c(
-  png = "figures/figure_9/figure_9c.png",
-  eps = "figures/figure_9/figure_9c.eps"
-)
-
-# Ct ben-1 high impact tree
-ct_ben1_fp <- c(
-  png = "figures/figure_9/figure_9d.png",
-  eps = "figures/figure_9/figure_9d.eps"
-)
-
-# Ce tbb-1 high impact tree
-ce_tbb1_fp <- c(
-  png = "figures/figure_S22/figure_S22b.png",
-  eps = "figures/figure_S22/figure_S22b.eps"
-)
-
-# Cb tbb-1 high impact tree
-cb_tbb1_fp <- c(
-  png = "figures/figure_S22/figure_S22c.png",
-  eps = "figures/figure_S22/figure_S22c.eps"
-)
-
-# Ct tbb-1 high impact tree
-ct_tbb1_fp <- c(
-  png = "figures/figure_S22/figure_S22d.png",
-  eps = "figures/figure_S22/figure_S22d.eps"
-)
-
-
-## tbb-2 trees ##
-
-ce_tbb2_fp <- c(
-  png = "figures/figure_S23/figure_S23b.png",
-  eps = "figures/figure_S23/figure_S23b.eps"
-)
-
-# Cb tbb-2 high impact tree
-cb_tbb2_fp <- c(
-  png = "figures/figure_S23/figure_S23c.png",
-  eps = "figures/figure_S23/figure_S23c.eps"
-)
-
-# Ct tbb-2 high impact tree
-ct_tbb2_fp <- c(
-  png = "figures/figure_S23/figure_S23d.png",
-  eps = "figures/figure_S23/figure_S23d.eps"
-)
-
-## mec-7 trees ##
-
-# Ce mec-7 high impact tree
-ce_mec7_fp <- c(
-  png = "figures/figure_S24/figure_S24b.png",
-  eps = "figures/figure_S24/figure_S24b.eps"
-)
-
-# Cb mec-7 high impact tree
-cb_mec7_fp <- c(
-  png = "figures/figure_S24/figure_S24c.png",
-  eps = "figures/figure_S24/figure_S24c.eps"
-)
-
-# Ct mec-7 high impact tree
-ct_mec7_fp <- c(
-  png = "figures/figure_S24/figure_S24d.png",
-  eps = "figures/figure_S24/figure_S24d.eps"
-)
-
-## tbb-4 trees ##
-
-# Ce tbb-4 high impact tree
-ce_tbb4_fp <- c(
-  png = "figures/figure_S25/figure_S25b.png",
-  eps = "figures/figure_S25/figure_S25b.eps"
-)
-
-# Cb tbb-4 high impact tree
-cb_tbb4_fp <- c(
-  png = "figures/figure_S25/figure_S25c.png",
-  eps = "figures/figure_S25/figure_S25c.eps"
-)
-
-# Ct tbb-4 high impact tree
-ct_tbb4_fp <- c(
-  png = "figures/figure_S25/figure_S25d.png",
-  eps = "figures/figure_S25/figure_S25d.eps"
-)
-
-
-
-## Figure CB HTA strains ##
-
-cb_hta_fp <- c(
-  png = "figures/figure_S4/figure_S4.png",
-  eps = "figures/figure_S4/figure_S4.eps"
-)
-
-## Figure CT HTA strains ##
-ct_hta_fp <- c(
-  png = "figures/figure_S5/figure_S5.png",
-  eps = "figures/figure_S5/figure_S5.eps"
-)
+## Figure output paths are now managed by materials_key.R
+# Tree plots use: figure_fns (for main figures) and sup_figure_fns (for supplementary figures)
 
 
 #### Load the data ####
@@ -214,40 +108,7 @@ add_var_to_tree <- function(tree, tree_anno_df, col_scale, input_col, xpos = NUL
 }
 
 #### Save the trees ####
-save_tree <- function(tree_plot, fn_list, w_in, h_in) {
-  # get the folder name from the first file name
-  folder <- dirname(fn_list[1])
-
-  # Create the output directory if it doesn't exist
-  if (!dir.exists(folder)) {
-    dir.create(folder, recursive = TRUE)
-  }
-
-  fn_png <- fn_list[1]
-  fn_eps <- fn_list[2]
-
-
-  # save eps plot
-  ggplot2::ggsave(
-    filename = fn_eps,
-    plot = tree_plot,
-    width = w_in,
-    height = h_in,
-    units = "in",
-    dpi = 300
-  )
-  # save png plot
-  ggplot2::ggsave(
-    filename = fn_png,
-    plot = tree_plot,
-    width = w_in,
-    height = h_in,
-    units = "in",
-    dpi = 300
-  )
-  # Check if either fn_eps or fn_png exist
-  # if so delete
-}
+# save_tree function is now loaded from bin/outs.R
 
 
 #### ben-1 Trees ####
@@ -273,7 +134,7 @@ ce_ben1_tree_plot <- add_var_to_tree(
 # save the tree
 save_tree(
   ce_ben1_tree_plot + theme(legend.position = "none"),
-  ce_ben1_fp,
+  figure_fns$ce_ben1_tree_plot,
   2.5,
   4
 )
@@ -299,7 +160,7 @@ cb_ben1_tree_plot <- add_var_to_tree(
 # save the tree
 save_tree(
   cb_ben1_tree_plot + theme(legend.position = "none"),
-  cb_ben1_fp,
+  figure_fns$cb_ben1_tree_plot,
   2.5,
   4
 )
@@ -322,10 +183,9 @@ ct_ben1_tree_plot <- add_var_to_tree(
 )
 
 # save the tree
-
 save_tree(
   ct_ben1_tree_plot + theme(legend.position = "none"),
-  ct_ben1_fp,
+  figure_fns$ct_ben1_tree_plot,
   2.5,
   4
 )
@@ -352,7 +212,7 @@ ce_tbb2_tree_plot <- add_var_to_tree(
 # save the tree
 save_tree(
   ce_tbb2_tree_plot + theme(legend.position = "none"),
-  ce_tbb2_fp,
+  sup_figure_fns$ce_tbb2_tree_plot,
   2.5,
   4
 )
@@ -377,7 +237,7 @@ cb_tbb2_tree_plot <- add_var_to_tree(
 # save the tree
 save_tree(
   cb_tbb2_tree_plot + theme(legend.position = "none"),
-  cb_tbb2_fp,
+  sup_figure_fns$cb_tbb2_tree_plot,
   2.5,
   4
 )
@@ -402,7 +262,7 @@ ct_tbb2_tree_plot <- add_var_to_tree(
 # save the tree
 save_tree(
   ct_tbb2_tree_plot + theme(legend.position = "none"),
-  ct_tbb2_fp,
+  sup_figure_fns$ct_tbb2_tree_plot,
   2.5,
   4
 )
@@ -427,10 +287,9 @@ ce_tbb1_tree_plot <- add_var_to_tree(
 )
 
 # save the tree
-
 save_tree(
   ce_tbb1_tree_plot + theme(legend.position = "none"),
-  ce_tbb1_fp,
+  sup_figure_fns$ce_tbb1_tree_plot,
   2.5,
   4
 )
@@ -455,10 +314,9 @@ cb_tbb1_tree_plot <- add_var_to_tree(
 )
 
 # save the tree
-
 save_tree(
   cb_tbb1_tree_plot + theme(legend.position = "none"),
-  cb_tbb1_fp,
+  sup_figure_fns$cb_tbb1_tree_plot,
   2.5,
   4
 )
@@ -481,10 +339,9 @@ ct_tbb1_tree_plot <- add_var_to_tree(
 )
 
 # save the tree
-
 save_tree(
   ct_tbb1_tree_plot + theme(legend.position = "none"),
-  ct_tbb1_fp,
+  sup_figure_fns$ct_tbb1_tree_plot,
   2.5,
   4
 )
@@ -508,7 +365,7 @@ ce_mec7_tree_plot <- add_var_to_tree(
 # save the tree
 save_tree(
   ce_mec7_tree_plot + theme(legend.position = "none"),
-  ce_mec7_fp,
+  sup_figure_fns$ce_mec7_tree_plot,
   2.5,
   4
 )
@@ -530,7 +387,7 @@ cb_mec7_tree_plot <- add_var_to_tree(
 # save the tree
 save_tree(
   cb_mec7_tree_plot + theme(legend.position = "none"),
-  cb_mec7_fp,
+  sup_figure_fns$cb_mec7_tree_plot,
   2.5,
   4
 )
@@ -552,7 +409,7 @@ ct_mec7_tree_plot <- add_var_to_tree(
 # save the tree
 save_tree(
   ct_mec7_tree_plot + theme(legend.position = "none"),
-  ct_mec7_fp,
+  sup_figure_fns$ct_mec7_tree_plot,
   2.5,
   4
 )
@@ -576,7 +433,7 @@ ce_tbb4_tree_plot <- add_var_to_tree(
 # save the tree
 save_tree(
   ce_tbb4_tree_plot + theme(legend.position = "none"),
-  ce_tbb4_fp,
+  sup_figure_fns$ce_tbb4_tree_plot,
   2.5,
   4
 )
@@ -598,7 +455,7 @@ cb_tbb4_tree_plot <- add_var_to_tree(
 # save the tree
 save_tree(
   cb_tbb4_tree_plot + theme(legend.position = "none"),
-  cb_tbb4_fp,
+  sup_figure_fns$cb_tbb4_tree_plot,
   2.5,
   4
 )
@@ -620,7 +477,7 @@ ct_tbb4_tree_plot <- add_var_to_tree(
 # save the tree
 save_tree(
   ct_tbb4_tree_plot + theme(legend.position = "none"),
-  ct_tbb4_fp,
+  sup_figure_fns$ct_tbb4_tree_plot,
   2.5,
   4
 )
@@ -822,7 +679,7 @@ save_tree(
       ),
       legend.title = ggplot2::element_text(face = "bold")
     ),
-  cb_hta_fp,
+  sup_figure_fns$cb_hta_tree_plot,
   w_in = 7.5,
   h_in = 4
 )
@@ -837,7 +694,7 @@ save_tree(
       ),
       legend.title = ggplot2::element_text(face = "bold")
     ),
-  ct_hta_fp,
+  sup_figure_fns$ct_hta_tree_plot,
   w_in = 7.5,
   h_in = 4
 )
