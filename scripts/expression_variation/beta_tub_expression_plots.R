@@ -385,7 +385,7 @@ p4_no_legend <- prepare_plot(tbb4_bz_var_cat_exp_out$plot, remove_y_title = TRUE
 # Combine with patchwork
 combined_patchwork <- (p1_with_legend / p2_no_legend / p3_no_legend / p4_no_legend) +
   plot_annotation(
-    tag_levels = "a",
+    tag_levels = "A",
     tag_prefix = "",
     tag_suffix = ""
   ) &
