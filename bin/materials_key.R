@@ -63,26 +63,31 @@ sup_figures <- list(
 figure_panels <- list(
 
   # Figure_5 - ben-1 trees and map (main figure)
+  ben1_map = list(figure_num = 5, panel = "a", is_supplementary = FALSE),
   ce_ben1_tree_plot = list(figure_num = 5, panel = "b", is_supplementary = FALSE),
   cb_ben1_tree_plot = list(figure_num = 5, panel = "c", is_supplementary = FALSE),
   ct_ben1_tree_plot = list(figure_num = 5, panel = "d", is_supplementary = FALSE),
 
-  # S22_FIG - tbb-1 trees and map
+  # S26_FIG - tbb-1 trees and map
+  tbb1_map = list(figure_num = 26, panel = "a", is_supplementary = TRUE),
   ce_tbb1_tree_plot = list(figure_num = 26, panel = "b", is_supplementary = TRUE),
   cb_tbb1_tree_plot = list(figure_num = 26, panel = "c", is_supplementary = TRUE),
   ct_tbb1_tree_plot = list(figure_num = 26, panel = "d", is_supplementary = TRUE),
 
-  # S23_FIG - tbb-2 trees and map
+  # S27_FIG - tbb-2 trees and map
+  tbb2_map = list(figure_num = 27, panel = "a", is_supplementary = TRUE),
   ce_tbb2_tree_plot = list(figure_num = 27, panel = "b", is_supplementary = TRUE),
   cb_tbb2_tree_plot = list(figure_num = 27, panel = "c", is_supplementary = TRUE),
   ct_tbb2_tree_plot = list(figure_num = 27, panel = "d", is_supplementary = TRUE),
 
-  # S24_FIG - mec-7 trees and map
+  # S28_FIG - mec-7 trees and map
+  mec7_map = list(figure_num = 28, panel = "a", is_supplementary = TRUE),
   ce_mec7_tree_plot = list(figure_num = 28, panel = "b", is_supplementary = TRUE),
   cb_mec7_tree_plot = list(figure_num = 28, panel = "c", is_supplementary = TRUE),
   ct_mec7_tree_plot = list(figure_num = 28, panel = "d", is_supplementary = TRUE),
 
-  # S25_FIG - tbb-4 trees and map
+  # S29_FIG - tbb-4 trees and map
+  tbb4_map = list(figure_num = 29, panel = "a", is_supplementary = TRUE),
   ce_tbb4_tree_plot = list(figure_num = 29, panel = "b", is_supplementary = TRUE),
   cb_tbb4_tree_plot = list(figure_num = 29, panel = "c", is_supplementary = TRUE),
   ct_tbb4_tree_plot = list(figure_num = 29, panel = "d", is_supplementary = TRUE)

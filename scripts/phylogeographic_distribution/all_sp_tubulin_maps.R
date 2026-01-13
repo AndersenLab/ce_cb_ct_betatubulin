@@ -8,36 +8,15 @@
 #### Load packages ####
 source("scripts/phylogeographic_distribution/plot_maps.R")
 
+# Load standardized output functions and figure mappings
+source("bin/outs.R")
+source("bin/materials_key.R")
+
 #### Inputs ####
 isotype_folder_id <- "20250128"
 
 #### Outputs ####
-
-
-ben1_maps <- list(
-  png = "figures/figure_9/figure_9a.png",
-  eps = "figures/figure_9/figure_9a.eps"
-)
-
-tbb1_maps <- list(
-  png = "figures/figure_S22/figure_S22a.png",
-  eps = "figures/figure_S22/figure_S22a.eps"
-)
-
-tbb2_maps <- list(
-  png = "figures/figure_S23/figure_S23a.png",
-  eps = "figures/figure_S23/figure_S23a.eps"
-)
-
-mec7_maps <- list(
-  png = "figures/figure_S24/figure_S24a.png",
-  eps = "figures/figure_S24/figure_S24a.eps"
-)
-
-tbb4_maps <- list(
-  png = "figures/figure_S25/figure_S25a.png",
-  eps = "figures/figure_S25/figure_S25a.eps"
-)
+# Output file paths are now managed by materials_key.R via panel_fns
 
 #### Load data ####
 
@@ -174,51 +153,42 @@ tbb4_map <- plot_high_impact_variants_map(
 
 #### Save plots ####
 
-print(
-  "saving ben-1 map"
-)
-
-# Ben-1
+# ben-1 map (Figure 5, panel a)
 save_plot(
-  fn_list = ben1_maps,
-  plot = ben1_map
+  tplot = ben1_map,
+  fn_list = panel_fns$ben1_map,
+  w_in = 7.5,
+  h_in = 4
 )
 
-print(
-  "saving tbb-2 map"
-)
-
-# tbb-2
+# tbb-1 map (S26_FIG, panel a)
 save_plot(
-  fn_list = tbb2_maps,
-  plot = tbb2_map
+  tplot = tbb1_map,
+  fn_list = panel_fns$tbb1_map,
+  w_in = 7.5,
+  h_in = 4
 )
 
-print(
-  "saving tbb-1 map"
-)
-
-# tbb-1
+# tbb-2 map (S27_FIG, panel a)
 save_plot(
-  fn_list = tbb1_maps,
-  plot = tbb1_map
+  tplot = tbb2_map,
+  fn_list = panel_fns$tbb2_map,
+  w_in = 7.5,
+  h_in = 4
 )
 
-print(
-  "saving mec-7 map"
-)
-
-# mec-7
+# mec-7 map (S28_FIG, panel a)
 save_plot(
-  fn_list = mec7_maps,
-  plot = mec7_map
-)
-print(
-  "saving tbb-4 map"
+  tplot = mec7_map,
+  fn_list = panel_fns$mec7_map,
+  w_in = 7.5,
+  h_in = 4
 )
 
-# tbb-4
+# tbb-4 map (S29_FIG, panel a)
 save_plot(
-  fn_list = tbb4_maps,
-  plot = tbb4_map
+  tplot = tbb4_map,
+  fn_list = panel_fns$tbb4_map,
+  w_in = 7.5,
+  h_in = 4
 )
