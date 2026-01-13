@@ -33,6 +33,12 @@ sup_figures <- list(
   # S1_FIG - ben-1 expression x ABZ response (from beta_tub_expression_plots.R)
   main_figure = 1,
 
+  # S2_FIG - C. briggsae HTA strains tree (from all_sp_tubulin_trees.R)
+  cb_hta_tree_final = 2,
+
+  # S3_FIG - C. tropicalis HTA strains tree (from all_sp_tubulin_trees.R)
+  ct_hta_tree_final = 3,
+
   # S19_FIG - other beta tubulin expression plots (from beta_tub_expression_plots.R)
   final_plot_patchwork = 19,
 
@@ -60,12 +66,6 @@ figure_panels <- list(
   ce_ben1_tree_plot = list(figure_num = 5, panel = "b", is_supplementary = FALSE),
   cb_ben1_tree_plot = list(figure_num = 5, panel = "c", is_supplementary = FALSE),
   ct_ben1_tree_plot = list(figure_num = 5, panel = "d", is_supplementary = FALSE),
-
-  # S4_FIG - C. briggsae HTA strains tree (standalone, no panels)
-  cb_hta_tree_plot = list(figure_num = 4, panel = NULL, is_supplementary = TRUE),
-
-  # S5_FIG - C. tropicalis HTA strains tree (standalone, no panels)
-  ct_hta_tree_plot = list(figure_num = 5, panel = NULL, is_supplementary = TRUE),
 
   # S22_FIG - tbb-1 trees and map
   ce_tbb1_tree_plot = list(figure_num = 22, panel = "b", is_supplementary = TRUE),
