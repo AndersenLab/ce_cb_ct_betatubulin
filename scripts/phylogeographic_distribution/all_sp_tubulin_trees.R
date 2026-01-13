@@ -668,33 +668,38 @@ ct_hta_tree_plot <- plot_hta_strains_tree(
   ypos = -0.125
 )
 
-# Save the trees
-save_tree(
-  cb_hta_tree_plot +
-    theme(
-      legend.position = "top",
-      legend.text = ggplot2::element_text(
-        size = 11,
-        family = "Arial"
-      ),
-      legend.title = ggplot2::element_text(face = "bold")
+# Save the HTA trees as standalone supplementary figures
+
+cb_hta_tree_final <- cb_hta_tree_plot +
+  theme(
+    legend.position = "top",
+    legend.text = ggplot2::element_text(
+      size = 11,
+      family = "Arial"
     ),
-  panel_fns$cb_hta_tree_plot,
+    legend.title = ggplot2::element_text(face = "bold")
+  )
+
+save_tree(
+  tree_plot = cb_hta_tree_final,
+  fn_list = sup_figure_fns$cb_hta_tree_final,
   w_in = 7.5,
   h_in = 4
 )
 
-save_tree(
-  ct_hta_tree_plot +
-    theme(
-      legend.position = "top",
-      legend.text = ggplot2::element_text(
-        size = 11,
-        family = "Arial"
-      ),
-      legend.title = ggplot2::element_text(face = "bold")
+ct_hta_tree_final <- ct_hta_tree_plot +
+  theme(
+    legend.position = "top",
+    legend.text = ggplot2::element_text(
+      size = 11,
+      family = "Arial"
     ),
-  panel_fns$ct_hta_tree_plot,
+    legend.title = ggplot2::element_text(face = "bold")
+  )
+
+save_tree(
+  tree_plot = ct_hta_tree_final,
+  fn_list = sup_figure_fns$ct_hta_tree_final,
   w_in = 7.5,
   h_in = 4
 )

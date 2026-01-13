@@ -15,11 +15,6 @@
 
 library(here)
 
-# Tables list with variable name mappings
-tables <- list(
-  # Add table mappings here as needed
-  # Example: blossum_grantham_table = "table_S13"
-)
 
 # Main figures list with variable name mappings
 # Format: variable_name = figure_number (integer)
@@ -27,6 +22,9 @@ tables <- list(
 figures <- list(
   # Add main figures here as needed
 )
+
+# Tables list with variable name mappings
+tables <- list()
 
 # Supplementary figures list with variable name mappings
 # Format: variable_name = supplementary_figure_number (integer)
@@ -58,36 +56,36 @@ sup_figures <- list(
 
 figure_panels <- list(
 
- # Figure_5 - ben-1 trees and map (main figure)
- ce_ben1_tree_plot = list(figure_num = 5, panel = "b", is_supplementary = FALSE),
- cb_ben1_tree_plot = list(figure_num = 5, panel = "c", is_supplementary = FALSE),
- ct_ben1_tree_plot = list(figure_num = 5, panel = "d", is_supplementary = FALSE),
+  # Figure_5 - ben-1 trees and map (main figure)
+  ce_ben1_tree_plot = list(figure_num = 5, panel = "b", is_supplementary = FALSE),
+  cb_ben1_tree_plot = list(figure_num = 5, panel = "c", is_supplementary = FALSE),
+  ct_ben1_tree_plot = list(figure_num = 5, panel = "d", is_supplementary = FALSE),
 
- # S4_FIG - C. briggsae HTA strains tree (standalone, no panels)
- cb_hta_tree_plot = list(figure_num = 4, panel = NULL, is_supplementary = TRUE),
+  # S4_FIG - C. briggsae HTA strains tree (standalone, no panels)
+  cb_hta_tree_plot = list(figure_num = 4, panel = NULL, is_supplementary = TRUE),
 
- # S5_FIG - C. tropicalis HTA strains tree (standalone, no panels)
- ct_hta_tree_plot = list(figure_num = 5, panel = NULL, is_supplementary = TRUE),
+  # S5_FIG - C. tropicalis HTA strains tree (standalone, no panels)
+  ct_hta_tree_plot = list(figure_num = 5, panel = NULL, is_supplementary = TRUE),
 
- # S22_FIG - tbb-1 trees and map
- ce_tbb1_tree_plot = list(figure_num = 22, panel = "b", is_supplementary = TRUE),
- cb_tbb1_tree_plot = list(figure_num = 22, panel = "c", is_supplementary = TRUE),
- ct_tbb1_tree_plot = list(figure_num = 22, panel = "d", is_supplementary = TRUE),
+  # S22_FIG - tbb-1 trees and map
+  ce_tbb1_tree_plot = list(figure_num = 22, panel = "b", is_supplementary = TRUE),
+  cb_tbb1_tree_plot = list(figure_num = 22, panel = "c", is_supplementary = TRUE),
+  ct_tbb1_tree_plot = list(figure_num = 22, panel = "d", is_supplementary = TRUE),
 
- # S23_FIG - tbb-2 trees and map
- ce_tbb2_tree_plot = list(figure_num = 23, panel = "b", is_supplementary = TRUE),
- cb_tbb2_tree_plot = list(figure_num = 23, panel = "c", is_supplementary = TRUE),
- ct_tbb2_tree_plot = list(figure_num = 23, panel = "d", is_supplementary = TRUE),
+  # S23_FIG - tbb-2 trees and map
+  ce_tbb2_tree_plot = list(figure_num = 23, panel = "b", is_supplementary = TRUE),
+  cb_tbb2_tree_plot = list(figure_num = 23, panel = "c", is_supplementary = TRUE),
+  ct_tbb2_tree_plot = list(figure_num = 23, panel = "d", is_supplementary = TRUE),
 
- # S24_FIG - mec-7 trees and map
- ce_mec7_tree_plot = list(figure_num = 24, panel = "b", is_supplementary = TRUE),
- cb_mec7_tree_plot = list(figure_num = 24, panel = "c", is_supplementary = TRUE),
- ct_mec7_tree_plot = list(figure_num = 24, panel = "d", is_supplementary = TRUE),
+  # S24_FIG - mec-7 trees and map
+  ce_mec7_tree_plot = list(figure_num = 24, panel = "b", is_supplementary = TRUE),
+  cb_mec7_tree_plot = list(figure_num = 24, panel = "c", is_supplementary = TRUE),
+  ct_mec7_tree_plot = list(figure_num = 24, panel = "d", is_supplementary = TRUE),
 
- # S25_FIG - tbb-4 trees and map
- ce_tbb4_tree_plot = list(figure_num = 25, panel = "b", is_supplementary = TRUE),
- cb_tbb4_tree_plot = list(figure_num = 25, panel = "c", is_supplementary = TRUE),
- ct_tbb4_tree_plot = list(figure_num = 25, panel = "d", is_supplementary = TRUE)
+  # S25_FIG - tbb-4 trees and map
+  ce_tbb4_tree_plot = list(figure_num = 25, panel = "b", is_supplementary = TRUE),
+  cb_tbb4_tree_plot = list(figure_num = 25, panel = "c", is_supplementary = TRUE),
+  ct_tbb4_tree_plot = list(figure_num = 25, panel = "d", is_supplementary = TRUE)
 )
 
 # Generate file names for the tables
