@@ -106,7 +106,7 @@ def pull_and_rename_protein_sequence(protein_id, formal_name, prot_file, out_fil
 
 
 def process_protein_sequences(
-    protein_dict, ce_prot_file, cb_prot_file, ct_prot_file, out_file
+    protein_dict, ce_prot_file, cb_prot_file, ct_prot_file, pp_prot_file, out_file
 ):
     for key, protein_info in protein_dict.items():
         protein_id = protein_info[0]  # Extract the transcript ID
@@ -122,6 +122,10 @@ def process_protein_sequences(
         elif key == "ct":
             pull_and_rename_protein_sequence(
                 protein_id, formal_name, ct_prot_file, out_file
+            )
+        elif key == "pp":
+            pp_pull_and_rename_protein_sequence(
+                protein_id, formal_name, pp_prot_file, out_file
             )
         else:
             print(f"Invalid species key {key}")
