@@ -10,7 +10,7 @@ source("bin/outs.R")
 source("bin/materials_key.R")
 
 #### Inputs #### ----------
-alignments_dir <- "data/tubulin_alignments/tubulin_protein_seqs"
+alignments_dir <- "data/tubulin_alignments/aligned"
 
 #### Outputs #### ----------
 # Output file paths are now managed by materials_key.R: sup_figure_fns$combined_plot
@@ -19,10 +19,10 @@ alignments_dir <- "data/tubulin_alignments/tubulin_protein_seqs"
 transform_seq_name <- function(original_name) {
   parts <- strsplit(original_name, "_")[[1]]
 
-  # Handle 3-part names (e.g., PP_ben-1_1) by combining parts 2 and 3
+  # Handle 3-part names (e.g., PP_ben-1_1) by combining parts 2 and 3 with "."
   if (length(parts) == 3) {
     prefix_code <- parts[1]
-    suffix <- paste0(parts[2], "_", parts[3])
+    suffix <- paste0(parts[2], ".", parts[3])
   } else if (length(parts) == 2) {
     prefix_code <- parts[1]
     suffix <- parts[2]
@@ -57,8 +57,8 @@ transform_seq_name <- function(original_name) {
 
 #### Function to load and plot tubulin alignment ####
 load_and_plot_alignment <- function(gene_name, alignments_dir, start = 175, end = 225) {
-  # Construct path to the MSA file
-  aln_file <- glue::glue("{alignments_dir}/{gene_name}.fa")
+  # Construct path to the aligned FASTA file
+  aln_file <- glue::glue("{alignments_dir}/{gene_name}_aligned.fa")
 
   # Read and transform sequence names
   seqs <- readAAStringSet(aln_file)
