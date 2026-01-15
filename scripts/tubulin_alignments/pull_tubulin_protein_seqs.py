@@ -18,7 +18,9 @@ if not os.path.exists(out_dir):
 ce_prot_file = "data/blast_data/20230324_blast/c_elegans/ce_all_prot_flat.fa"
 cb_prot_file = "data/blast_data/20230324_blast/c_briggsae/cb_all_prot_flat.fa"
 ct_prot_file = "data/blast_data/20230324_blast/c_tropicalis/ct_all_prot_flat.fa"
-pp_prot_file = "data/pacificus_bts/raw/P_pacifcus_Beta_tubulin_genes_amino_acid_sequences.xlsx"
+pp_prot_file = (
+    "data/pacificus_bts/raw/P_pacifcus_Beta_tubulin_genes_amino_acid_sequences.xlsx"
+)
 
 
 # out_file = 'test_pull.fa'
@@ -123,7 +125,8 @@ def process_protein_sequences(
             pull_and_rename_protein_sequence(
                 protein_id, formal_name, ct_prot_file, out_file
             )
-        elif key == "pp":
+        # Check if the key starts with "pp" to handle multiple P.p entries for ben-1
+        elif key.startswith("pp"):
             pp_pull_and_rename_protein_sequence(
                 protein_id, formal_name, pp_prot_file, out_file
             )
@@ -137,6 +140,7 @@ ben_1 = {
     "cb": ["QX1410.13336.1", "CB_ben-1"],
     "ct": ["NIC58.15504.1", "CT_ben-1"],
     "pp": ["PPA35471", "PP_ben-1_1"],
+    # DICTs cannot have duplicate keys, so use pp1 and pp2
     "pp2": ["ppa_stranded_DN31157_c1_g4_i5", "PP_ben-1_2"],
 }
 
@@ -147,7 +151,7 @@ if os.path.exists(out_file):
     print(f"Deleting existing file: {out_file}")
     os.remove(out_file)
 
-process_protein_sequences(ben_1, ce_prot_file, cb_prot_file, ct_prot_file, out_file)
+process_protein_sequences(ben_1, ce_prot_file, cb_prot_file, ct_prot_file, pp_prot_file, out_file)
 
 tbb_1 = {
     "ce": ["K01G5.7.1", "CE_tbb-1"],
@@ -184,6 +188,7 @@ mec_7 = {
     "ce": ["ZK154.3.1", "CE_mec-7"],
     "cb": ["QX1410.17185.1", "CB_mec-7"],
     "ct": ["NIC58.18736.4", "CT_mec-7"],
+    "pp": ["ppa_stranded_DN31157_c1_g1_i5", "PP_mec-7"],
 }
 
 out_file = f"{out_dir}/mec_7.fa"
