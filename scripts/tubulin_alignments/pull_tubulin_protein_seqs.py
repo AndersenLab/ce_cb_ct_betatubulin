@@ -136,6 +136,8 @@ ben_1 = {
     "ce": ["C54C6.2.1", "CE_ben-1"],
     "cb": ["QX1410.13336.1", "CB_ben-1"],
     "ct": ["NIC58.15504.1", "CT_ben-1"],
+    "pp": ["PPA35471", "PP_ben-1_1"],
+    "pp2": ["ppa_stranded_DN31157_c1_g4_i5", "PP_ben-1_2"],
 }
 
 out_file = f"{out_dir}/ben_1.fa"
