@@ -23,11 +23,6 @@ pp_prot_file = (
 )
 
 
-# out_file = 'test_pull.fa'
-# out_file_cb = 'test_pull_cb.fa'
-# out_file_ce = 'test_pull_ce.fa'
-
-
 # function that will pull the line with the sequence id and the next line with the sequence
 def pull_protein_sequence(protein_id, prot_file, out_file):
     print(f"Pulling protein sequence for ID: {protein_id} from file: {prot_file}")
@@ -44,17 +39,6 @@ def pull_protein_sequence(protein_id, prot_file, out_file):
                 break
         else:
             print(f"Protein ID {protein_id} not found in {prot_file}")
-
-
-# pull_protein_sequence('QX1410.13336.1', cb_prot_file, out_file_cb)
-# pull_protein_sequence('C54C6.2.1', ce_prot_file, out_file_ce)
-
-#### ben_1 ####
-# ben_1 = {
-#     'cb': 'QX1410.13336.1',
-#     'ce': 'C54C6.2.1',
-#     'ct': 'NIC58.15504.1'
-# }
 
 
 def pp_pull_and_rename_protein_sequence(protein_id, formal_name, prot_file, out_file):
