@@ -55,6 +55,41 @@ def pull_protein_sequence(protein_id, prot_file, out_file):
 # }
 
 
+def pp_pull_and_rename_protein_sequence(protein_id, formal_name, prot_file, out_file):
+    """Pull protein sequence from P. pacificus Excel file and write to output file.
+
+    Args:
+        protein_id: Gene ID to search for in the 'Gene ID' column
+        formal_name: Name to use in the output fasta header
+        prot_file: Path to the Excel file containing P. pacificus sequences
+        out_file: Path to output fasta file
+    """
+    print(f"Pulling P.p protein sequence for ID: {protein_id} from file: {prot_file}")
+    wb = openpyxl.load_workbook(prot_file)
+    ws = wb.active
+
+    # Find the column indices (assuming header row is row 1)
+    header = [cell.value for cell in ws[1]]
+    gene_id_col = header.index("Gene ID") + 1  # openpyxl uses 1-based indexing
+    aa_seq_col = header.index("Amino Acid sequence") + 1
+
+    # Search for the protein_id in the Gene ID column
+    for row in ws.iter_rows(min_row=2):  # Skip header row
+        gene_id = row[gene_id_col - 1].value  # Convert to 0-based for row access
+        if gene_id == protein_id:
+            aa_sequence = row[aa_seq_col - 1].value
+            print(f"Found protein ID {protein_id}")
+            with open(out_file, "a") as out_f:
+                out_f.write(f">{formal_name}\n")
+                out_f.write(f"{aa_sequence}\n")
+            print(f"Protein sequence written to {out_file}")
+            wb.close()
+            return
+
+    print(f"Protein ID {protein_id} not found in {prot_file}")
+    wb.close()
+
+
 def pull_and_rename_protein_sequence(protein_id, formal_name, prot_file, out_file):
     print(f"Pulling protein sequence for ID: {protein_id} from file: {prot_file}")
     with open(prot_file, "r") as f:
