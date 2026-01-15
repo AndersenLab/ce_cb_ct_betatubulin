@@ -7,7 +7,7 @@ import openpyxl
 
 date = time.strftime("%Y%m%d", time.localtime())
 
-out_dir = f"data/tubulin_alignments/tubulin_protein_seqs"
+out_dir = "data/tubulin_alignments/tubulin_protein_seqs"
 
 # check if the directory exists, if not create it
 if not os.path.exists(out_dir):
