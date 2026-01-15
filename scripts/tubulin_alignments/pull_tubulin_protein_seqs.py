@@ -1,6 +1,8 @@
 import os
 import time
 
+import openpyxl
+
 # get the date in yyyymmmdd format
 
 date = time.strftime("%Y%m%d", time.localtime())
@@ -16,6 +18,7 @@ if not os.path.exists(out_dir):
 ce_prot_file = "data/blast_data/20230324_blast/c_elegans/ce_all_prot_flat.fa"
 cb_prot_file = "data/blast_data/20230324_blast/c_briggsae/cb_all_prot_flat.fa"
 ct_prot_file = "data/blast_data/20230324_blast/c_tropicalis/ct_all_prot_flat.fa"
+pp_prot_file = "data/pacificus_bts/raw/P_pacifcus_Beta_tubulin_genes_amino_acid_sequences.xlsx"
 
 
 # out_file = 'test_pull.fa'
