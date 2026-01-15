@@ -1,11 +1,13 @@
 import os
 import time
 
+import openpyxl
+
 # get the date in yyyymmmdd format
 
 date = time.strftime("%Y%m%d", time.localtime())
 
-out_dir = f"data/proc/tubulin_alignments/{date}_tubulin_protein_seqs_{date}"
+out_dir = "data/tubulin_alignments/tubulin_protein_seqs"
 
 # check if the directory exists, if not create it
 if not os.path.exists(out_dir):
@@ -16,40 +18,44 @@ if not os.path.exists(out_dir):
 ce_prot_file = "data/blast_data/20230324_blast/c_elegans/ce_all_prot_flat.fa"
 cb_prot_file = "data/blast_data/20230324_blast/c_briggsae/cb_all_prot_flat.fa"
 ct_prot_file = "data/blast_data/20230324_blast/c_tropicalis/ct_all_prot_flat.fa"
+pp_prot_file = (
+    "data/pacificus_bts/raw/P_pacifcus_Beta_tubulin_genes_amino_acid_sequences.xlsx"
+)
 
 
-# out_file = 'test_pull.fa'
-# out_file_cb = 'test_pull_cb.fa'
-# out_file_ce = 'test_pull_ce.fa'
+def pp_pull_and_rename_protein_sequence(protein_id, formal_name, prot_file, out_file):
+    """Pull protein sequence from P. pacificus Excel file and write to output file.
 
+    Args:
+        protein_id: Gene ID to search for in the 'Gene ID' column
+        formal_name: Name to use in the output fasta header
+        prot_file: Path to the Excel file containing P. pacificus sequences
+        out_file: Path to output fasta file
+    """
+    print(f"Pulling P.p protein sequence for ID: {protein_id} from file: {prot_file}")
+    wb = openpyxl.load_workbook(prot_file)
+    ws = wb.active
 
-# function that will pull the line with the sequence id and the next line with the sequence
-def pull_protein_sequence(protein_id, prot_file, out_file):
-    print(f"Pulling protein sequence for ID: {protein_id} from file: {prot_file}")
-    with open(prot_file, "r") as f:
-        lines = f.readlines()
-        print(f"Total lines read from {prot_file}: {len(lines)}")
-        for i, line in enumerate(lines):
-            if protein_id in line:
-                print(f"Found protein ID {protein_id} at line {i}")
-                with open(out_file, "a") as out_f:
-                    out_f.write(line)
-                    out_f.write(lines[i + 1])
-                print(f"Protein sequence written to {out_file}")
-                break
-        else:
-            print(f"Protein ID {protein_id} not found in {prot_file}")
+    # Find the column indices (assuming header row is row 1)
+    header = [cell.value for cell in ws[1]]
+    gene_id_col = header.index("Gene ID") + 1  # openpyxl uses 1-based indexing
+    aa_seq_col = header.index("Amino Acid sequence") + 1
 
+    # Search for the protein_id in the Gene ID column
+    for row in ws.iter_rows(min_row=2):  # Skip header row
+        gene_id = row[gene_id_col - 1].value  # Convert to 0-based for row access
+        if gene_id == protein_id:
+            aa_sequence = row[aa_seq_col - 1].value
+            print(f"Found protein ID {protein_id}")
+            with open(out_file, "a") as out_f:
+                out_f.write(f">{formal_name}\n")
+                out_f.write(f"{aa_sequence}\n")
+            print(f"Protein sequence written to {out_file}")
+            wb.close()
+            return
 
-# pull_protein_sequence('QX1410.13336.1', cb_prot_file, out_file_cb)
-# pull_protein_sequence('C54C6.2.1', ce_prot_file, out_file_ce)
-
-#### ben_1 ####
-# ben_1 = {
-#     'cb': 'QX1410.13336.1',
-#     'ce': 'C54C6.2.1',
-#     'ct': 'NIC58.15504.1'
-# }
+    print(f"Protein ID {protein_id} not found in {prot_file}")
+    wb.close()
 
 
 def pull_and_rename_protein_sequence(protein_id, formal_name, prot_file, out_file):
@@ -68,7 +74,7 @@ def pull_and_rename_protein_sequence(protein_id, formal_name, prot_file, out_fil
 
 
 def process_protein_sequences(
-    protein_dict, ce_prot_file, cb_prot_file, ct_prot_file, out_file
+    protein_dict, ce_prot_file, cb_prot_file, ct_prot_file, pp_prot_file, out_file
 ):
     for key, protein_info in protein_dict.items():
         protein_id = protein_info[0]  # Extract the transcript ID
@@ -85,6 +91,11 @@ def process_protein_sequences(
             pull_and_rename_protein_sequence(
                 protein_id, formal_name, ct_prot_file, out_file
             )
+        # Check if the key starts with "pp" to handle multiple P.p entries for ben-1
+        elif key.startswith("pp"):
+            pp_pull_and_rename_protein_sequence(
+                protein_id, formal_name, pp_prot_file, out_file
+            )
         else:
             print(f"Invalid species key {key}")
 
@@ -94,6 +105,9 @@ ben_1 = {
     "ce": ["C54C6.2.1", "CE_ben-1"],
     "cb": ["QX1410.13336.1", "CB_ben-1"],
     "ct": ["NIC58.15504.1", "CT_ben-1"],
+    "pp": ["PPA35471", "PP_ben-1_1"],
+    # DICTs cannot have duplicate keys, so use pp1 and pp2
+    "pp2": ["ppa_stranded_DN31157_c1_g4_i5", "PP_ben-1_2"],
 }
 
 out_file = f"{out_dir}/ben_1.fa"
@@ -103,7 +117,9 @@ if os.path.exists(out_file):
     print(f"Deleting existing file: {out_file}")
     os.remove(out_file)
 
-process_protein_sequences(ben_1, ce_prot_file, cb_prot_file, ct_prot_file, out_file)
+process_protein_sequences(
+    ben_1, ce_prot_file, cb_prot_file, ct_prot_file, pp_prot_file, out_file
+)
 
 tbb_1 = {
     "ce": ["K01G5.7.1", "CE_tbb-1"],
@@ -118,7 +134,9 @@ if os.path.exists(out_file):
     print(f"Deleting existing file: {out_file}")
     os.remove(out_file)
 
-process_protein_sequences(tbb_1, ce_prot_file, cb_prot_file, ct_prot_file, out_file)
+process_protein_sequences(
+    tbb_1, ce_prot_file, cb_prot_file, ct_prot_file, pp_prot_file, out_file
+)
 
 
 tbb_2 = {
@@ -134,12 +152,15 @@ if os.path.exists(out_file):
     print(f"Deleting existing file: {out_file}")
     os.remove(out_file)
 
-process_protein_sequences(tbb_2, ce_prot_file, cb_prot_file, ct_prot_file, out_file)
+process_protein_sequences(
+    tbb_2, ce_prot_file, cb_prot_file, ct_prot_file, pp_prot_file, out_file
+)
 
 mec_7 = {
     "ce": ["ZK154.3.1", "CE_mec-7"],
     "cb": ["QX1410.17185.1", "CB_mec-7"],
     "ct": ["NIC58.18736.4", "CT_mec-7"],
+    "pp": ["ppa_stranded_DN31157_c1_g1_i5", "PP_mec-7"],
 }
 
 out_file = f"{out_dir}/mec_7.fa"
@@ -149,7 +170,9 @@ if os.path.exists(out_file):
     print(f"Deleting existing file: {out_file}")
     os.remove(out_file)
 
-process_protein_sequences(mec_7, ce_prot_file, cb_prot_file, ct_prot_file, out_file)
+process_protein_sequences(
+    mec_7, ce_prot_file, cb_prot_file, ct_prot_file, pp_prot_file, out_file
+)
 
 tbb_4 = {
     "ce": ["B0272.1.1", "CE_tbb-4"],
@@ -164,4 +187,6 @@ if os.path.exists(out_file):
     print(f"Deleting existing file: {out_file}")
     os.remove(out_file)
 
-process_protein_sequences(tbb_4, ce_prot_file, cb_prot_file, ct_prot_file, out_file)
+process_protein_sequences(
+    tbb_4, ce_prot_file, cb_prot_file, ct_prot_file, pp_prot_file, out_file
+)

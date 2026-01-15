@@ -1,0 +1,10 @@
+# Conda environment for MAFFT sequence alignment
+# Create: conda env create -f envs/mafft_env.yml
+# Activate: conda activate mafft_env
+name: mafft_env
+channels:
+  - bioconda
+  - conda-forge
+  - defaults
+dependencies:
+  - mafft

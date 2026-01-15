@@ -10,7 +10,7 @@ source("bin/outs.R")
 source("bin/materials_key.R")
 
 #### Inputs #### ----------
-alignments_dir <- "data/proc/tubulin_alignments/20251002_tubulin_protein_seqs_20251002"
+alignments_dir <- "data/tubulin_alignments/aligned"
 
 #### Outputs #### ----------
 # Output file paths are now managed by materials_key.R: sup_figure_fns$combined_plot
@@ -18,12 +18,17 @@ alignments_dir <- "data/proc/tubulin_alignments/20251002_tubulin_protein_seqs_20
 #### Helper function to transform sequence names ####
 transform_seq_name <- function(original_name) {
   parts <- strsplit(original_name, "_")[[1]]
-  if (length(parts) != 2) {
+
+  # Handle 3-part names (e.g., PP_ben-1_1) by combining parts 2 and 3 with "."
+  if (length(parts) == 3) {
+    prefix_code <- parts[1]
+    suffix <- paste0(parts[2], ".", parts[3])
+  } else if (length(parts) == 2) {
+    prefix_code <- parts[1]
+    suffix <- parts[2]
+  } else {
     return(original_name) # Return original if format is unexpected
   }
-
-  prefix_code <- parts[1]
-  suffix <- parts[2]
 
   new_prefix <- ""
   if (prefix_code == "CE") {
@@ -32,15 +37,13 @@ transform_seq_name <- function(original_name) {
     new_prefix <- "Cbr"
   } else if (prefix_code == "CT") {
     new_prefix <- "Ctr"
+  } else if (prefix_code == "PP") {
+    new_prefix <- "Ppa"
   } else {
-    stop(
-      "Unexpected prefix code"
-    ) # Keep original prefix if not matched
+    stop("Unexpected prefix code")
   }
 
-  uppercase_suffix <- toupper(
-    suffix
-  )
+  uppercase_suffix <- toupper(suffix)
 
   return(
     paste0(
@@ -54,8 +57,8 @@ transform_seq_name <- function(original_name) {
 
 #### Function to load and plot tubulin alignment ####
 load_and_plot_alignment <- function(gene_name, alignments_dir, start = 175, end = 225) {
-  # Construct path to the MSA file
-  aln_file <- glue::glue("{alignments_dir}/{gene_name}.fa")
+  # Construct path to the aligned FASTA file
+  aln_file <- glue::glue("{alignments_dir}/{gene_name}_aligned.fa")
 
   # Read and transform sequence names
   seqs <- readAAStringSet(aln_file)
