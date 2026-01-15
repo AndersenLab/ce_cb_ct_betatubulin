@@ -3,3 +3,4 @@
 # ignore CaeNDR annotation files
 *.strain-annotation.tsv*
 .Rproj.user
+.conda
