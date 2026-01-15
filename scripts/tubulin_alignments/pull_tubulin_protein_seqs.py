@@ -23,24 +23,6 @@ pp_prot_file = (
 )
 
 
-# function that will pull the line with the sequence id and the next line with the sequence
-def pull_protein_sequence(protein_id, prot_file, out_file):
-    print(f"Pulling protein sequence for ID: {protein_id} from file: {prot_file}")
-    with open(prot_file, "r") as f:
-        lines = f.readlines()
-        print(f"Total lines read from {prot_file}: {len(lines)}")
-        for i, line in enumerate(lines):
-            if protein_id in line:
-                print(f"Found protein ID {protein_id} at line {i}")
-                with open(out_file, "a") as out_f:
-                    out_f.write(line)
-                    out_f.write(lines[i + 1])
-                print(f"Protein sequence written to {out_file}")
-                break
-        else:
-            print(f"Protein ID {protein_id} not found in {prot_file}")
-
-
 def pp_pull_and_rename_protein_sequence(protein_id, formal_name, prot_file, out_file):
     """Pull protein sequence from P. pacificus Excel file and write to output file.
 
